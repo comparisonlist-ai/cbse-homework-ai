@@ -1,0 +1,67 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f4f7fb;
+  color: #333;
+}
+
+.app-header {
+  background: #1565c0;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.app-header h1 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.app-header p {
+  font-size: 16px;
+}
+
+.container {
+  padding: 20px;
+}
+
+.welcome-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.welcome-card h2 {
+  margin-bottom: 10px;
+}
+
+.welcome-card p {
+  margin-bottom: 20px;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 8px;
+  background: #1565c0;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+button:hover 
+
+.selected-class {
+    background-color: #FFD600 !important;
+    color: #000 !important;
+    font-weight: bold;
+}
