@@ -101,8 +101,8 @@ async function submitQuestion(className, subject) {
         const data = await response.json();
 
         const answer =
-            data.candidates?.[0]?.content?.parts?.[0]?.text ||
-            "Sorry, no answer was received.";
+    data.answer ||
+    "Sorry, no answer was received.";
 
         document.querySelector(".container").innerHTML = `
             <div class="welcome-card">
