@@ -63,9 +63,13 @@ ${question}`
 
     const data = await response.json();
 
-    const answer =
+if (!response.ok) {
+  throw new Error(JSON.stringify(data));
+}
+
+const answer =
   data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-  "Sorry, no answer was received.";
+  "No answer returned by Gemini.";
 
     return {
       statusCode: 200,
