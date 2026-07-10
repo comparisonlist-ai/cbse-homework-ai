@@ -63,10 +63,8 @@ ${question}`
 
     const data = await response.json();
 
-    const answer =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "Sorry, no answer was received.";
-
+    
+const answer = data.answer || "Sorry, no answer was received.";
     return {
       statusCode: 200,
       headers: {
