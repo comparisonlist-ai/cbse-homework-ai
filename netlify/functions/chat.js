@@ -11,25 +11,11 @@ exports.handler = async (event) => {
 
     const apiKey = process.env.GEMINI_API_KEY;
 
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text: `You are an expert CBSE (NCERT) teacher.
+    if (!apiKey) {
+      throw new Error("GEMINI_API_KEY is not set.");
+    }
 
-
-
-
-
-text: `You are India's Best CBSE NCERT Teacher.
+    const prompt = `You are India's Best CBSE NCERT Teacher.
 
 Your job is to teach, not just answer.
 
@@ -88,10 +74,21 @@ Practice Question
 Motivation
 
 Student's Question:
-${question}`
+${question}`;
 
-
-
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                {
+                  text: prompt
                 }
               ]
             }
@@ -102,13 +99,13 @@ ${question}`
 
     const data = await response.json();
 
-if (!response.ok) {
-  throw new Error(JSON.stringify(data));
-}
+    if (!response.ok) {
+      throw new Error(JSON.stringify(data));
+    }
 
-const answer =
-  data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-  "No answer returned by Gemini.";
+    const answer =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "No answer returned by Gemini.";
 
     return {
       statusCode: 200,
