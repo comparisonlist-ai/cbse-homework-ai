@@ -95,8 +95,11 @@ async function submitQuestion(className, subject) {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ question })
-        });
+            body: JSON.stringify({
+    className: className,
+    subject: subject,
+    question: question
+})
 
         const data = await response.json();
 
