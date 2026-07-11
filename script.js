@@ -110,8 +110,11 @@ async function submitQuestion(className, subject) {
                 <h3>Your Question</h3>
                 <p>${question}</p>
 
-                <h3>AI Answer</h3>
-                <p>${answer}</p>
+                <h3>🤖 AI Answer</h3>
+
+<div class="answer-card">
+    ${answer.replace(/\n/g, "<br>")}
+</div>
 
                 <br><br>
 
