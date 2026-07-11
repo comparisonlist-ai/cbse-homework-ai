@@ -7,7 +7,8 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { question } = JSON.parse(event.body);
+
+    const { className, subject, question } = JSON.parse(event.body);
 
     const apiKey = process.env.GEMINI_API_KEY;
 
