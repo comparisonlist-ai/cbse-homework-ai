@@ -1,21 +1,23 @@
-exports.handler = async (event) => {
-  if (event.httpMethod !== "POST") {
-    return {
-      statusCode: 405,
-      body: "Method Not Allowed"
-    };
-  }
+export default {
+  async fetch(request, env) {
 
-  try {
-
-    const { className, subject, question } = JSON.parse(event.body);
-
-    const apiKey = process.env.GEMINI_API_KEY;
-
-    if (!apiKey) {
-      throw new Error("GEMINI_API_KEY is not set.");
+    if (request.method !== "POST") {
+      return new Response("Method Not Allowed", {
+        status: 405
+      });
     }
-const prompt = `You are an expert CBSE NCERT teacher.
+
+    try {
+
+      const { className, subject, question } = await request.json();
+
+      const apiKey = env.GEMINI_API_KEY;
+
+      if (!apiKey) {
+        throw new Error("GEMINI_API_KEY is not set.");
+      }
+
+      const prompt = `You are an expert CBSE NCERT teacher.
 
 Student Details:
 Class: ${className}
@@ -82,59 +84,64 @@ Do NOT use HTML.
 Do NOT use LaTeX.
 
 8. End with a short motivational line.`;
-    
 
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text: prompt
-                }
-              ]
-            }
-          ]
-        })
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            contents: [
+              {
+                parts: [
+                  {
+                    text: prompt
+                  }
+                ]
+              }
+            ]
+          })
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(JSON.stringify(data));
       }
-    );
 
-    const data = await response.json();
+      const answer =
+        data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+        "No answer returned by Gemini.";
 
-    if (!response.ok) {
-      throw new Error(JSON.stringify(data));
+      return new Response(
+        JSON.stringify({ answer }),
+        {
+          status: 200,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      );
+
+    } catch (error) {
+
+      return new Response(
+        JSON.stringify({
+          answer: "Server Error",
+          error: error.message
+        }),
+        {
+          status: 500,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      );
     }
-
-    const answer =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "No answer returned by Gemini.";
-
-    return {
-      statusCode: 200,
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        answer: answer
-      })
-    };
-
-  } catch (error) {
-    return {
-      statusCode: 500,
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        answer: "Server Error",
-        error: error.message
-      })
-    };
   }
 };
