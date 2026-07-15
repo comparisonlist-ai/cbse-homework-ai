@@ -16,7 +16,7 @@ export default async function handler(req, res) {
       return res.status(500).json({
         answer: "GEMINI_API_KEY is missing."
       });
-    }
+    
 
 const prompt = `
 You are an expert CBSE teacher for Classes 6 to 10.
