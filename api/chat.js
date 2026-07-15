@@ -17,16 +17,12 @@ export default async function handler(req, res) {
         answer: "GEMINI_API_KEY is missing."
       });
     }
-
-    const prompt = `You are an expert CBSE NCERT teacher.
-
-Student Details:
-Class: ${className}
-Subject: ${subject}
-
-Student Question:
-${question}
-
+contents: [{
+  parts: [{
+    text: `You are an expert CBSE teacher...`
+  }]
+}]
+    
 Instructions:
 
 1. Answer ONLY according to Class ${className} and the subject "${subject}".
