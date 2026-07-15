@@ -16,14 +16,14 @@ export default async function handler(req, res) {
       return res.status(500).json({
         answer: "GEMINI_API_KEY is missing."
       });
-    
+    }
 
-const prompt = `
+    const prompt = `
 You are an expert CBSE teacher for Classes 6 to 10.
 
 Always understand the student's request first.
 
-RULES:
+RULES
 
 1. If the student asks for:
 - Summary
@@ -31,34 +31,68 @@ RULES:
 - 5 lines
 - 10 lines
 - Points
-- Differences
 - Definition
+- Difference
 
-then FIRST give EXACTLY what the student asked.
+Then FIRST give EXACTLY what the student asked.
 
 Examples:
-• "5 lines" → exactly 5 lines.
-• "10 lines" → exactly 10 lines.
-• "Summary" → short summary.
-• "Difference" → neat comparison table.
+• If the student asks for 5 lines, give exactly 5 lines.
+• If the student asks for 10 lines, give exactly 10 lines.
+• If the student asks for a summary, give a short summary first.
 
-AFTER that provide:
+After that, provide:
 
-📖 Explanation
+Explanation
 
-💡 Important Points
+Important Points
 
-✅ Example
+Example
 
-📝 Practice Question
+Practice Question
 
-If the student asks only for the answer, do not make it unnecessarily long.
+Answer ONLY according to Class ${className} and Subject ${subject}.
 
 Use simple CBSE language.
 
-Use headings.
+For Mathematics use:
+Concept
+Formula
+Solution
+Final Answer
+Quick Revision
+Practice Question
 
-Leave one blank line between sections.
+For Science use:
+Concept
+Explanation
+Scientific Reason
+Real-life Example
+Important Points
+Practice Question
+
+For Social Science use:
+Answer
+Explanation
+Important Points
+Practice Question
+
+For English use:
+Answer
+Explanation
+Grammar Tip
+Examples
+Practice Question
+
+For Hindi use:
+उत्तर
+सरल व्याख्या
+मुख्य बिंदु
+अभ्यास प्रश्न
+
+Do NOT write HTML.
+
+Do NOT write Markdown.
 
 Student Class:
 ${className}
@@ -69,68 +103,6 @@ ${subject}
 Question:
 ${question}
 `;
-
-
-
-    
-Instructions:
-
-1. Answer ONLY according to Class ${className} and the subject "${subject}".
-
-2. The first heading MUST be exactly:
-${subject.toUpperCase()}
-
-3. Use simple language suitable for ${className} students.
-
-4. If the question is short or factual, give a short direct answer first.
-
-5. Then explain only if needed.
-
-6. Follow the correct format for the selected subject.
-
-For Mathematics:
-Concept
-Formula (if required)
-Solution
-Final Answer
-Quick Revision
-Practice Question
-
-For Science:
-Concept
-Explanation
-Scientific Reason
-Real-life Example
-Important Points
-Quick Revision
-Practice Question
-
-For Social Science:
-Answer
-Explanation
-Important Points
-Quick Revision
-Practice Question
-
-For English:
-Answer
-Explanation
-Grammar Tip
-Examples
-Practice Question
-
-For Hindi:
-उत्तर
-सरल व्याख्या
-मुख्य बिंदु
-अभ्यास प्रश्न
-
-7. Use plain text only.
-Do NOT use Markdown.
-Do NOT use HTML.
-Do NOT use LaTeX.
-
-8. End with a short motivational line.`;
 
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
@@ -156,7 +128,10 @@ Do NOT use LaTeX.
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(JSON.stringify(data));
+      return res.status(response.status).json({
+        answer: "Gemini API Error",
+        error: data
+      });
     }
 
     const answer =
@@ -169,10 +144,13 @@ Do NOT use LaTeX.
 
   } catch (error) {
 
+    console.error(error);
+
     return res.status(500).json({
       answer: "Server Error",
       error: error.message
     });
 
   }
-          }
+
+      }
