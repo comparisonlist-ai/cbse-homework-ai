@@ -1,4 +1,76 @@
+// =============================
+// Student Registration
+// =============================
 
+function getStudent() {
+    return JSON.parse(localStorage.getItem("student"));
+}
+
+function showRegistration(selectedClass = "") {
+
+    document.querySelector(".container").innerHTML = `
+        <div class="welcome-card">
+
+            <h2>📝 Student Registration</h2>
+
+            <input id="studentName" type="text" placeholder="Full Name">
+
+            <br><br>
+
+            <input id="studentMobile" type="tel" placeholder="Mobile Number">
+
+            <br><br>
+
+            <select id="studentClass">
+                <option value="">Select Class</option>
+                <option ${selectedClass=="Class 6"?"selected":""}>Class 6</option>
+                <option ${selectedClass=="Class 7"?"selected":""}>Class 7</option>
+                <option ${selectedClass=="Class 8"?"selected":""}>Class 8</option>
+                <option ${selectedClass=="Class 9"?"selected":""}>Class 9</option>
+                <option ${selectedClass=="Class 10"?"selected":""}>Class 10</option>
+            </select>
+
+            <br><br>
+
+            <button onclick="registerStudent()">
+                Register
+            </button>
+
+            <br><br>
+
+            <button onclick="goHome()">
+                Cancel
+            </button>
+
+        </div>
+    `;
+}
+
+function registerStudent() {
+
+    const name = document.getElementById("studentName").value;
+    const mobile = document.getElementById("studentMobile").value;
+    const studentClass = document.getElementById("studentClass").value;
+
+    if (!name || !mobile || !studentClass) {
+        alert("Please fill all fields.");
+        return;
+    }
+
+    const student = {
+        id: "CBSE" + Date.now(),
+        name,
+        mobile,
+        studentClass
+    };
+
+    localStorage.setItem("student", JSON.stringify(student));
+
+    alert("Registration Successful!");
+
+    showClassDashboard(studentClass);
+
+}
 // =============================
 // CBSE Homework AI
 // Part 1
