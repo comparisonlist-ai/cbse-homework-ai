@@ -2,6 +2,14 @@
 // Student Registration
 // =============================
 
+
+if (!getStudent()) {
+    showRegistration(className);
+    return;
+}
+
+
+
 function getStudent() {
     return JSON.parse(localStorage.getItem("student"));
 }
