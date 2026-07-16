@@ -1,301 +1,149 @@
-// =============================
-// Student Registration
-// =============================
-
-
-if (!getStudent()) {
-    showRegistration(className);
-    return;
-}
-
-
-
-function showRegistration(selectedClass = "") {
-
-    document.querySelector(".container").innerHTML = `
-        <div class="welcome-card">
-
-            <h2>📝 Student Registration</h2>
-
-            <input id="studentName" type="text" placeholder="Full Name">
-
-            <br><br>
-
-            <input id="studentMobile" type="tel" placeholder="Mobile Number">
-
-            <br><br>
-
-            <select id="studentClass">
-                <option value="">Select Class</option>
-                <option ${selectedClass=="Class 6"?"selected":""}>Class 6</option>
-                <option ${selectedClass=="Class 7"?"selected":""}>Class 7</option>
-                <option ${selectedClass=="Class 8"?"selected":""}>Class 8</option>
-                <option ${selectedClass=="Class 9"?"selected":""}>Class 9</option>
-                <option ${selectedClass=="Class 10"?"selected":""}>Class 10</option>
-            </select>
-
-            <br><br>
-
-            <button onclick="registerStudent()">
-                Register
-            </button>
-
-            <br><br>
-
-            <button onclick="goHome()">
-                Cancel
-            </button>
-
-        </div>
-    `;
-}
-
-function registerStudent() {
-
-    const name = document.getElementById("studentName").value;
-    const mobile = document.getElementById("studentMobile").value;
-    const studentClass = document.getElementById("studentClass").value;
-
-    if (!name || !mobile || !studentClass) {
-        alert("Please fill all fields.");
-        return;
-    }
-
-    const student = {
-        id: "CBSE" + Date.now(),
-        name,
-        mobile,
-        studentClass
-    };
-
-    localStorage.setItem("student", JSON.stringify(student));
-
-    alert("Registration Successful!");
-
-    showClassDashboard(studentClass);
-
-}
-// =============================
+// ======================================================
 // CBSE Homework AI
-// Part 1
-// Navigation & UI
-// =============================
+// script.js
+// PART 1
+// ======================================================
 
-// Home Screen
+// -----------------------------
+// Student Registration
+// -----------------------------
+
+function getStudent() {
+    return JSON.parse(localStorage.getItem("student"));
+}
+
+function saveStudent(student) {
+    localStorage.setItem("student", JSON.stringify(student));
+}
+
+function generateStudentID() {
+    return "CBSE" + Date.now();
+}
+
+// -----------------------------
+// Home
+// -----------------------------
+
 function goHome() {
     location.reload();
 }
 
 // -----------------------------
-// Class Dashboard
+// Registration Screen
 // -----------------------------
 
-if (!getStudent()) {
-    showRegistration(className);
-    return;
-}
-
-
-function showClassDashboard(className) {
+function showRegistration(selectedClass = "") {
 
     document.querySelector(".container").innerHTML = `
+
         <div class="welcome-card">
 
-            <h2>${className}</h2>
+            <h2>📝 Student Registration</h2>
 
-            <p>Select a Subject</p>
+            <input
+                id="studentName"
+                type="text"
+                placeholder="Full Name">
 
-            <button onclick="showSubject('${className}','Mathematics')">
-                📘 Mathematics
-            </button>
+            <br><br>
 
-            <button onclick="showSubject('${className}','Science')">
-                🔬 Science
-            </button>
+            <input
+                id="studentMobile"
+                type="tel"
+                placeholder="Mobile Number">
 
-            <button onclick="showSubject('${className}','Social Science')">
-                🌍 Social Science
-            </button>
+            <br><br>
 
-            <button onclick="showSubject('${className}','English')">
-                📖 English
-            </button>
+            <select id="studentClass">
 
-            <button onclick="showSubject('${className}','Hindi')">
-                📝 Hindi
+                <option value="">Select Class</option>
+
+                <option value="Class 6" ${selectedClass==="Class 6"?"selected":""}>
+                    Class 6
+                </option>
+
+                <option value="Class 7" ${selectedClass==="Class 7"?"selected":""}>
+                    Class 7
+                </option>
+
+                <option value="Class 8" ${selectedClass==="Class 8"?"selected":""}>
+                    Class 8
+                </option>
+
+                <option value="Class 9" ${selectedClass==="Class 9"?"selected":""}>
+                    Class 9
+                </option>
+
+                <option value="Class 10" ${selectedClass==="Class 10"?"selected":""}>
+                    Class 10
+                </option>
+
+            </select>
+
+            <br><br>
+
+            <button onclick="registerStudent()">
+                ✅ Register
             </button>
 
             <br><br>
 
             <button onclick="goHome()">
-                ⬅ Back
+                ⬅ Cancel
             </button>
 
         </div>
+
     `;
 }
 
 // -----------------------------
-// Subject Screen
+// Register Student
 // -----------------------------
-function showSubject(className, subject) {
 
-    document.querySelector(".container").innerHTML = `
-        <div class="welcome-card">
+function registerStudent() {
 
-            <h2>${className}</h2>
+    const name =
+        document.getElementById("studentName").value.trim();
 
-            <h3>${subject}</h3>
+    const mobile =
+        document.getElementById("studentMobile").value.trim();
 
-            <button onclick="typeQuestion('${className}','${subject}')">
-                🤖 Ask AI
-            </button>
+    const studentClass =
+        document.getElementById("studentClass").value;
 
-            <br><br>
+    if (name === "" || mobile === "" || studentClass === "") {
 
-            <button onclick="showClassDashboard('${className}')">
-                ⬅ Back
-            </button>
+        alert("Please fill all fields.");
 
-        </div>
-    `;
-}
-
-// -----------------------------
-// Question Screen
-// -----------------------------
-function typeQuestion(className, subject) {
-
-    document.querySelector(".container").innerHTML = `
-        <div class="welcome-card">
-
-            <h2>${className}</h2>
-
-            <h3>${subject}</h3>
-
-            <textarea
-                id="question"
-                rows="8"
-                placeholder="Type your homework question here..."></textarea>
-
-            <br><br>
-
-            <button onclick="submitQuestion('${className}','${subject}')">
-                Submit
-            </button>
-
-            <br><br>
-
-            <button onclick="showSubject('${className}','${subject}')">
-                ⬅ Back
-            </button>
-
-        </div>
-    `;
-}
-
-// -----------------------------
-// Home Buttons
-// -----------------------------
-document.getElementById("class6").onclick = () => showClassDashboard("Class 6");
-document.getElementById("class7").onclick = () => showClassDashboard("Class 7");
-document.getElementById("class8").onclick = () => showClassDashboard("Class 8");
-document.getElementById("class9").onclick = () => showClassDashboard("Class 9");
-document.getElementById("class10").onclick = () => showClassDashboard("Class 10");
-
-// submitQuestion() will be added in Part 2.
-
-
-
-
-
-
-async function submitQuestion(className, subject) {
-
-    const question = document.getElementById("question").value;
-
-    if (!question.trim()) {
-        alert("Please enter a question.");
         return;
     }
 
-    document.querySelector(".container").innerHTML = `
-        <div class="welcome-card">
-            <h2>⏳ Thinking...</h2>
-            <p>Please wait while AI prepares the answer...</p>
-        </div>
-    `;
+    const student = {
 
-    try {
+        id: generateStudentID(),
 
-        const response = await fetch("/api/chat", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                className: className,
-                subject: subject,
-                question: question
-            })
-        });
+        name: name,
 
-        const data = await response.json();
+        mobile: mobile,
 
-        const answer = data.answer || "Sorry, no answer was received.";
+        studentClass: studentClass,
 
-        document.querySelector(".container").innerHTML = `
-            <div class="welcome-card">
+        joined: new Date().toLocaleDateString()
 
-                <h2>${className} - ${subject}</h2>
+    };
 
-                <h3>Your Question</h3>
+    saveStudent(student);
 
-                <p>${question}</p>
+    alert(
+        "Registration Successful!\n\nStudent ID : " +
+        student.id
+    );
 
-                <h3>🤖 AI Answer</h3>
-
-                <div class="answer-card">
-                    ${answer.replace(/\n/g, "<br>")}
-                </div>
-
-                <br><br>
-
-                <button onclick="typeQuestion('${className}','${subject}')">
-                    Ask Another Question
-                </button>
-
-                <br><br>
-
-                <button onclick="showSubject('${className}','${subject}')">
-                    ⬅ Back
-                </button>
-
-            </div>
-        `;
-
-    } catch (error) {
-
-        console.error(error);
-
-        document.querySelector(".container").innerHTML = `
-            <div class="welcome-card">
-
-                <h2>❌ Error</h2>
-
-                <p>Unable to contact AI.</p>
-
-                <p>${error.message}</p>
-
-                <br>
-
-                <button onclick="typeQuestion('${className}','${subject}')">
-                    Try Again
-                </button>
-
-            </div>
-        `;
-
-    }
+    showClassDashboard(studentClass);
 
 }
+
+// ======================================================
+// END OF PART 1
+// ======================================================
