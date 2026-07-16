@@ -294,3 +294,159 @@ document.getElementById("class10").onclick = function () {
 // ======================================================
 // END OF PART 2
 // ======================================================
+// ======================================================
+// PART 3
+// AI Question & Answer
+// ======================================================
+
+// -----------------------------
+// Submit Question
+// -----------------------------
+
+async function submitQuestion(className, subject) {
+
+    const question = document.getElementById("question").value.trim();
+
+    if (question === "") {
+
+        alert("Please enter your homework question.");
+
+        return;
+    }
+
+    document.querySelector(".container").innerHTML = `
+
+        <div class="welcome-card">
+
+            <h2>⏳ Thinking...</h2>
+
+            <p>Please wait while AI prepares your answer.</p>
+
+        </div>
+
+    `;
+
+    try {
+
+        const response = await fetch("/api/chat", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+
+                className: className,
+
+                subject: subject,
+
+                question: question
+
+            })
+
+        });
+
+        if (!response.ok) {
+
+            throw new Error("Server Error");
+
+        }
+
+        const data = await response.json();
+
+        const answer =
+            data.answer || "Sorry, no answer was received.";
+
+        document.querySelector(".container").innerHTML = `
+
+            <div class="welcome-card">
+
+                <h2>${className}</h2>
+
+                <h3>${subject}</h3>
+
+                <hr>
+
+                <h3>Your Question</h3>
+
+                <div class="answer-card">
+
+                    ${question}
+
+                </div>
+
+                <br>
+
+                <h3>🤖 AI Answer</h3>
+
+                <div class="answer-card">
+
+                    ${answer.replace(/\n/g,"<br>")}
+
+                </div>
+
+                <br><br>
+
+                <button onclick="typeQuestion('${className}','${subject}')">
+
+                    Ask Another Question
+
+                </button>
+
+                <br><br>
+
+                <button onclick="showSubject('${className}','${subject}')">
+
+                    ⬅ Back
+
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        document.querySelector(".container").innerHTML = `
+
+            <div class="welcome-card">
+
+                <h2>❌ Error</h2>
+
+                <p>Unable to contact AI.</p>
+
+                <p>${error.message}</p>
+
+                <br><br>
+
+                <button onclick="typeQuestion('${className}','${subject}')">
+
+                    Try Again
+
+                </button>
+
+                <br><br>
+
+                <button onclick="showSubject('${className}','${subject}')">
+
+                    ⬅ Back
+
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+// ======================================================
+// END OF PART 3
+// ======================================================
