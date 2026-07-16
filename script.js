@@ -85,6 +85,13 @@ function goHome() {
 // -----------------------------
 // Class Dashboard
 // -----------------------------
+
+if (!getStudent()) {
+    showRegistration(className);
+    return;
+}
+
+
 function showClassDashboard(className) {
 
     document.querySelector(".container").innerHTML = `
