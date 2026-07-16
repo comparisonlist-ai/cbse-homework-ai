@@ -10,10 +10,6 @@ if (!getStudent()) {
 
 
 
-function getStudent() {
-    return JSON.parse(localStorage.getItem("student"));
-}
-
 function showRegistration(selectedClass = "") {
 
     document.querySelector(".container").innerHTML = `
