@@ -147,3 +147,150 @@ function registerStudent() {
 // ======================================================
 // END OF PART 1
 // ======================================================
+// ======================================================
+// PART 2
+// Navigation
+// ======================================================
+
+// -----------------------------
+// Class Dashboard
+// -----------------------------
+
+function showClassDashboard(className) {
+
+    if (!getStudent()) {
+        showRegistration(className);
+        return;
+    }
+
+    document.querySelector(".container").innerHTML = `
+
+        <div class="welcome-card">
+
+            <h2>${className}</h2>
+
+            <p>Select a Subject</p>
+
+            <button onclick="showSubject('${className}','Mathematics')">
+                📘 Mathematics
+            </button>
+
+            <button onclick="showSubject('${className}','Science')">
+                🔬 Science
+            </button>
+
+            <button onclick="showSubject('${className}','Social Science')">
+                🌍 Social Science
+            </button>
+
+            <button onclick="showSubject('${className}','English')">
+                📖 English
+            </button>
+
+            <button onclick="showSubject('${className}','Hindi')">
+                📝 Hindi
+            </button>
+
+            <br><br>
+
+            <button onclick="goHome()">
+                ⬅ Back
+            </button>
+
+        </div>
+
+    `;
+}
+
+// -----------------------------
+// Subject Screen
+// -----------------------------
+
+function showSubject(className, subject) {
+
+    document.querySelector(".container").innerHTML = `
+
+        <div class="welcome-card">
+
+            <h2>${className}</h2>
+
+            <h3>${subject}</h3>
+
+            <button onclick="typeQuestion('${className}','${subject}')">
+                🤖 Ask AI
+            </button>
+
+            <br><br>
+
+            <button onclick="showClassDashboard('${className}')">
+                ⬅ Back
+            </button>
+
+        </div>
+
+    `;
+}
+
+// -----------------------------
+// Question Screen
+// -----------------------------
+
+function typeQuestion(className, subject) {
+
+    document.querySelector(".container").innerHTML = `
+
+        <div class="welcome-card">
+
+            <h2>${className}</h2>
+
+            <h3>${subject}</h3>
+
+            <textarea
+                id="question"
+                rows="8"
+                placeholder="Type your homework question here..."></textarea>
+
+            <br><br>
+
+            <button onclick="submitQuestion('${className}','${subject}')">
+                🚀 Submit
+            </button>
+
+            <br><br>
+
+            <button onclick="showSubject('${className}','${subject}')">
+                ⬅ Back
+            </button>
+
+        </div>
+
+    `;
+}
+
+// -----------------------------
+// Home Buttons
+// -----------------------------
+
+document.getElementById("class6").onclick = function () {
+    showClassDashboard("Class 6");
+};
+
+document.getElementById("class7").onclick = function () {
+    showClassDashboard("Class 7");
+};
+
+document.getElementById("class8").onclick = function () {
+    showClassDashboard("Class 8");
+};
+
+document.getElementById("class9").onclick = function () {
+    showClassDashboard("Class 9");
+};
+
+document.getElementById("class10").onclick = function () {
+    showClassDashboard("Class 10");
+};
+
+// ======================================================
+// END OF PART 2
+// ======================================================
