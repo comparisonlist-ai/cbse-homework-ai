@@ -136,3 +136,5 @@ ${subject}
 Question:
 ${question}
 `;
+
+window.askAI = askAI;
