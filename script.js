@@ -333,6 +333,10 @@ const data = await askAI(className, subject, question);
         const answer =
             data.answer || "Sorry, no answer was received.";
 
+        const formattedAnswer = answer
+    .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+    .replace(/\n/g, "<br>");
+        
         document.querySelector(".container").innerHTML = `
 
             <div class="welcome-card">
