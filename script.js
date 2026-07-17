@@ -328,34 +328,8 @@ async function submitQuestion(className, subject) {
 
     try {
 
-        const response = await fetch("/api/chat", {
-
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-
-                className: className,
-
-                subject: subject,
-
-                question: question
-
-            })
-
-        });
-
-        if (!response.ok) {
-
-            throw new Error("Server Error");
-
-        }
-
-        const data = await response.json();
-
+        
+const data = await askAI(className, subject, question);
         const answer =
             data.answer || "Sorry, no answer was received.";
 
