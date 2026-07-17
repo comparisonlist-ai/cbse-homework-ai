@@ -361,7 +361,7 @@ const data = await askAI(className, subject, question);
 
                 <div class="answer-card">
 
-                    ${answer.replace(/\n/g,"<br>")}
+                    ${formattedAnswer}
 
                 </div>
 
