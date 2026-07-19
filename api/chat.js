@@ -238,7 +238,14 @@ Do not write any introduction.
             {
               parts: [
                 {
-                  text: prompt
+                  text: `${prompt}
+
+Selected Class: ${className}
+
+Subject: ${subject}
+
+Student Question:
+${question}`
                 }
               ]
             }
