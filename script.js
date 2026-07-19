@@ -7,6 +7,100 @@
 // -----------------------------
 // Student Registration
 // -----------------------------
+// -----------------------------
+// Free Trial Settings
+// -----------------------------
+
+const TRIAL_DAYS = 7;
+const TRIAL_QUESTIONS = 30;
+
+function startFreeTrial() {
+
+    if (!localStorage.getItem("trialStart")) {
+
+        localStorage.setItem("trialStart", Date.now());
+
+        localStorage.setItem("questionCount", "0");
+
+    }
+
+}
+
+function checkTrialStatus() {
+
+    const trialStart =
+        Number(localStorage.getItem("trialStart"));
+
+    const questionCount =
+        Number(localStorage.getItem("questionCount") || 0);
+
+    if (!trialStart) {
+
+        return {
+
+            allowed: false,
+
+            message: "Please register first."
+
+        };
+
+    }
+
+    const daysPassed =
+        (Date.now() - trialStart) /
+        (1000 * 60 * 60 * 24);
+
+    if (daysPassed >= TRIAL_DAYS) {
+
+        return {
+
+            allowed: false,
+
+            message:
+            "Your 7-Day FREE Trial has ended."
+
+        };
+
+    }
+
+    if (questionCount >= TRIAL_QUESTIONS) {
+
+        return {
+
+            allowed: false,
+
+            message:
+            "You have used all 30 FREE questions."
+
+        };
+
+    }
+
+    return {
+
+        allowed: true,
+
+        remaining:
+            TRIAL_QUESTIONS - questionCount,
+
+        used:
+            questionCount
+
+    };
+
+}
+
+function increaseQuestionCount() {
+
+    let count =
+        Number(localStorage.getItem("questionCount") || 0);
+
+    count++;
+
+    localStorage.setItem("questionCount", count);
+
+}
+
 
 function getStudent() {
     return JSON.parse(localStorage.getItem("student"));
