@@ -174,7 +174,30 @@ Long answer
 
 Then give:
 
+QUICK ANSWER (COMPULSORY)
+
+Never answer in only one sentence.
+
+For every question, write at least 3 and at most 5 short points.
+
+If the question is a fact (such as "Which planet is nearest to the Sun?"), include:
+• The direct answer.
+• One important NCERT fact.
+• One more related NCERT fact.
+
+Example:
+
+Question: Which planet is nearest to the Sun?
+
 QUICK ANSWER
+• Mercury is the planet nearest to the Sun.
+• It is the smallest planet in the Solar System.
+• Mercury has no natural satellite (moon).
+• It completes one revolution around the Sun in about 88 days.
+
+After the Quick Answer, always give:
+QUICK REVISION
+PRACTICE QUESTION
 
 followed by
 
