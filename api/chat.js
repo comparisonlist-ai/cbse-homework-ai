@@ -10,7 +10,40 @@ export default async function handler(req, res) {
   try {
 
     const { className, subject, question } = req.body;
+const classGuide = {
+  "Class 6": `
+- Use very simple English.
+- Use only Class 6 NCERT concepts.
+- Give short answers first.
+- Do not introduce higher-class topics.
+`,
 
+  "Class 7": `
+- Answer according to Class 7 CBSE syllabus.
+- Use simple examples.
+- Keep explanations short.
+`,
+
+  "Class 8": `
+- Use only Class 8 NCERT concepts.
+- Avoid Class 9 and 10 concepts unless absolutely necessary.
+`,
+
+  "Class 9": `
+- Use Class 9 NCERT level.
+- Explain concepts clearly.
+- Include formulas only if they belong to Class 9.
+`,
+
+  "Class 10": `
+- Use Class 10 NCERT syllabus.
+- Include formulas, diagrams (if useful), and exam-oriented points.
+- Keep the language student-friendly.
+`
+};
+
+const syllabusInstruction =
+  classGuide[className] || "Answer according to the selected CBSE class.";
     const prompt = `
 You are an expert CBSE teacher for Classes 6 to 10.
 
