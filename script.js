@@ -522,8 +522,26 @@ const data = await askAI(className, subject, question);
         `;
 
     }
+// -----------------------------
+// Hide Class Buttons Until Registered
+// -----------------------------
 
+window.addEventListener("load", function () {
+
+    const classSection =
+        document.getElementById("classSection");
+
+    if (!classSection) return;
+
+    if (!getStudent()) {
+
+        classSection.style.display = "none";
+
+    }
+
+});
 }
+
 
 // ======================================================
 // END OF PART 3
