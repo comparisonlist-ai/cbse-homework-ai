@@ -1,467 +1,320 @@
-// ======================================================
-// CBSE Homework AI
-// script.js
-// PART 1
+   // ======================================================
+// CBSE Homework AI - script.js
+// Completely Free & Client-Side Flow
 // ======================================================
 
 // -----------------------------
-// Student Registration
+// CONFIGURATION
 // -----------------------------
-// -----------------------------
-// Free Trial Settings
-// -----------------------------
-
 const TRIAL_DAYS = 7;
 const TRIAL_QUESTIONS = 30;
-const ACCESS_CODE = "CBSE2026";
+
+// 🔗 REPLACE THESE TWO LINKS WITH YOUR ACTUAL GOOGLE FORM LINKS
+const GOOGLE_FORM_REGISTRATION_URL = "https://docs.google.com/forms/d/e/YOUR_REGISTRATION_FORM_ID/viewform";
+const GOOGLE_FORM_PAYMENT_URL = "https://docs.google.com/forms/d/e/YOUR_PAYMENT_FORM_ID/viewform";
+
+// 💳 REPLACE WITH YOUR UPI ID (e.g., yourname@upi or mobile@paytm)
+const YOUR_UPI_ID = "yourupiid@upi"; 
+
+// -----------------------------
+// TRIAL & COUNTER MANAGEMENT
+// -----------------------------
 
 function startFreeTrial() {
-
     if (!localStorage.getItem("trialStart")) {
-
         localStorage.setItem("trialStart", Date.now());
-
         localStorage.setItem("questionCount", "0");
-
     }
-
 }
 
 function checkTrialStatus() {
+    const trialStart = Number(localStorage.getItem("trialStart"));
+    const questionCount = Number(localStorage.getItem("questionCount") || 0);
 
-    const trialStart =
-        Number(localStorage.getItem("trialStart"));
-
-    const questionCount =
-        Number(localStorage.getItem("questionCount") || 0);
-
+    // If user hasn't started trial yet, auto-start on first class access
     if (!trialStart) {
-
-        return {
-
-            allowed: false,
-
-            message: "Please register first."
-
-        };
-
+        startFreeTrial();
+        return { allowed: true, remaining: TRIAL_QUESTIONS, used: 0 };
     }
 
-    const daysPassed =
-        (Date.now() - trialStart) /
-        (1000 * 60 * 60 * 24);
+    const daysPassed = (Date.now() - trialStart) / (1000 * 60 * 60 * 24);
 
     if (daysPassed >= TRIAL_DAYS) {
-
         return {
-
             allowed: false,
-
-            message:
-            "Your 7-Day FREE Trial has ended."
-
+            reason: "Your 7-Day FREE Trial has ended."
         };
-
     }
 
     if (questionCount >= TRIAL_QUESTIONS) {
-
         return {
-
             allowed: false,
-
-            message:
-            "You have used all 30 FREE questions."
-
+            reason: "You have completed all 30 FREE questions."
         };
-
     }
 
     return {
-
         allowed: true,
-
-        remaining:
-            TRIAL_QUESTIONS - questionCount,
-
-        used:
-            questionCount
-
+        remaining: TRIAL_QUESTIONS - questionCount,
+        used: questionCount
     };
-
 }
 
 function increaseQuestionCount() {
-
-    let count =
-        Number(localStorage.getItem("questionCount") || 0);
-
+    let count = Number(localStorage.getItem("questionCount") || 0);
     count++;
-
     localStorage.setItem("questionCount", count);
-
-}
-
-
-function getStudent() {
-    return JSON.parse(localStorage.getItem("student"));
-}
-
-function saveStudent(student) {
-    localStorage.setItem("student", JSON.stringify(student));
-}
-
-function generateStudentID() {
-    return "CBSE" + Date.now();
+    return count;
 }
 
 // -----------------------------
-// Home
+// PAYMENT & PAYWALL MODAL
+// -----------------------------
+
+function showPaywallModal(reasonMessage) {
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=${YOUR_UPI_ID}&pn=CBSE_Homework_AI&am=199&cu=INR`;
+    
+    document.querySelector(".container").innerHTML = `
+        <div class="welcome-card">
+            <h2 style="color: #e74c3c;">🔒 Trial Limit Reached</h2>
+            <p><b>${reasonMessage}</b></p>
+            <hr>
+            <h3>Upgrade to Unlimited Access</h3>
+            <p style="font-size: 14px; color: #555;">Scan with GPay, PhonePe, or Paytm to pay <b>₹199 / month</b>:</p>
+            
+            <img src="${qrUrl}" alt="UPI QR Code" style="width:180px; height:180px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px;">
+
+            <p style="font-size: 12px; color: #777;">After scanning and paying, click below to confirm:</p>
+            
+            <a href="${GOOGLE_FORM_PAYMENT_URL}" target="_blank" style="display:inline-block; background:#27ae60; color:#fff; padding:12px 20px; border-radius:6px; text-decoration:none; font-weight:bold; margin-top:5px;">
+                ✅ Submit Payment Reference
+            </a>
+            <br><br>
+            <button onclick="goHome()">⬅ Back to Home</button>
+        </div>
+    `;
+}
+
+// -----------------------------
+// NAVIGATION & REGISTRATION
 // -----------------------------
 
 function goHome() {
     location.reload();
 }
 
-// -----------------------------
-// Registration Screen
-// -----------------------------
-
-function showRegistration() {
-
-    window.location.href = "YOUR_GOOGLE_FORM_LINK";
-
+// Entry point button redirect to Google Form Registration
+function startRegistration() {
+    window.location.href = GOOGLE_FORM_REGISTRATION_URL;
 }
 
-
 // -----------------------------
-// Register Student
-// -----------------------------
-
-function registerStudent() {
-
-    const name =
-        document.getElementById("studentName").value.trim();
-
-    const mobile =
-        document.getElementById("studentMobile").value.trim();
-
-    const studentClass =
-        document.getElementById("studentClass").value;
-
-    if (name === "" || mobile === "" || studentClass === "") {
-
-        alert("Please fill all fields.");
-
-        return;
-    }
-
-    const student = {
-
-        id: generateStudentID(),
-
-        name: name,
-
-        mobile: mobile,
-
-        studentClass: studentClass,
-
-        joined: new Date().toLocaleDateString()
-
-    };
-
-    saveStudent(student);
-
-    alert(
-        "Registration Successful!\n\nStudent ID : " +
-        student.id
-    );
-
-    showClassDashboard(studentClass);
-
-}
-
-// ======================================================
-// END OF PART 1
-// ======================================================
-// ======================================================
-// PART 2
-// Navigation
-// ======================================================
-
-// -----------------------------
-// Class Dashboard
+// CLASS DASHBOARD
 // -----------------------------
 
 function showClassDashboard(className) {
+    const trial = checkTrialStatus();
 
-    if (!getStudent()) {
-        showRegistration(className);
+    if (!trial.allowed) {
+        showPaywallModal(trial.reason);
         return;
     }
 
     document.querySelector(".container").innerHTML = `
-
         <div class="welcome-card">
-
             <h2>${className}</h2>
-
+            <p style="background:#f1f1f1; padding:6px; border-radius:4px; font-weight:bold;">
+                📊 Questions Used: ${trial.used} / ${TRIAL_QUESTIONS}
+            </p>
             <p>Select a Subject</p>
 
-            <button onclick="showSubject('${className}','Mathematics')">
-                📘 Mathematics
-            </button>
-
-            <button onclick="showSubject('${className}','Science')">
-                🔬 Science
-            </button>
-
-            <button onclick="showSubject('${className}','Social Science')">
-                🌍 Social Science
-            </button>
-
-            <button onclick="showSubject('${className}','English')">
-                📖 English
-            </button>
-
-            <button onclick="showSubject('${className}','Hindi')">
-                📝 Hindi
-            </button>
+            <button onclick="showSubject('${className}','Mathematics')">📘 Mathematics</button>
+            <button onclick="showSubject('${className}','Science')">🔬 Science</button>
+            <button onclick="showSubject('${className}','Social Science')">🌍 Social Science</button>
+            <button onclick="showSubject('${className}','English')">📖 English</button>
+            <button onclick="showSubject('${className}','Hindi')">📝 Hindi</button>
 
             <br><br>
-
-            <button onclick="goHome()">
-                ⬅ Back
-            </button>
-
+            <button onclick="goHome()">⬅ Back</button>
         </div>
-
     `;
 }
-
-// -----------------------------
-// Subject Screen
-// -----------------------------
 
 function showSubject(className, subject) {
-
     document.querySelector(".container").innerHTML = `
-
         <div class="welcome-card">
-
             <h2>${className}</h2>
-
             <h3>${subject}</h3>
 
-            <button onclick="typeQuestion('${className}','${subject}')">
-                🤖 Ask AI
-            </button>
-
+            <button onclick="typeQuestion('${className}','${subject}')">🤖 Ask AI</button>
             <br><br>
-
-            <button onclick="showClassDashboard('${className}')">
-                ⬅ Back
-            </button>
-
+            <button onclick="showClassDashboard('${className}')">⬅ Back</button>
         </div>
-
     `;
 }
 
 // -----------------------------
-// Question Screen
+// QUESTION INPUT HUB (TYPE / VOICE / OCR)
 // -----------------------------
 
 function typeQuestion(className, subject) {
+    const trial = checkTrialStatus();
 
-    document.querySelector(".container").innerHTML = `
-
-        <div class="welcome-card">
-
-            <h2>${className}</h2>
-
-            <h3>${subject}</h3>
-
-            <textarea
-                id="question"
-                rows="8"
-                placeholder="Type your homework question here..."></textarea>
-
-            <br><br>
-
-            <button onclick="submitQuestion('${className}','${subject}')">
-                🚀 Submit
-            </button>
-
-            <br><br>
-
-            <button onclick="showSubject('${className}','${subject}')">
-                ⬅ Back
-            </button>
-
-        </div>
-
-    `;
-}
-
-// -----------------------------
-// Home Buttons
-// -----------------------------
-
-document.getElementById("class6").onclick = function () {
-    showClassDashboard("Class 6");
-};
-
-document.getElementById("class7").onclick = function () {
-    showClassDashboard("Class 7");
-};
-
-document.getElementById("class8").onclick = function () {
-    showClassDashboard("Class 8");
-};
-
-document.getElementById("class9").onclick = function () {
-    showClassDashboard("Class 9");
-};
-
-document.getElementById("class10").onclick = function () {
-    showClassDashboard("Class 10");
-};
-
-// ======================================================
-// END OF PART 2
-// ======================================================
-// ======================================================
-// PART 3
-// AI Question & Answer
-// ======================================================
-
-// -----------------------------
-// Submit Question
-// -----------------------------
-
-async function submitQuestion(className, subject) {
-
-    const question = document.getElementById("question").value.trim();
-
-    if (question === "") {
-
-        alert("Please enter your homework question.");
-
+    if (!trial.allowed) {
+        showPaywallModal(trial.reason);
         return;
     }
 
     document.querySelector(".container").innerHTML = `
-
         <div class="welcome-card">
+            <h2>${className} - ${subject}</h2>
+            <p style="font-size:13px; color:#666;">Questions Used: <b>${trial.used} / ${TRIAL_QUESTIONS}</b></p>
+            
+            <textarea id="question" rows="6" placeholder="Type your homework question here..."></textarea>
+            <br><br>
 
-            <h2>⏳ Thinking...</h2>
+            <!-- Input Options -->
+            <button onclick="startVoiceInput()" style="background:#007bff; color:#fff;">🎙️ Voice Input</button>
+            <button onclick="triggerOCRScan()" style="background:#17a2b8; color:#fff;">📷 OCR Image Scan</button>
+            <input type="file" id="ocrFileInput" accept="image/*" style="display:none;" onchange="handleOCRImage(event)">
 
-            <p>Please wait while AI prepares your answer.</p>
+            <br><br>
+            <button onclick="submitQuestion('${className}','${subject}')" style="background:#28a745; color:#fff; width:100%;">🚀 Submit Question</button>
 
+            <br><br>
+            <button onclick="showSubject('${className}','${subject}')">⬅ Back</button>
         </div>
+    `;
+}
 
+// --- Voice Recognition Feature (Web Speech API) ---
+function startVoiceInput() {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        alert("Voice recognition is not supported on this browser. Please type your question.");
+        return;
+    }
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-IN'; // Default to Indian accent/English
+    
+    alert("Listening... Speak your question clearly into your microphone.");
+    recognition.start();
+
+    recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById("question").value = transcript;
+    };
+
+    recognition.onerror = function() {
+        alert("Could not process voice input. Please try speaking again or type your question.");
+    };
+}
+
+// --- OCR Scanner Handler (Zero-Cost Setup) ---
+function triggerOCRScan() {
+    document.getElementById("ocrFileInput").click();
+}
+
+function handleOCRImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+        alert("Image uploaded! (For 100% free hosting without OCR servers, please type or speak any unclear text from the image directly into the text box).");
+    }
+}
+
+// -----------------------------
+// SUBMIT QUESTION & AI ANSWER
+// -----------------------------
+
+async function submitQuestion(className, subject) {
+    const question = document.getElementById("question").value.trim();
+
+    if (question === "") {
+        alert("Please enter or record a question.");
+        return;
+    }
+
+    const trial = checkTrialStatus();
+    if (!trial.allowed) {
+        showPaywallModal(trial.reason);
+        return;
+    }
+
+    // Lock Premium Feature Check (Visuals Blocked in Trial)
+    const needsVisuals = /diagram|image|draw|picture|figure/i.test(question);
+    if (needsVisuals) {
+        alert("🔒 Visual explanations & diagrams are locked in the Standard Trial! Upgrade to Premium to request visual explanations.");
+    }
+
+    // Increment Question Count
+    const currentCount = increaseQuestionCount();
+
+    document.querySelector(".container").innerHTML = `
+        <div class="welcome-card">
+            <h2>⏳ AI is thinking...</h2>
+            <p>Processing question ${currentCount} of 30...</p>
+        </div>
     `;
 
     try {
-
-        
-const data = await askAI(className, subject, question);
-        const answer =
-            data.answer || "Sorry, no answer was received.";
+        // AI Fetch call
+        const data = await askAI(className, subject, question);
+        const answer = data.answer || "Sorry, no answer was received.";
 
         const formattedAnswer = answer
-    .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
-    .replace(/\n/g, "<br>");
-        
+            .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+            .replace(/\n/g, "<br>");
+
         document.querySelector(".container").innerHTML = `
-
             <div class="welcome-card">
-
-                <h2>${className}</h2>
-
-                <h3>${subject}</h3>
-
+                <h2>${className} (${subject})</h2>
+                <p style="font-size:12px; color:#555;">Used Questions: <b>${currentCount} / ${TRIAL_QUESTIONS}</b></p>
                 <hr>
 
-                <h3>Your Question</h3>
-
-                <div class="answer-card">
-
+                <h3>Your Question:</h3>
+                <div class="answer-card" style="background:#f9f9f9; padding:10px; border-radius:5px;">
                     ${question}
+                </div>
 
+                <h3>🤖 AI Answer:</h3>
+                <div class="answer-card" style="background:#f0f8ff; padding:10px; border-radius:5px; text-align:left;">
+                    ${formattedAnswer}
                 </div>
 
                 <br>
-
-                <h3>🤖 AI Answer</h3>
-
-                <div class="answer-card">
-
-                    ${formattedAnswer}
-
-                </div>
-
+                <button onclick="typeQuestion('${className}','${subject}')">Ask Another Question</button>
                 <br><br>
-
-                <button onclick="typeQuestion('${className}','${subject}')">
-
-                    Ask Another Question
-
-                </button>
-
-                <br><br>
-
-                <button onclick="showSubject('${className}','${subject}')">
-
-                    ⬅ Back
-
-                </button>
-
+                <button onclick="showSubject('${className}','${subject}')">⬅ Back</button>
             </div>
-
         `;
-
-    }
-
-    catch(error) {
-
+    } catch (error) {
         console.error(error);
-
         document.querySelector(".container").innerHTML = `
-
             <div class="welcome-card">
-
                 <h2>❌ Error</h2>
-
-                <p>Unable to contact AI.</p>
-
+                <p>Unable to connect to AI.</p>
                 <p>${error.message}</p>
-
-                <br><br>
-
-                <button onclick="typeQuestion('${className}','${subject}')">
-
-                    Try Again
-
-                </button>
-
-                <br><br>
-
-                <button onclick="showSubject('${className}','${subject}')">
-
-                    ⬅ Back
-
-                </button>
-
+                <br>
+                <button onclick="typeQuestion('${className}','${subject}')">Try Again</button>
             </div>
-
         `;
-
     }
-
 }
 
-// ======================================================
-// END OF PART 3
-// ======================================================
+// -----------------------------
+// INITIAL BINDINGS FOR HOME BUTTONS
+// -----------------------------
+
+document.addEventListener("DOMContentLoaded", function() {
+    const classes = ["class6", "class7", "class8", "class9", "class10"];
+    classes.forEach(id => {
+        const elem = document.getElementById(id);
+        if (elem) {
+            elem.onclick = function() {
+                const className = "Class " + id.replace("class", "");
+                showClassDashboard(className);
+            };
+        }
+    });
+});
+                     
