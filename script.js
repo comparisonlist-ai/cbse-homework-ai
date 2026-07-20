@@ -1,27 +1,64 @@
 // ======================================================
 // CBSE Homework AI
-// script.js
-// PART 1
+// script.js V2
+// PART 1A - REPLACE FROM THE TOP OF script.js
 // ======================================================
 
 // -----------------------------
-// Student Registration
+// Configuration
 // -----------------------------
-// -----------------------------
-// Free Trial Settings
-// -----------------------------
+
+const ACCESS_CODE = "CBSE2026";
+const GOOGLE_FORM =
+    "https://forms.gle/angKKgWnByvNvffb7";
 
 const TRIAL_DAYS = 7;
 const TRIAL_QUESTIONS = 30;
-const ACCESS_CODE = "CBSE2026";
+
+// -----------------------------
+// Local Storage
+// -----------------------------
+
+function getStudent() {
+
+    return JSON.parse(
+        localStorage.getItem("student")
+    );
+
+}
+
+function saveStudent(student) {
+
+    localStorage.setItem(
+        "student",
+        JSON.stringify(student)
+    );
+
+}
+
+function isRegistered() {
+
+    return getStudent() !== null;
+
+}
+
+// -----------------------------
+// Trial
+// -----------------------------
 
 function startFreeTrial() {
 
     if (!localStorage.getItem("trialStart")) {
 
-        localStorage.setItem("trialStart", Date.now());
+        localStorage.setItem(
+            "trialStart",
+            Date.now()
+        );
 
-        localStorage.setItem("questionCount", "0");
+        localStorage.setItem(
+            "questionCount",
+            "0"
+        );
 
     }
 
@@ -41,7 +78,8 @@ function checkTrialStatus() {
 
             allowed: false,
 
-            message: "Please register first."
+            message:
+                "Please start your FREE Trial."
 
         };
 
@@ -58,7 +96,7 @@ function checkTrialStatus() {
             allowed: false,
 
             message:
-            "Your 7-Day FREE Trial has ended."
+                "Your FREE Trial has expired."
 
         };
 
@@ -71,7 +109,7 @@ function checkTrialStatus() {
             allowed: false,
 
             message:
-            "You have used all 30 FREE questions."
+                "You have used all FREE questions."
 
         };
 
@@ -81,11 +119,10 @@ function checkTrialStatus() {
 
         allowed: true,
 
-        remaining:
-            TRIAL_QUESTIONS - questionCount,
+        used: questionCount,
 
-        used:
-            questionCount
+        remaining:
+            TRIAL_QUESTIONS - questionCount
 
     };
 
@@ -98,69 +135,198 @@ function increaseQuestionCount() {
 
     count++;
 
-    localStorage.setItem("questionCount", count);
+    localStorage.setItem(
+        "questionCount",
+        count
+    );
 
-}
-
-
-function getStudent() {
-    return JSON.parse(localStorage.getItem("student"));
-}
-
-function saveStudent(student) {
-    localStorage.setItem("student", JSON.stringify(student));
-}
-
-function generateStudentID() {
-    return "CBSE" + Date.now();
 }
 
 // -----------------------------
-// Home
+// Home Screen
 // -----------------------------
 
-function goHome() 
+function showHome() {
+
+    const container =
+        document.querySelector(".container");
+
+    container.innerHTML = `
+
+<div class="welcome-card">
+
+<h1>🎓 Students Homework AI</h1>
+
+<p class="tagline">
+AI Homework Help for Classes 6–10
+<br><br>
+NCERT-CBSE Friendly • Instant Answers • 7-Day FREE Trial
+</p>
+
+<div class="badge">
+Class 6 • Class 7 • Class 8 • Class 9 • Class 10
+</div>
+
+<br>
+
+${
+isRegistered()
+
+?
+
+`<div id="classSection">
+
+<h2>Select Your Class</h2>
+
+<button id="class6">📘 Class 6</button>
+
+<button id="class7">📗 Class 7</button>
+
+<button id="class8">📙 Class 8</button>
+
+<button id="class9">📕 Class 9</button>
+
+<button id="class10">🎓 Class 10</button>
+
+</div>`
+
+:
+
+`<button
+class="register-btn"
+onclick="openRegistration()">
+
+🎁 Try Your 7-Day FREE Trial
+
+</button>`
+
+}
+
+<hr>
+
+<div class="features">
+
+<p>🤖 AI Homework Help</p>
+
+<p>📚 NCERT Friendly</p>
+
+<p>⚡ Instant Answers</p>
+
+<p>🎤 Voice Support</p>
+
+</div>
+
+<hr>
+
+<p class="footer">
+
+Made with Care by Sibaram
+
+<br><br>
+
+Made for CBSE Students (Class 6 - 10) ❤️
+
+</p>
+
+</div>
+
+`;
+
+}
+
+// ======================================================
+// CBSE Homework AI
+// script.js V2
+// PART 1B
+// PASTE IMMEDIATELY AFTER PART 1A
+// ======================================================
+
+// -----------------------------
+// Google Form
+// -----------------------------
+
+function openRegistration() {
+
+    window.open(
+        GOOGLE_FORM,
+        "_blank"
+    );
+
+    setTimeout(function () {
+
+        showAccessCodeScreen();
+
+    }, 1000);
+
+}
+
+// -----------------------------
+// Access Code Screen
+// -----------------------------
 
 function showAccessCodeScreen() {
 
     document.querySelector(".container").innerHTML = `
 
-        <div class="welcome-card">
+<div class="welcome-card">
 
-            <h2>🔑 Enter Access Code</h2>
+<h2>🔑 Enter Access Code</h2>
 
-            <p>
-                Enter the Access Code received after
-                Google Forms registration.
-            </p>
+<p>
 
-            <input
-                id="accessCode"
-                type="text"
-                placeholder="Enter Access Code">
+After submitting the Google Form,
+enter your Access Code below.
 
-            <br><br>
+</p>
 
-            <button onclick="verifyAccessCode()">
-                Start FREE Trial
-            </button>
+<input
 
-        </div>
+id="accessCode"
 
-    `;
+type="text"
+
+placeholder="Enter Access Code">
+
+<br><br>
+
+<button onclick="verifyAccessCode()">
+
+Start FREE Trial
+
+</button>
+
+<br><br>
+
+<button onclick="showHome()">
+
+⬅ Back
+
+</button>
+
+</div>
+
+`;
 
 }
+
+// -----------------------------
+// Verify Access Code
+// -----------------------------
 
 function verifyAccessCode() {
 
     const code =
-        document.getElementById("accessCode")
+
+        document
+        .getElementById("accessCode")
         .value
         .trim();
 
     if (code !== ACCESS_CODE) {
 
-        alert("Invalid Access Code.");
+        alert(
+            "Invalid Access Code."
+        );
 
         return;
 
@@ -168,381 +334,60 @@ function verifyAccessCode() {
 
     saveStudent({
 
-        id: generateStudentID(),
+        registered: true,
 
-        registered: true
+        joined:
+            new Date().toLocaleDateString()
 
     });
 
     startFreeTrial();
 
-    alert("Welcome! Your FREE Trial has started.");
-
-    goHome();
-
-}
-
-{
-    location.reload();
-}
-
-// -----------------------------
-// Registration Screen
-// -----------------------------
-
-function showRegistration() {
-
-    window.location.href = "YOUR_GOOGLE_FORM_LINK";
-
-}
-
-
-// -----------------------------
-// Register Student
-// -----------------------------
-
-function registerStudent() {
-
-    const name =
-        document.getElementById("studentName").value.trim();
-
-    const mobile =
-        document.getElementById("studentMobile").value.trim();
-
-    const studentClass =
-        document.getElementById("studentClass").value;
-
-    if (name === "" || mobile === "" || studentClass === "") {
-
-        alert("Please fill all fields.");
-
-        return;
-    }
-
-    const student = {
-
-        id: generateStudentID(),
-
-        name: name,
-
-        mobile: mobile,
-
-        studentClass: studentClass,
-
-        joined: new Date().toLocaleDateString()
-
-    };
-
-    saveStudent(student);
-
     alert(
-        "Registration Successful!\n\nStudent ID : " +
-        student.id
+        "FREE Trial Started Successfully."
     );
 
-    showClassDashboard(studentClass);
+    showHome();
 
 }
 
-// ======================================================
-// END OF PART 1
-// ======================================================
-// ======================================================
-// PART 2
-// Navigation
-// ======================================================
-
 // -----------------------------
-// Class Dashboard
+// Home Events
 // -----------------------------
 
-function showClassDashboard(className) {
+document.addEventListener(
+    "click",
+    function (e) {
 
-    if (!getStudent()) {
-        showRegistration(className);
-        return;
+        if (e.target.id === "class6")
+            showClassDashboard("Class 6");
+
+        if (e.target.id === "class7")
+            showClassDashboard("Class 7");
+
+        if (e.target.id === "class8")
+            showClassDashboard("Class 8");
+
+        if (e.target.id === "class9")
+            showClassDashboard("Class 9");
+
+        if (e.target.id === "class10")
+            showClassDashboard("Class 10");
+
     }
-
-    document.querySelector(".container").innerHTML = `
-
-        <div class="welcome-card">
-
-            <h2>${className}</h2>
-
-            <p>Select a Subject</p>
-
-            <button onclick="showSubject('${className}','Mathematics')">
-                📘 Mathematics
-            </button>
-
-            <button onclick="showSubject('${className}','Science')">
-                🔬 Science
-            </button>
-
-            <button onclick="showSubject('${className}','Social Science')">
-                🌍 Social Science
-            </button>
-
-            <button onclick="showSubject('${className}','English')">
-                📖 English
-            </button>
-
-            <button onclick="showSubject('${className}','Hindi')">
-                📝 Hindi
-            </button>
-
-            <br><br>
-
-            <button onclick="goHome()">
-                ⬅ Back
-            </button>
-
-        </div>
-
-    `;
-}
+);
 
 // -----------------------------
-// Subject Screen
+// App Start
 // -----------------------------
 
-function showSubject(className, subject) {
+window.onload = function () {
 
-    document.querySelector(".container").innerHTML = `
+    showHome();
 
-        <div class="welcome-card">
-
-            <h2>${className}</h2>
-
-            <h3>${subject}</h3>
-
-            <button onclick="typeQuestion('${className}','${subject}')">
-                🤖 Ask AI
-            </button>
-
-            <br><br>
-
-            <button onclick="showClassDashboard('${className}')">
-                ⬅ Back
-            </button>
-
-        </div>
-
-    `;
-}
-
-// -----------------------------
-// Question Screen
-// -----------------------------
-
-function typeQuestion(className, subject) {
-
-    document.querySelector(".container").innerHTML = `
-
-        <div class="welcome-card">
-
-            <h2>${className}</h2>
-
-            <h3>${subject}</h3>
-
-            <textarea
-                id="question"
-                rows="8"
-                placeholder="Type your homework question here..."></textarea>
-
-            <br><br>
-
-            <button onclick="submitQuestion('${className}','${subject}')">
-                🚀 Submit
-            </button>
-
-            <br><br>
-
-            <button onclick="showSubject('${className}','${subject}')">
-                ⬅ Back
-            </button>
-
-        </div>
-
-    `;
-}
-
-// -----------------------------
-// Home Buttons
-// -----------------------------
-
-document.getElementById("class6").onclick = function () {
-    showClassDashboard("Class 6");
-};
-
-document.getElementById("class7").onclick = function () {
-    showClassDashboard("Class 7");
-};
-
-document.getElementById("class8").onclick = function () {
-    showClassDashboard("Class 8");
-};
-
-document.getElementById("class9").onclick = function () {
-    showClassDashboard("Class 9");
-};
-
-document.getElementById("class10").onclick = function () {
-    showClassDashboard("Class 10");
 };
 
 // ======================================================
-// END OF PART 2
-// ======================================================
-// ======================================================
-// PART 3
-// AI Question & Answer
+// END OF PART 1B
 // ======================================================
 
-// -----------------------------
-// Submit Question
-// -----------------------------
-
-async function submitQuestion(className, subject) {
-
-    const question = document.getElementById("question").value.trim();
-
-    if (question === "") {
-
-        alert("Please enter your homework question.");
-
-        return;
-    }
-
-    document.querySelector(".container").innerHTML = `
-
-        <div class="welcome-card">
-
-            <h2>⏳ Thinking...</h2>
-
-            <p>Please wait while AI prepares your answer.</p>
-
-        </div>
-
-    `;
-
-    try {
-
-        
-const data = await askAI(className, subject, question);
-        const answer =
-            data.answer || "Sorry, no answer was received.";
-
-        const formattedAnswer = answer
-    .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
-    .replace(/\n/g, "<br>");
-        
-        document.querySelector(".container").innerHTML = `
-
-            <div class="welcome-card">
-
-                <h2>${className}</h2>
-
-                <h3>${subject}</h3>
-
-                <hr>
-
-                <h3>Your Question</h3>
-
-                <div class="answer-card">
-
-                    ${question}
-
-                </div>
-
-                <br>
-
-                <h3>🤖 AI Answer</h3>
-
-                <div class="answer-card">
-
-                    ${formattedAnswer}
-
-                </div>
-
-                <br><br>
-
-                <button onclick="typeQuestion('${className}','${subject}')">
-
-                    Ask Another Question
-
-                </button>
-
-                <br><br>
-
-                <button onclick="showSubject('${className}','${subject}')">
-
-                    ⬅ Back
-
-                </button>
-
-            </div>
-
-        `;
-
-    }
-
-    catch(error) {
-
-        console.error(error);
-
-        document.querySelector(".container").innerHTML = `
-
-            <div class="welcome-card">
-
-                <h2>❌ Error</h2>
-
-                <p>Unable to contact AI.</p>
-
-                <p>${error.message}</p>
-
-                <br><br>
-
-                <button onclick="typeQuestion('${className}','${subject}')">
-
-                    Try Again
-
-                </button>
-
-                <br><br>
-
-                <button onclick="showSubject('${className}','${subject}')">
-
-                    ⬅ Back
-
-                </button>
-
-            </div>
-
-        `;
-
-    }
-// -----------------------------
-// Hide Class Buttons Until Registered
-// -----------------------------
-
-window.addEventListener("load", function () {
-
-    const classSection =
-        document.getElementById("classSection");
-
-    if (!classSection) return;
-
-    if (!getStudent()) {
-
-        classSection.style.display = "none";
-
-    }
-
-});
-}
-
-
-// ======================================================
-// END OF PART 3
-// ======================================================
