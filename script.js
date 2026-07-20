@@ -13,6 +13,7 @@
 
 const TRIAL_DAYS = 7;
 const TRIAL_QUESTIONS = 30;
+const ACCESS_CODE = "CBSE2026";
 
 function startFreeTrial() {
 
