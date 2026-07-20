@@ -1,64 +1,27 @@
 // ======================================================
 // CBSE Homework AI
-// script.js V2
-// PART 1A - REPLACE FROM THE TOP OF script.js
+// script.js
+// PART 1
 // ======================================================
 
 // -----------------------------
-// Configuration
+// Student Registration
 // -----------------------------
-
-const ACCESS_CODE = "CBSE2026";
-const GOOGLE_FORM =
-    "https://forms.gle/angKKgWnByvNvffb7";
+// -----------------------------
+// Free Trial Settings
+// -----------------------------
 
 const TRIAL_DAYS = 7;
 const TRIAL_QUESTIONS = 30;
-
-// -----------------------------
-// Local Storage
-// -----------------------------
-
-function getStudent() {
-
-    return JSON.parse(
-        localStorage.getItem("student")
-    );
-
-}
-
-function saveStudent(student) {
-
-    localStorage.setItem(
-        "student",
-        JSON.stringify(student)
-    );
-
-}
-
-function isRegistered() {
-
-    return getStudent() !== null;
-
-}
-
-// -----------------------------
-// Trial
-// -----------------------------
+const ACCESS_CODE = "CBSE2026";
 
 function startFreeTrial() {
 
     if (!localStorage.getItem("trialStart")) {
 
-        localStorage.setItem(
-            "trialStart",
-            Date.now()
-        );
+        localStorage.setItem("trialStart", Date.now());
 
-        localStorage.setItem(
-            "questionCount",
-            "0"
-        );
+        localStorage.setItem("questionCount", "0");
 
     }
 
@@ -78,8 +41,7 @@ function checkTrialStatus() {
 
             allowed: false,
 
-            message:
-                "Please start your FREE Trial."
+            message: "Please register first."
 
         };
 
@@ -96,7 +58,7 @@ function checkTrialStatus() {
             allowed: false,
 
             message:
-                "Your FREE Trial has expired."
+            "Your 7-Day FREE Trial has ended."
 
         };
 
@@ -109,7 +71,7 @@ function checkTrialStatus() {
             allowed: false,
 
             message:
-                "You have used all FREE questions."
+            "You have used all 30 FREE questions."
 
         };
 
@@ -119,10 +81,11 @@ function checkTrialStatus() {
 
         allowed: true,
 
-        used: questionCount,
-
         remaining:
-            TRIAL_QUESTIONS - questionCount
+            TRIAL_QUESTIONS - questionCount,
+
+        used:
+            questionCount
 
     };
 
@@ -135,259 +98,370 @@ function increaseQuestionCount() {
 
     count++;
 
-    localStorage.setItem(
-        "questionCount",
-        count
+    localStorage.setItem("questionCount", count);
+
+}
+
+
+function getStudent() {
+    return JSON.parse(localStorage.getItem("student"));
+}
+
+function saveStudent(student) {
+    localStorage.setItem("student", JSON.stringify(student));
+}
+
+function generateStudentID() {
+    return "CBSE" + Date.now();
+}
+
+// -----------------------------
+// Home
+// -----------------------------
+
+function goHome() {
+    location.reload();
+}
+
+// -----------------------------
+// Registration Screen
+// -----------------------------
+
+function showRegistration() {
+
+    window.location.href = "YOUR_GOOGLE_FORM_LINK";
+
+}
+
+
+// -----------------------------
+// Register Student
+// -----------------------------
+
+function registerStudent() {
+
+    const name =
+        document.getElementById("studentName").value.trim();
+
+    const mobile =
+        document.getElementById("studentMobile").value.trim();
+
+    const studentClass =
+        document.getElementById("studentClass").value;
+
+    if (name === "" || mobile === "" || studentClass === "") {
+
+        alert("Please fill all fields.");
+
+        return;
+    }
+
+    const student = {
+
+        id: generateStudentID(),
+
+        name: name,
+
+        mobile: mobile,
+
+        studentClass: studentClass,
+
+        joined: new Date().toLocaleDateString()
+
+    };
+
+    saveStudent(student);
+
+    alert(
+        "Registration Successful!\n\nStudent ID : " +
+        student.id
     );
 
-}
-
-// -----------------------------
-// Home Screen
-// -----------------------------
-
-function showHome() {
-
-    const container =
-        document.querySelector(".container");
-
-    container.innerHTML = `
-
-<div class="welcome-card">
-
-<h1>🎓 Students Homework AI</h1>
-
-<p class="tagline">
-AI Homework Help for Classes 6–10
-<br><br>
-NCERT-CBSE Friendly • Instant Answers • 7-Day FREE Trial
-</p>
-
-<div class="badge">
-Class 6 • Class 7 • Class 8 • Class 9 • Class 10
-</div>
-
-<br>
-
-${
-isRegistered()
-
-?
-
-`<div id="classSection">
-
-<h2>Select Your Class</h2>
-
-<button id="class6">📘 Class 6</button>
-
-<button id="class7">📗 Class 7</button>
-
-<button id="class8">📙 Class 8</button>
-
-<button id="class9">📕 Class 9</button>
-
-<button id="class10">🎓 Class 10</button>
-
-</div>`
-
-:
-
-`<button
-class="register-btn"
-onclick="openRegistration()">
-
-🎁 Try Your 7-Day FREE Trial
-
-</button>`
-
-}
-
-<hr>
-
-<div class="features">
-
-<p>🤖 AI Homework Help</p>
-
-<p>📚 NCERT Friendly</p>
-
-<p>⚡ Instant Answers</p>
-
-<p>🎤 Voice Support</p>
-
-</div>
-
-<hr>
-
-<p class="footer">
-
-Made with Care by Sibaram
-
-<br><br>
-
-Made for CBSE Students (Class 6 - 10) ❤️
-
-</p>
-
-</div>
-
-`;
+    showClassDashboard(studentClass);
 
 }
 
 // ======================================================
-// CBSE Homework AI
-// script.js V2
-// PART 1B
-// PASTE IMMEDIATELY AFTER PART 1A
+// END OF PART 1
+// ======================================================
+// ======================================================
+// PART 2
+// Navigation
 // ======================================================
 
 // -----------------------------
-// Google Form
+// Class Dashboard
 // -----------------------------
 
-function openRegistration() {
+function showClassDashboard(className) {
 
-    window.open(
-        GOOGLE_FORM,
-        "_blank"
-    );
-
-    setTimeout(function () {
-
-        showAccessCodeScreen();
-
-    }, 1000);
-
-}
-
-// -----------------------------
-// Access Code Screen
-// -----------------------------
-
-function showAccessCodeScreen() {
+    if (!getStudent()) {
+        showRegistration(className);
+        return;
+    }
 
     document.querySelector(".container").innerHTML = `
 
-<div class="welcome-card">
+        <div class="welcome-card">
 
-<h2>🔑 Enter Access Code</h2>
+            <h2>${className}</h2>
 
-<p>
+            <p>Select a Subject</p>
 
-After submitting the Google Form,
-enter your Access Code below.
+            <button onclick="showSubject('${className}','Mathematics')">
+                📘 Mathematics
+            </button>
 
-</p>
+            <button onclick="showSubject('${className}','Science')">
+                🔬 Science
+            </button>
 
-<input
+            <button onclick="showSubject('${className}','Social Science')">
+                🌍 Social Science
+            </button>
 
-id="accessCode"
+            <button onclick="showSubject('${className}','English')">
+                📖 English
+            </button>
 
-type="text"
+            <button onclick="showSubject('${className}','Hindi')">
+                📝 Hindi
+            </button>
 
-placeholder="Enter Access Code">
+            <br><br>
 
-<br><br>
+            <button onclick="goHome()">
+                ⬅ Back
+            </button>
 
-<button onclick="verifyAccessCode()">
+        </div>
 
-Start FREE Trial
-
-</button>
-
-<br><br>
-
-<button onclick="showHome()">
-
-⬅ Back
-
-</button>
-
-</div>
-
-`;
-
+    `;
 }
 
 // -----------------------------
-// Verify Access Code
+// Subject Screen
 // -----------------------------
 
-function verifyAccessCode() {
+function showSubject(className, subject) {
 
-    const code =
+    document.querySelector(".container").innerHTML = `
 
-        document
-        .getElementById("accessCode")
-        .value
-        .trim();
+        <div class="welcome-card">
 
-    if (code !== ACCESS_CODE) {
+            <h2>${className}</h2>
 
-        alert(
-            "Invalid Access Code."
-        );
+            <h3>${subject}</h3>
 
-        return;
+            <button onclick="typeQuestion('${className}','${subject}')">
+                🤖 Ask AI
+            </button>
 
-    }
+            <br><br>
 
-    saveStudent({
+            <button onclick="showClassDashboard('${className}')">
+                ⬅ Back
+            </button>
 
-        registered: true,
+        </div>
 
-        joined:
-            new Date().toLocaleDateString()
-
-    });
-
-    startFreeTrial();
-
-    alert(
-        "FREE Trial Started Successfully."
-    );
-
-    showHome();
-
+    `;
 }
 
 // -----------------------------
-// Home Events
+// Question Screen
 // -----------------------------
 
-document.addEventListener(
-    "click",
-    function (e) {
+function typeQuestion(className, subject) {
 
-        if (e.target.id === "class6")
-            showClassDashboard("Class 6");
+    document.querySelector(".container").innerHTML = `
 
-        if (e.target.id === "class7")
-            showClassDashboard("Class 7");
+        <div class="welcome-card">
 
-        if (e.target.id === "class8")
-            showClassDashboard("Class 8");
+            <h2>${className}</h2>
 
-        if (e.target.id === "class9")
-            showClassDashboard("Class 9");
+            <h3>${subject}</h3>
 
-        if (e.target.id === "class10")
-            showClassDashboard("Class 10");
+            <textarea
+                id="question"
+                rows="8"
+                placeholder="Type your homework question here..."></textarea>
 
-    }
-);
+            <br><br>
+
+            <button onclick="submitQuestion('${className}','${subject}')">
+                🚀 Submit
+            </button>
+
+            <br><br>
+
+            <button onclick="showSubject('${className}','${subject}')">
+                ⬅ Back
+            </button>
+
+        </div>
+
+    `;
+}
 
 // -----------------------------
-// App Start
+// Home Buttons
 // -----------------------------
 
-window.onload = function () {
+document.getElementById("class6").onclick = function () {
+    showClassDashboard("Class 6");
+};
 
-    showHome();
+document.getElementById("class7").onclick = function () {
+    showClassDashboard("Class 7");
+};
 
+document.getElementById("class8").onclick = function () {
+    showClassDashboard("Class 8");
+};
+
+document.getElementById("class9").onclick = function () {
+    showClassDashboard("Class 9");
+};
+
+document.getElementById("class10").onclick = function () {
+    showClassDashboard("Class 10");
 };
 
 // ======================================================
-// END OF PART 1B
+// END OF PART 2
+// ======================================================
+// ======================================================
+// PART 3
+// AI Question & Answer
 // ======================================================
 
+// -----------------------------
+// Submit Question
+// -----------------------------
+
+async function submitQuestion(className, subject) {
+
+    const question = document.getElementById("question").value.trim();
+
+    if (question === "") {
+
+        alert("Please enter your homework question.");
+
+        return;
+    }
+
+    document.querySelector(".container").innerHTML = `
+
+        <div class="welcome-card">
+
+            <h2>⏳ Thinking...</h2>
+
+            <p>Please wait while AI prepares your answer.</p>
+
+        </div>
+
+    `;
+
+    try {
+
+        
+const data = await askAI(className, subject, question);
+        const answer =
+            data.answer || "Sorry, no answer was received.";
+
+        const formattedAnswer = answer
+    .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+    .replace(/\n/g, "<br>");
+        
+        document.querySelector(".container").innerHTML = `
+
+            <div class="welcome-card">
+
+                <h2>${className}</h2>
+
+                <h3>${subject}</h3>
+
+                <hr>
+
+                <h3>Your Question</h3>
+
+                <div class="answer-card">
+
+                    ${question}
+
+                </div>
+
+                <br>
+
+                <h3>🤖 AI Answer</h3>
+
+                <div class="answer-card">
+
+                    ${formattedAnswer}
+
+                </div>
+
+                <br><br>
+
+                <button onclick="typeQuestion('${className}','${subject}')">
+
+                    Ask Another Question
+
+                </button>
+
+                <br><br>
+
+                <button onclick="showSubject('${className}','${subject}')">
+
+                    ⬅ Back
+
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        document.querySelector(".container").innerHTML = `
+
+            <div class="welcome-card">
+
+                <h2>❌ Error</h2>
+
+                <p>Unable to contact AI.</p>
+
+                <p>${error.message}</p>
+
+                <br><br>
+
+                <button onclick="typeQuestion('${className}','${subject}')">
+
+                    Try Again
+
+                </button>
+
+                <br><br>
+
+                <button onclick="showSubject('${className}','${subject}')">
+
+                    ⬅ Back
+
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+// ======================================================
+// END OF PART 3
+// ======================================================
