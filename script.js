@@ -119,7 +119,70 @@ function generateStudentID() {
 // Home
 // -----------------------------
 
-function goHome() {
+function goHome() 
+
+function showAccessCodeScreen() {
+
+    document.querySelector(".container").innerHTML = `
+
+        <div class="welcome-card">
+
+            <h2>🔑 Enter Access Code</h2>
+
+            <p>
+                Enter the Access Code received after
+                Google Forms registration.
+            </p>
+
+            <input
+                id="accessCode"
+                type="text"
+                placeholder="Enter Access Code">
+
+            <br><br>
+
+            <button onclick="verifyAccessCode()">
+                Start FREE Trial
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+function verifyAccessCode() {
+
+    const code =
+        document.getElementById("accessCode")
+        .value
+        .trim();
+
+    if (code !== ACCESS_CODE) {
+
+        alert("Invalid Access Code.");
+
+        return;
+
+    }
+
+    saveStudent({
+
+        id: generateStudentID(),
+
+        registered: true
+
+    });
+
+    startFreeTrial();
+
+    alert("Welcome! Your FREE Trial has started.");
+
+    goHome();
+
+}
+
+{
     location.reload();
 }
 
