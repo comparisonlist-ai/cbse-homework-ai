@@ -5,11 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Students Homework AI</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Essential styling for display control */
-        #dashboard-screen { display: none; }
-        .class-btn { margin: 5px; cursor: pointer; }
-    </style>
 </head>
 <body>
 
@@ -28,25 +23,16 @@
                 Class 6 • Class 7 • Class 8 • Class 9 • Class 10
             </div>
             <br>
-            <a href="https://forms.gle/angKKgWnByvNvffb7" target="_blank" class="register-btn">
+            <a href="https://forms.gle/angKKgWnByvNvffb7" target="_blank" class="register-btn" style="display:inline-block; background:#27ae60; color:#fff; padding:12px 20px; border-radius:6px; text-decoration:none; font-weight:bold; margin-bottom:15px;">
                 🎁 Try Your 7-Day FREE Trial
             </a>
-            <br><br>
+            <br>
             <h2>Select Your Class</h2>
-            <button class="class-btn" onclick="selectClass(6)">📘 Class 6</button>
-            <button class="class-btn" onclick="selectClass(7)">📗 Class 7</button>
-            <button class="class-btn" onclick="selectClass(8)">📙 Class 8</button>
-            <button class="class-btn" onclick="selectClass(9)">📕 Class 9</button>
-            <button class="class-btn" onclick="selectClass(10)">🎓 Class 10</button>
-        </div>
-
-        <!-- SECTION 2: DASHBOARD (Hidden by default) -->
-        <div id="dashboard-screen">
-            <h2 id="display-title">Class Selection</h2>
-            <button onclick="goBack()">⬅ Back to Selection</button>
-            <div id="ai-chat-interface">
-                <p>Welcome to your AI Homework Assistant. How can I help you today?</p>
-            </div>
+            <button class="class-btn" id="class6">📘 Class 6</button>
+            <button class="class-btn" id="class7">📗 Class 7</button>
+            <button class="class-btn" id="class8">📙 Class 8</button>
+            <button class="class-btn" id="class9">📕 Class 9</button>
+            <button class="class-btn" id="class10">🎓 Class 10</button>
         </div>
 
         <hr>
@@ -65,30 +51,10 @@
     </div>
 </div>
 
-<script>
-    function selectClass(classNum) {
-        // Switch views
-        document.getElementById('selection-screen').style.display = 'none';
-        document.getElementById('dashboard-screen').style.display = 'block';
-        
-        // Update Title
-        document.getElementById('display-title').innerText = `Class ${classNum} AI Help`;
-        
-        // Save selection
-        localStorage.setItem('userClass', classNum);
-    }
-
-    function goBack() {
-        document.getElementById('selection-screen').style.display = 'block';
-        document.getElementById('dashboard-screen').style.display = 'none';
-    }
-</script>
-
+<!-- Load scripts in correct dependency order -->
 <script src="settings.js"></script>
 <script src="api.js"></script>
 <script src="script.js"></script>
 
 </body>
 </html>
-
-           
