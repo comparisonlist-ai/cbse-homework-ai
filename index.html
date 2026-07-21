@@ -1,33 +1,99 @@
-<div class="welcome-card">
-    <h1>CBSE Homework AI</h1>
-    <p class="tagline">Your AI-powered study companion for Classes 6 to 10.</p>
-    <div class="badge">🎁 7-Day Free Trial Available</div>
-    <hr>
-    <div class="features">
-        <p>✨ Instant NCERT Solutions</p>
-        <p>🎯 Step-by-Step Math & Science</p>
-        <p>⚡ Short, Exam-Oriented Answers</p>
-    </div>
-    <hr>
-    <!-- Registration Link for Free Trial -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CBSE Homework AI</title>
+  <style>
+    /* Reset & Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9fafb;
+      color: #111827;
+      padding: 20px;
+    }
 
-<div class="cta-container" style="display: flex; gap: 15px; align-items: center; margin-top: 20px;">
-  <!-- Registration Link styled as a primary button -->
-  <a href="  https://forms.gle/angKKgWnByvNvffb7
-   " style="background-color: #5a32a3; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; font-weight: bold;">
-    Register for 7-Day Free Trial
-  </a>
+    /* Main Container - Non-centered alignment as requested */
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 24px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
 
-  <!-- App Link styled as a secondary button pointing to the correct app route -->
-  <a href="https://h1.nu/1tOA-" style="background-color: #333; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; font-weight: bold;">
-    I Have Registered, Open App 🚀
-  </a>
-</div>
+    /* Header styling matching 'Select Your Class' */
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #111827;
+      text-align: left;
+      margin-bottom: 16px;
+    }
 
+    /* Button Group Layout */
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+
+    /* Vibrant, High-Contrast Buttons */
+    .btn {
+      display: inline-block;
+      padding: 14px 20px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background-color: #7c3aed; /* Vibrant purple */
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: #6d28d9;
+    }
+
+    .btn-secondary {
+      background-color: #1f2937; /* Dark high-contrast slate */
+      color: #ffffff;
+    }
+
+    .btn-secondary:hover {
+      background-color: #111827;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Section Title -->
+    <h2 class="section-title">Select Your Class</h2>
     
-    <button id="unlockAppBtn" style="margin-top: 15px; background: #6c757d;" onclick="checkRegistration()">
-        I Have Registered, Open App 🚀
-    </button>
-</div>
+    <!-- Action Buttons -->
+    <div class="button-group">
+      <a href="YOUR_GOOGLE_FORM_URL" class="btn btn-primary" target="_blank">Register for 7-Day Free Trial</a>
+      <a href="YOUR_APP_URL" class="btn btn-secondary">I Have Registered, Open App 🚀</a>
+    </div>
+  </div>
 
+</body>
+</html>
