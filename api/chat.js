@@ -261,27 +261,43 @@ Do not write any introduction.
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text: `${prompt}
+        
+body: JSON.stringify({
+
+  contents: [
+
+    {
+
+      parts: [
+
+        {
+          text: `${prompt}
 
 Selected Class: ${className}
 
 Subject: ${subject}
 
 Student Question:
-${question}`
-                }
-              ]
-            }
-          ]
-        })
-      }
-    );
 
+${question || "Read the question from the uploaded image."}`
+        },
+
+        ...(image
+          ? [{
+              inline_data: {
+                mime_type: "image/jpeg",
+                data: image.replace(/^data:image\/\w+;base64,/, "")
+              }
+            }]
+          : [])
+
+      ]
+
+    }
+
+  ]
+
+})
     const data = await response.json();
 
     if (!response.ok) {
