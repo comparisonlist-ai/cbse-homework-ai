@@ -215,13 +215,28 @@ function triggerOCRScan() {
     document.getElementById("ocrFileInput").click();
 }
 
-function handleOCRImage(event) {
-    const file = event.target.files[0];
-    if (file) {
-        alert("Image uploaded! (For 100% free hosting without OCR servers, please type or speak any unclear text from the image directly into the text box).");
-    }
-}
+// ---------- OCR Image Handler ----------
+let selectedImageBase64 = "";
 
+function handleOCRImage(event) {
+
+    const file = event.target.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+
+        selectedImageBase64 = e.target.result;
+
+        alert("✅ Homework image selected successfully.\n\nNow press 🚀 Submit Question.");
+    };
+
+    reader.readAsDataURL(file);
+}
 // -----------------------------
 // SUBMIT QUESTION & AI ANSWER
 // -----------------------------
