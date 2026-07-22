@@ -242,8 +242,11 @@ function handleOCRImage(event) {
 // -----------------------------
 
 async function submitQuestion(className, subject) {
-    const question = document.getElementById("question").value.trim();
-
+    
+const question =
+document.getElementById("question").value.trim();
+const image = selectedImageBase64;
+   
     if (question === "") {
         alert("Please enter or record a question.");
         return;
