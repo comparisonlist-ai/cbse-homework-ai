@@ -8,7 +8,12 @@ export default async function handler(req, res) {
 
   try {
 
-    const { className, subject, question } = req.body;
+    const {
+  className,
+  subject,
+  question,
+  image
+} = req.body;
 
     const classGuide = {
 
