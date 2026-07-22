@@ -247,7 +247,7 @@ const question =
 document.getElementById("question").value.trim();
 const image = selectedImageBase64;
    
-    if (question === "") {
+ if (question === "" && image === "") {   {
         alert("Please enter or record a question.");
         return;
     }
