@@ -1,98 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
 
-// ======================================================
-// BATCH 1
-// REPLACE EVERYTHING FROM:
-// // -----------------------------
-// NAVIGATION & REGISTRATION
-// TO JUST BEFORE:
-// // -----------------------------
-// CLASS DASHBOARD
-// ======================================================
+<head>
 
-// -----------------------------
-// GOOGLE SHEETS CONFIG
-// -----------------------------
-const GOOGLE_SCRIPT_URL =
-"https://PASTE-YOUR-GOOGLE-APPS-SCRIPT-WEBAPP-URL";
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-// -----------------------------
-// NAVIGATION
-// -----------------------------
-function goHome() {
+<title>CBSE Homework AI</title>
 
-    if (localStorage.getItem("registered") === "true") {
-        showDashboard();
-    } else {
-        location.reload();
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f4f6fb;
+padding:18px;
+color:#222;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+background:#fff;
+border-radius:14px;
+padding:24px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.logo{
+text-align:center;
+font-size:28px;
+font-weight:700;
+color:#4f46e5;
+margin-bottom:10px;
+}
+
+.tagline{
+text-align:center;
+color:#666;
+margin-bottom:25px;
+font-size:15px;
+}
+
+.welcome-card{
+display:flex;
+flex-direction:column;
+gap:14px;
+}
+
+input,
+textarea,
+select{
+
+width:100%;
+padding:13px;
+font-size:15px;
+border:1px solid #ddd;
+border-radius:8px;
+outline:none;
 
 }
 
-// -----------------------------
-// REGISTRATION
-// -----------------------------
-async function registerStudent() {
+input:focus,
+textarea:focus{
 
-    const name = document.getElementById("name").value.trim();
-    const mobile = document.getElementById("mobile").value.trim();
-    const email = document.getElementById("email").value.trim();
-
-    if (!name || !mobile || !email) {
-        alert("Please fill all fields.");
-        return;
-    }
-
-    try {
-
-        await fetch(GOOGLE_SCRIPT_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name,
-                mobile,
-                email,
-                registeredOn: new Date().toLocaleString()
-            })
-        });
-
-        localStorage.setItem("registered", "true");
-        localStorage.setItem("studentName", name);
-
-        startFreeTrial();
-
-        showDashboard();
-
-    } catch (err) {
-
-        console.error(err);
-        alert("Registration failed.");
-
-    }
+border-color:#4f46e5;
 
 }
 
-// -----------------------------
-// SHOW DASHBOARD
-// -----------------------------
-function showDashboard() {
+button{
 
-    document.getElementById("registration").style.display = "none";
-    document.getElementById("dashboard").style.display = "block";
+width:100%;
+padding:13px;
+border:none;
+border-radius:8px;
+background:#4f46e5;
+color:white;
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+transition:.2s;
 
 }
 
-// -----------------------------
-// AUTO LOGIN
-// -----------------------------
-window.addEventListener("load", function () {
+button:hover{
 
-    if (localStorage.getItem("registered") === "true") {
+background:#4338ca;
 
-        showDashboard();
+}
 
-    }
+.secondary{
 
-});
+background:#6b7280;
+
+}
+
+.secondary:hover{
+
+background:#4b5563;
+
+}
+
+.success{
+
+background:#16a34a;
+
+}
+
+.success:hover{
+
+background:#15803d;
+
+}
+
+.warning{
+
+background:#ea580c;
+
+}
+
+.warning:hover{
+
+background:#c2410c;
+
+}
+
+.subject-grid{
+
+display:grid;
+grid-template-columns:1fr;
+gap:12px;
+
+}
+
+.answer-card{
+
+background:#f8fafc;
+padding:14px;
+border-radius:10px;
+border:1px solid #e5e7eb;
+
+}
+
+#registration{
+
+display:block;
+
+}
+
+#dashboard{
+
+display:none;
+
+}
+
+hr{
+
+margin:15px 0;
+border:none;
+border-top:1px solid #eee;
+
+}
+
+@media(min-width:640px){
+
+.subject-grid{
+
+grid-template-columns:1fr 1fr;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">
+CBSE Homework AI
+</div>
+
+<div class="tagline">
+AI Homework Assistant for Classes 6–10
+</div>
+<!-- ========================= -->
+<!-- BATCH 2 -->
+<!-- Paste BELOW the tagline -->
+<!-- ========================= -->
+
+<!-- Registration Section -->
+<div id="registration">
+
+    <div class="welcome-card">
+
+        <h2>🎉 Start Your 7-Day FREE Trial</h2>
+
+        <p>
+            Register once to access CBSE Homework AI.
+        </p>
+
+        <input
+            type="text"
+            id="name"
+            placeholder="Student Name"
+            autocomplete="name"
+        >
+
+        <input
+            type="tel"
+            id="mobile"
+            placeholder="Mobile Number"
+            maxlength="10"
+            autocomplete="tel"
+        >
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Email Address"
+            autocomplete="email"
+        >
+
+        <button
+            class="success"
+            onclick="registerStudent()">
+            🚀 Start FREE Trial
+        </button>
+
+        <hr>
+
+        <p style="text-align:center;font-size:14px;color:#666;">
+            Already Registered?
+        </p>
+
+        <button
+            class="secondary"
+            onclick="showDashboard()">
+            📚 Open Dashboard
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Dashboard starts in Batch 3 -->
+<div id="dashboard" style="display:none;">
+
+<!-- ========================= -->
+<!-- BATCH 3 -->
+<!-- Paste INSIDE <div id="dashboard"> -->
+<!-- ========================= -->
+
+<div class="welcome-card">
+
+    <h2>Select Your Class</h2>
+
+    <p style="color:#666;">
+        Choose your CBSE class to continue.
+    </p>
+
+    <div class="subject-grid">
+
+        <button id="class6">
+            📘 Class 6
+        </button>
+
+        <button id="class7">
+            📗 Class 7
+        </button>
+
+        <button id="class8">
+            📙 Class 8
+        </button>
+
+        <button id="class9">
+            📕 Class 9
+        </button>
+
+        <button id="class10">
+            🎓 Class 10
+        </button>
+
+    </div>
+
+    <hr>
+
+    <button
+        class="secondary"
+        onclick="goHome()">
+        ⬅ Home
+    </button>
+
+</div>
+
+</div>
+<!-- End Dashboard -->
+
+    
+    <!-- ========================= -->
+<!-- BATCH 4 (FINAL) -->
+<!-- Paste AFTER Batch 3 -->
+<!-- ========================= -->
+
+<!-- Hidden OCR Image Picker -->
+<input
+    type="file"
+    id="ocrFileInput"
+    accept="image/*"
+    capture="environment"
+    style="display:none;"
+>
+
+<!-- Optional Hidden Image Input -->
+<input
+    type="file"
+    id="imageInput"
+    accept="image/*"
+    style="display:none;"
+>
+
+<!-- Main JavaScript -->
+<script src="script.js"></script>
+
+</div>
+<!-- End .container -->
+
+</body>
+</html>
+
+    
