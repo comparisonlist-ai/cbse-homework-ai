@@ -17,6 +17,20 @@ function doPost(e) {
     const data = JSON.parse(e.postData.contents);
 
     const sheet = getRegistrationSheet();
+const existingRow = findRegistrationByMobile(sheet, data.mobile);
+
+if (existingRow !== -1) {
+
+  return ContentService
+    .createTextOutput(JSON.stringify({
+      success: true,
+      existing: true,
+      message: "Student already registered."
+    }))
+    .setMimeType(ContentService.MimeType.JSON);
+
+}
+    
 
     sheet.appendRow([
 
