@@ -181,3 +181,62 @@ function findRegistrationByMobile(sheet, mobile) {
 
 }
 
+// =====================================================
+// Batch 4
+// Registration Status API
+// =====================================================
+
+function doGet(e) {
+
+  try {
+
+    const mobile = (e.parameter.mobile || "").trim();
+
+    const sheet = getRegistrationSheet();
+
+    const row = findRegistrationByMobile(sheet, mobile);
+
+    if (row === -1) {
+
+      return ContentService
+        .createTextOutput(JSON.stringify({
+
+          registered: false
+
+        }))
+        .setMimeType(ContentService.MimeType.JSON);
+
+    }
+
+    const values = sheet.getRange(row, 1, 1, 7).getValues()[0];
+
+    return ContentService
+      .createTextOutput(JSON.stringify({
+
+        registered: true,
+        name: values[1],
+        mobile: values[2],
+        email: values[3],
+        trialStart: values[5],
+        plan: values[6]
+
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  }
+
+  catch(err){
+
+    return ContentService
+      .createTextOutput(JSON.stringify({
+
+        registered:false,
+        error:err.toString()
+
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  }
+
+}
+
