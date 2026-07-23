@@ -1,160 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>CBSE Homework AI</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+// ======================================================
+// BATCH 1
+// REPLACE EVERYTHING FROM:
+// // -----------------------------
+// NAVIGATION & REGISTRATION
+// TO JUST BEFORE:
+// // -----------------------------
+// CLASS DASHBOARD
+// ======================================================
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins,sans-serif;
+// -----------------------------
+// GOOGLE SHEETS CONFIG
+// -----------------------------
+const GOOGLE_SCRIPT_URL =
+"https://PASTE-YOUR-GOOGLE-APPS-SCRIPT-WEBAPP-URL";
+
+// -----------------------------
+// NAVIGATION
+// -----------------------------
+function goHome() {
+
+    if (localStorage.getItem("registered") === "true") {
+        showDashboard();
+    } else {
+        location.reload();
+    }
+
 }
 
-body{
-background:#f4f7fb;
-padding:20px;
+// -----------------------------
+// REGISTRATION
+// -----------------------------
+async function registerStudent() {
+
+    const name = document.getElementById("name").value.trim();
+    const mobile = document.getElementById("mobile").value.trim();
+    const email = document.getElementById("email").value.trim();
+
+    if (!name || !mobile || !email) {
+        alert("Please fill all fields.");
+        return;
+    }
+
+    try {
+
+        await fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name,
+                mobile,
+                email,
+                registeredOn: new Date().toLocaleString()
+            })
+        });
+
+        localStorage.setItem("registered", "true");
+        localStorage.setItem("studentName", name);
+
+        startFreeTrial();
+
+        showDashboard();
+
+    } catch (err) {
+
+        console.error(err);
+        alert("Registration failed.");
+
+    }
+
 }
 
-.container{
-max-width:520px;
-margin:auto;
-background:#fff;
-padding:25px;
-border-radius:12px;
-box-shadow:0 5px 20px rgba(0,0,0,.08);
+// -----------------------------
+// SHOW DASHBOARD
+// -----------------------------
+function showDashboard() {
+
+    document.getElementById("registration").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+
 }
 
-h1{
-text-align:center;
-color:#4f46e5;
-margin-bottom:8px;
-}
+// -----------------------------
+// AUTO LOGIN
+// -----------------------------
+window.addEventListener("load", function () {
 
-p{
-text-align:center;
-margin-bottom:20px;
-color:#555;
-}
+    if (localStorage.getItem("registered") === "true") {
 
-input{
-width:100%;
-padding:12px;
-margin:10px 0;
-border:1px solid #ddd;
-border-radius:8px;
-font-size:15px;
-}
+        showDashboard();
 
-button{
-width:100%;
-padding:14px;
-border:none;
-border-radius:8px;
-background:#4f46e5;
-color:#fff;
-font-size:16px;
-font-weight:600;
-cursor:pointer;
-margin-top:10px;
-}
+    }
 
-button:hover{
-background:#4338ca;
-}
-
-#dashboard{
-display:none;
-}
-
-.class-btn{
-margin:8px 0;
-}
-
-.success{
-display:none;
-margin-top:15px;
-text-align:center;
-color:green;
-font-weight:bold;
-}
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-<div id="registration">
-
-<h1>CBSE Homework AI</h1>
-
-<p>Register once to start your FREE Trial.</p>
-
-<input
-type="text"
-id="name"
-placeholder="Student Name"
-required>
-
-<input
-type="tel"
-id="mobile"
-placeholder="Mobile Number"
-required>
-
-<input
-type="email"
-id="email"
-placeholder="Email Address"
-required>
-
-<button onclick="registerStudent()">
-Start Free Trial
-</button>
-
-<div class="success" id="success">
-Registration Successful...
-Opening Dashboard...
-</div>
-
-</div>
-
-<div id="dashboard">
-
-<h1>Welcome</h1>
-
-<p>Select Your Class</p>
-
-<button class="class-btn" id="class6">
-Class 6
-</button>
-
-<button class="class-btn" id="class7">
-Class 7
-</button>
-
-<button class="class-btn" id="class8">
-Class 8
-</button>
-
-<button class="class-btn" id="class9">
-Class 9
-</button>
-
-<button class="class-btn" id="class10">
-Class 10
-</button>
-
-</div>
-
-</div>
-
-<script src="script.js"></script>
-
-</body>
-</html>
+});
