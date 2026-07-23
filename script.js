@@ -210,3 +210,101 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
+// ======================================================
+// BATCH 1
+// REPLACE EVERYTHING FROM:
+// // -----------------------------
+// NAVIGATION & REGISTRATION
+// TO JUST BEFORE:
+// // -----------------------------
+// CLASS DASHBOARD
+// ======================================================
+
+// -----------------------------
+// GOOGLE SHEETS CONFIG
+// -----------------------------
+const GOOGLE_SCRIPT_URL =
+"https://PASTE-YOUR-GOOGLE-APPS-SCRIPT-WEBAPP-URL";
+
+// -----------------------------
+// NAVIGATION
+// -----------------------------
+function goHome() {
+
+    if (localStorage.getItem("registered") === "true") {
+        showDashboard();
+    } else {
+        location.reload();
+    }
+
+}
+
+// -----------------------------
+// REGISTRATION
+// -----------------------------
+async function registerStudent() {
+
+    const name = document.getElementById("name").value.trim();
+    const mobile = document.getElementById("mobile").value.trim();
+    const email = document.getElementById("email").value.trim();
+
+    if (!name || !mobile || !email) {
+        alert("Please fill all fields.");
+        return;
+    }
+
+    try {
+
+        await fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name,
+                mobile,
+                email,
+                registeredOn: new Date().toLocaleString()
+            })
+        });
+
+        localStorage.setItem("registered", "true");
+        localStorage.setItem("studentName", name);
+
+        startFreeTrial();
+
+        showDashboard();
+
+    } catch (err) {
+
+        console.error(err);
+        alert("Registration failed.");
+
+    }
+
+}
+
+// -----------------------------
+// SHOW DASHBOARD
+// -----------------------------
+function showDashboard() {
+
+    document.getElementById("registration").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+
+}
+
+// -----------------------------
+// AUTO LOGIN
+// -----------------------------
+window.addEventListener("load", function () {
+
+    if (localStorage.getItem("registered") === "true") {
+
+        showDashboard();
+
+    }
+
+});
