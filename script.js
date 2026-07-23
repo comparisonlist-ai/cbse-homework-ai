@@ -143,3 +143,27 @@ function getDeviceName(userAgent) {
   return "Unknown Device";
 
 }
+// =====================================================
+// Batch 3
+// Duplicate Registration Check
+// =====================================================
+
+function findRegistrationByMobile(sheet, mobile) {
+
+  if (!mobile) return -1;
+
+  const values = sheet.getDataRange().getValues();
+
+  // Skip header row
+  for (let i = 1; i < values.length; i++) {
+
+    if (String(values[i][2]).trim() === String(mobile).trim()) {
+      return i + 1; // Spreadsheet row number
+    }
+
+  }
+
+  return -1;
+
+}
+
