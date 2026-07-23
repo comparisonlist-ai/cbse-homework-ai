@@ -63,3 +63,83 @@ function doPost(e) {
   }
 
 }
+// =====================================================
+// Batch 2
+// Sheet Creator & Header Generator
+// =====================================================
+
+function getRegistrationSheet() {
+
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+
+  let sheet = ss.getSheetByName(SHEET_NAME);
+
+  // Create sheet if it doesn't exist
+  if (!sheet) {
+
+    sheet = ss.insertSheet(SHEET_NAME);
+
+  }
+
+  // Add header row if empty
+  if (sheet.getLastRow() === 0) {
+
+    sheet.appendRow([
+
+      "Timestamp",
+      "Student Name",
+      "Mobile",
+      "Email",
+      "Device",
+      "Trial Start",
+      "Plan"
+
+    ]);
+
+    // Make header bold
+    sheet.getRange(1, 1, 1, 7)
+         .setFontWeight("bold");
+
+    // Freeze header row
+    sheet.setFrozenRows(1);
+
+    // Auto resize columns
+    sheet.autoResizeColumns(1, 7);
+
+  }
+
+  return sheet;
+
+}
+
+// =====================================================
+// Device Information
+// =====================================================
+
+function getDeviceName(userAgent) {
+
+  if (!userAgent) return "Unknown Device";
+
+  userAgent = userAgent.toLowerCase();
+
+  if (userAgent.includes("android"))
+    return "Android";
+
+  if (userAgent.includes("iphone"))
+    return "iPhone";
+
+  if (userAgent.includes("ipad"))
+    return "iPad";
+
+  if (userAgent.includes("windows"))
+    return "Windows PC";
+
+  if (userAgent.includes("mac"))
+    return "Mac";
+
+  if (userAgent.includes("linux"))
+    return "Linux";
+
+  return "Unknown Device";
+
+}
