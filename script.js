@@ -27,8 +27,8 @@ function doPost(e) {
       data.mobile || "",
 
       data.email || "",
-
-      data.device || "",
+getDeviceName(data.device),
+      
 
       data.trialStart || "",
 
