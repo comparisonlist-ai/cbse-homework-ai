@@ -1,310 +1,65 @@
-// ===============================
-// CBSE Homework AI - script.js
-// ===============================
+// =====================================================
+// CBSE Homework AI
+// Google Apps Script - Code.gs
+// Batch 1
+// =====================================================
 
-// REPLACE WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-const API_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+// Sheet Name
+const SHEET_NAME = "Registrations";
 
-// Check if student is already registered
-window.onload = function () {
-    const registered = localStorage.getItem("registered");
+// ------------------------------------
+// Handle POST Requests
+// ------------------------------------
+function doPost(e) {
 
-    if (registered === "true") {
-        showDashboard();
-    }
-};
+  try {
 
-// Register Student
-async function registerStudent() {
+    const data = JSON.parse(e.postData.contents);
 
-    const name = document.getElementById("name").value.trim();
-    const mobile = document.getElementById("mobile").value.trim();
-    const email = document.getElementById("email").value.trim();
+    const sheet = getRegistrationSheet();
 
-    if (!name || !mobile || !email) {
-        alert("Please fill all fields.");
-        return;
-    }
+    sheet.appendRow([
 
-    try {
+      new Date(),
 
-        await fetch(API_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name,
-                mobile,
-                email,
-                date: new Date().toLocaleString()
-            })
-        });
+      data.name || "",
 
-        localStorage.setItem("registered", "true");
-        localStorage.setItem("studentName", name);
-        localStorage.setItem("trialStart", Date.now());
-        localStorage.setItem("questionCount", "0");
+      data.mobile || "",
 
-        document.getElementById("success").style.display = "block";
+      data.email || "",
 
-        setTimeout(showDashboard, 1500);
+      data.device || "",
 
-    } catch (err) {
-        alert("Registration failed.");
-        console.error(err);
-    }
+      data.trialStart || "",
 
-}
+      "FREE"
 
-// Show Dashboard
-function showDashboard() {
+    ]);
 
-    document.getElementById("registration").style.display = "none";
-    document.getElementById("dashboard").style.display = "block";
+    return ContentService
+      .createTextOutput(JSON.stringify({
+
+        success: true,
+
+        message: "Registration Successful"
+
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  }
+
+  catch(err){
+
+    return ContentService
+      .createTextOutput(JSON.stringify({
+
+        success:false,
+
+        error:err.toString()
+
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  }
 
 }
-
-// Logout
-function logout() {
-
-    localStorage.clear();
-    location.reload();
-
-}
-
-// Class Buttons
-document.addEventListener("DOMContentLoaded", () => {
-
-    ["6", "7", "8", "9", "10"].forEach(cls => {
-
-        const btn = document.getElementById("class" + cls);
-
-        if (!btn) return;
-
-        btn.addEventListener("click", () => {
-
-            alert("Open Class " + cls + " Dashboard");
-
-            // Replace with your existing function
-            // showClassDashboard("Class " + cls);
-
-        });
-
-    });
-
-});
-
-// ===============================
-// CBSE Homework AI - script.js
-// ===============================
-
-// Replace with your Google Apps Script Web App URL
-const GOOGLE_SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
-
-// -------------------------------
-// Auto Login
-// -------------------------------
-window.onload = function () {
-    if (localStorage.getItem("registered") === "true") {
-        showDashboard();
-    }
-};
-
-// -------------------------------
-// Register Student
-// -------------------------------
-async function registerStudent() {
-
-    const name = document.getElementById("name").value.trim();
-    const mobile = document.getElementById("mobile").value.trim();
-    const email = document.getElementById("email").value.trim();
-
-    if (!name || !mobile || !email) {
-        alert("Please fill all fields.");
-        return;
-    }
-
-    if (mobile.length !== 10) {
-        alert("Enter a valid mobile number.");
-        return;
-    }
-
-    const btn = document.querySelector("#registration button");
-    btn.disabled = true;
-    btn.innerText = "Registering...";
-
-    try {
-
-        await fetch(GOOGLE_SCRIPT_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name,
-                mobile,
-                email,
-                time: new Date().toLocaleString()
-            })
-        });
-
-        localStorage.setItem("registered", "true");
-        localStorage.setItem("studentName", name);
-        localStorage.setItem("studentMobile", mobile);
-        localStorage.setItem("studentEmail", email);
-
-        document.getElementById("success").style.display = "block";
-
-        setTimeout(showDashboard, 1200);
-
-    } catch (err) {
-
-        alert("Registration failed.");
-
-        btn.disabled = false;
-        btn.innerText = "Start Free Trial";
-    }
-}
-
-// -------------------------------
-// Dashboard
-// -------------------------------
-function showDashboard() {
-
-    document.getElementById("registration").style.display = "none";
-    document.getElementById("dashboard").style.display = "block";
-}
-
-// -------------------------------
-// Logout
-// -------------------------------
-function logout() {
-
-    localStorage.removeItem("registered");
-    location.reload();
-}
-
-// -------------------------------
-// Class Buttons
-// -------------------------------
-document.addEventListener("DOMContentLoaded", () => {
-
-    ["6","7","8","9","10"].forEach(cls => {
-
-        const btn = document.getElementById("class" + cls);
-
-        if (!btn) return;
-
-        btn.onclick = () => {
-
-            alert("Open Class " + cls + " Dashboard");
-
-            // Replace this with your existing function
-            // showClassDashboard("Class " + cls);
-
-        };
-
-    });
-
-});
-
-// ======================================================
-// BATCH 1
-// REPLACE EVERYTHING FROM:
-// // -----------------------------
-// NAVIGATION & REGISTRATION
-// TO JUST BEFORE:
-// // -----------------------------
-// CLASS DASHBOARD
-// ======================================================
-
-// -----------------------------
-// GOOGLE SHEETS CONFIG
-// -----------------------------
-const GOOGLE_SCRIPT_URL =
-"https://PASTE-YOUR-GOOGLE-APPS-SCRIPT-WEBAPP-URL";
-
-// -----------------------------
-// NAVIGATION
-// -----------------------------
-function goHome() {
-
-    if (localStorage.getItem("registered") === "true") {
-        showDashboard();
-    } else {
-        location.reload();
-    }
-
-}
-
-// -----------------------------
-// REGISTRATION
-// -----------------------------
-async function registerStudent() {
-
-    const name = document.getElementById("name").value.trim();
-    const mobile = document.getElementById("mobile").value.trim();
-    const email = document.getElementById("email").value.trim();
-
-    if (!name || !mobile || !email) {
-        alert("Please fill all fields.");
-        return;
-    }
-
-    try {
-
-        await fetch(GOOGLE_SCRIPT_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name,
-                mobile,
-                email,
-                registeredOn: new Date().toLocaleString()
-            })
-        });
-
-        localStorage.setItem("registered", "true");
-        localStorage.setItem("studentName", name);
-
-        startFreeTrial();
-
-        showDashboard();
-
-    } catch (err) {
-
-        console.error(err);
-        alert("Registration failed.");
-
-    }
-
-}
-
-// -----------------------------
-// SHOW DASHBOARD
-// -----------------------------
-function showDashboard() {
-
-    document.getElementById("registration").style.display = "none";
-    document.getElementById("dashboard").style.display = "block";
-
-}
-
-// -----------------------------
-// AUTO LOGIN
-// -----------------------------
-window.addEventListener("load", function () {
-
-    if (localStorage.getItem("registered") === "true") {
-
-        showDashboard();
-
-    }
-
-});
