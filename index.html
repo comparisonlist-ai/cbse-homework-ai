@@ -233,3 +233,115 @@ onclick="showDashboard()">
 </button>
 
 </div>
+<!-- ===================================================== -->
+<!-- DASHBOARD -->
+<!-- Part 1B -->
+<!-- ===================================================== -->
+
+<div id="dashboard" class="card hidden">
+
+    <div class="center">
+
+        <h2>🎓 Student Dashboard</h2>
+
+        <p id="welcomeMessage" style="margin-top:10px;color:#666;">
+            Welcome!
+        </p>
+
+        <div class="badge" id="membershipBadge">
+            🆓 7-Day FREE Trial
+        </div>
+
+    </div>
+
+    <div class="card" style="background:#f8fafc;margin-top:18px;">
+
+        <h3 style="margin-bottom:10px;">Usage</h3>
+
+        <p id="usageCounter">
+            Questions Used: <strong>0 / 100</strong>
+        </p>
+
+        <div style="
+            width:100%;
+            height:10px;
+            background:#e5e7eb;
+            border-radius:20px;
+            margin-top:12px;
+            overflow:hidden;
+        ">
+
+            <div id="usageBar"
+                 style="
+                    width:0%;
+                    height:100%;
+                    background:#4f46e5;
+                 ">
+            </div>
+
+        </div>
+
+    </div>
+
+    <h3 style="margin-top:22px;">
+        Select Your Class
+    </h3>
+
+    <p style="color:#666;margin-top:6px;">
+        Choose your current CBSE class.
+    </p>
+
+    <div class="subject-grid">
+
+        <button
+            class="primary"
+            onclick="showSubjects('Class 6')">
+            📘 Class 6
+        </button>
+
+        <button
+            class="primary"
+            onclick="showSubjects('Class 7')">
+            📗 Class 7
+        </button>
+
+        <button
+            class="primary"
+            onclick="showSubjects('Class 8')">
+            📙 Class 8
+        </button>
+
+        <button
+            class="primary"
+            onclick="showSubjects('Class 9')">
+            📕 Class 9
+        </button>
+
+        <button
+            class="primary"
+            onclick="showSubjects('Class 10')">
+            🎓 Class 10
+        </button>
+
+    </div>
+
+    <hr>
+
+    <button
+        class="secondary"
+        onclick="goHome()">
+        ⬅ Back to Home
+    </button>
+
+    <button
+        class="warning"
+        onclick="logoutStudent()">
+        🚪 Logout
+    </button>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- SUBJECT SCREEN -->
+<!-- Part 1C starts next -->
+<!-- ===================================================== -->
