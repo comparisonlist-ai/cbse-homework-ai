@@ -1,327 +1,200 @@
+// ======================================================
+// CBSE Homework AI
+// api/chat.js
+// BATCH 1
+// Production Ready
+// ======================================================
+
+const GEMINI_API_URL =
+"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+
 export default async function handler(req, res) {
 
-  if (req.method !== "POST") {
-    return res.status(405).json({
-      error: "Method Not Allowed"
-    });
-  }
-
-  try {
-
-    const {
-  className,
-  subject,
-  question,
-  image
-} = req.body;
-
-    const classGuide = {
-
-      "Class 6": `
-- Use very simple English.
-- Explain like a Class 6 CBSE teacher.
-- Use only Class 6 NCERT concepts.
-- Never include Class 7-10 topics.
-- Keep answers short and easy.
-`,
-
-      "Class 7": `
-- Answer according to Class 7 CBSE syllabus.
-- Use simple language.
-- Give short explanations.
-- Do not use Class 8-10 concepts.
-`,
-
-      "Class 8": `
-- Answer according to Class 8 NCERT.
-- Keep explanations clear.
-- Avoid Class 9-10 concepts.
-`,
-
-      "Class 9": `
-- Answer according to Class 9 NCERT.
-- Explain concepts properly.
-- Include formulas only when needed.
-`,
-
-      "Class 10": `
-- Answer according to Class 10 NCERT.
-- Be exam-oriented.
-- Include formulas and important points whenever required.
-`
-
-    };
-
-    const subjectGuide = {
-
-      "Mathematics": `
-- Solve step by step.
-- Show formulas before solving.
-- Do not skip calculations.
-- Box the final answer.
-`,
-
-      "Science": `
-- Follow NCERT terminology.
-- Explain scientific concepts clearly.
-- Mention diagrams only if helpful.
-`,
-
-      "Social Science": `
-- Use NCERT facts only.
-- Mention important years only if required.
-- Keep answers point-wise.
-`,
-
-      "English": `
-- Use simple grammar.
-- Correct spellings.
-- Keep language suitable for school students.
-`,
-
-      "Hindi": `
-- उत्तर सरल, स्पष्ट और CBSE स्तर का हो।
-- कठिन हिन्दी का प्रयोग न करें।
-`,
-
-      "Sanskrit": `
-- उत्तर सरल संस्कृत/हिन्दी में दें।
-`,
-
-      "Computer": `
-- Use school-level computer concepts only.
-`
-    };
-
-    const syllabusInstruction =
-      classGuide[className] ||
-      "Answer according to the selected CBSE class.";
-
-    const subjectInstruction =
-      subjectGuide[subject] ||
-      "Answer according to the selected subject.";
-
-    const prompt = `
-
-You are an expert CBSE & NCERT teacher for Classes 6 to 10.
-
-VERY IMPORTANT
-
-Students want the SHORTEST correct answer first.
-
-Follow these rules strictly.
-
-==================================================
-
-RULE 1
-
-If the question asks:
-
-• What is...
-• Who is...
-• Which is...
-• Name...
-• Define...
-• Expand...
-• Full form...
-• Where is...
-• When...
-• Yes/No
-
-Give ONLY the direct answer.
-
-Do NOT add:
-
-READ MORE
-
-QUICK REVISION
-
-PRACTICE QUESTION
-
-Examples
-
-Q: What is the smallest continent?
-
-A:
-Australia is the smallest continent in the world.
-
-----------------------------
-
-Q: Who discovered India by sea route?
-
-A:
-Vasco da Gama discovered India by sea route in 1498.
-
-----------------------------
-
-Q: Define photosynthesis.
-
-A:
-Photosynthesis is the process by which green plants prepare their own food using sunlight, carbon dioxide and water.
-
-==================================================
-
-RULE 2
-
-If the student asks:
-
-Explain
-Describe
-How
-Why
-Difference between
-Advantages
-Disadvantages
-5 marks
-10 marks
-Essay
-Long answer
-
-Then give:
-
-QUICK ANSWER (COMPULSORY)
-
-Never answer in only one sentence.
-
-For every question, write at least 3 and at most 5 short points.
-
-If the question is a fact (such as "Which planet is nearest to the Sun?"), include:
-• The direct answer.
-• One important NCERT fact.
-• One more related NCERT fact.
-
-Example:
-
-Question: Which planet is nearest to the Sun?
-
-QUICK ANSWER
-• Mercury is the planet nearest to the Sun.
-• It is the smallest planet in the Solar System.
-• Mercury has no natural satellite (moon).
-• It completes one revolution around the Sun in about 88 days.
-
-After the Quick Answer, always give:
-QUICK REVISION
-PRACTICE QUESTION
-
-followed by
-
-READ MORE
-
-Only if necessary.
-
-==================================================
-
-RULE 3
-
-Never add unnecessary examples.
-
-Never add stories.
-
-Never add illustrations.
-
-Never add diagrams.
-
-Never add practice questions unless the student asks.
-
-Never add quick revision automatically.
-
-==================================================
-
-RULE 4
-
-Always use simple CBSE English suitable for the selected class.
-
-Maximum answer length:
-
-Simple factual question:
-1-3 lines
-
-Medium question:
-5-8 points
-
-Long answer:
-Only when specifically requested.
-
-==================================================
-
-Give only the answer.
-
-Do not say:
-"Here is your answer."
-
-Do not write any introduction.
-
+    // Allow only POST requests
+    if (req.method !== "POST") {
+        return res.status(405).json({
+            success: false,
+            error: "Method Not Allowed"
+        });
+    }
+
+    try {
+
+        // Read request
+        const body = req.body || {};
+
+        const question =
+            (body.question || "").trim();
+
+        const studentClass =
+            body.className || "";
+
+        const subject =
+            body.subject || "";
+
+        if (!question) {
+            return res.status(400).json({
+                success: false,
+                error: "Question is required."
+            });
+        }
+
+        // Check API Key
+        if (!process.env.GEMINI_API_KEY) {
+
+            return res.status(500).json({
+                success: false,
+                error: "Gemini API Key not configured."
+            });
+
+        }
+
+        // Continue in Batch 2...
+        
+                // ======================================================
+        // BUILD CBSE SYSTEM PROMPT
+        // ======================================================
+
+        const systemPrompt = `
+You are CBSE Homework AI.
+
+You are an expert CBSE teacher.
+
+Always answer according to:
+- NCERT
+- CBSE Guidelines
+- Class ${studentClass}
+- Subject: ${subject}
+
+Rules:
+
+1. Explain in simple student-friendly English.
+2. Give correct and accurate answers.
+3. Show steps for Maths.
+4. Keep answers concise unless the question needs detail.
+5. Use headings and bullet points whenever useful.
+6. If appropriate, include:
+   - Quick Answer
+   - Explanation
+   - Key Points
+   - Practice Question
+7. Never invent facts.
+8. If the question is unclear, politely ask the student to clarify.
 `;
 
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        
-body: JSON.stringify({
-
-  contents: [
-
-    {
-
-      parts: [
-
-        {
-          text: `${prompt}
-
-Selected Class: ${className}
-
+        const userPrompt = `
+Class: ${studentClass}
 Subject: ${subject}
 
-Student Question:
+Question:
+${question}
+`;
 
-${question || "Read the question from the uploaded image."}`
-        },
+        // ======================================================
+        // CALL GEMINI API
+        // ======================================================
 
-        ...(image
-          ? [{
-              inline_data: {
-                mime_type: "image/jpeg",
-                data: image.replace(/^data:image\/\w+;base64,/, "")
-              }
-            }]
-          : [])
+        const geminiResponse = await fetch(
+            `${GEMINI_API_URL}?key=${process.env.GEMINI_API_KEY}`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    contents: [
+                        {
+                            parts: [
+                                {
+                                    text:
+                                        systemPrompt +
+                                        "\n\n" +
+                                        userPrompt
+                                }
+                            ]
+                        }
+                    ],
+                    generationConfig: {
+                        temperature: 0.4,
+                        topP: 0.9,
+                        topK: 40,
+                        maxOutputTokens: 2048
+                    }
+                })
+            }
+        );
 
-      ]
+        // Continue in Batch 3...
+        
+        // ======================================================
+        // CHECK GEMINI RESPONSE
+        // ======================================================
+
+        if (!geminiResponse.ok) {
+
+            const errorText = await geminiResponse.text();
+
+            console.error("Gemini API Error:", errorText);
+
+            return res.status(geminiResponse.status).json({
+                success: false,
+                error: "Unable to contact the AI server.",
+                details: errorText
+            });
+
+        }
+
+        const data = await geminiResponse.json();
+
+        // ======================================================
+        // EXTRACT AI ANSWER
+        // ======================================================
+
+        let answer = "";
+
+        if (
+            data.candidates &&
+            data.candidates.length > 0 &&
+            data.candidates[0].content &&
+            data.candidates[0].content.parts &&
+            data.candidates[0].content.parts.length > 0
+        ) {
+
+            answer = data.candidates[0].content.parts
+                .map(part => part.text || "")
+                .join("\n")
+                .trim();
+
+        }
+
+        if (!answer) {
+
+            return res.status(500).json({
+                success: false,
+                error: "The AI did not generate an answer."
+            });
+
+        }
+
+        // ======================================================
+        // SUCCESS RESPONSE
+        // ======================================================
+
+        return res.status(200).json({
+            success: true,
+            answer: answer
+        });
+
+    } catch (error) {
+
+        console.error("Server Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            error: "Internal Server Error.",
+            message: error.message
+        });
 
     }
 
-  ]
-
-})
-    const data = await response.json();
-
-    if (!response.ok) {
-      return res.status(500).json({
-        error:
-          data.error?.message ||
-          "Gemini API Error"
-      });
     }
-
-    const answer =
-      data.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "Sorry, no answer was returned.";
-
-    return res.status(200).json({
-      answer
-    });
-
-  } catch (err) {
-
-    return res.status(500).json({
-      error: err.message
-    });
-
-  }
-
-      }
