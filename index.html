@@ -345,3 +345,126 @@ onclick="showDashboard()">
 <!-- SUBJECT SCREEN -->
 <!-- Part 1C starts next -->
 <!-- ===================================================== -->
+<!-- ===================================================== -->
+<!-- SUBJECT SELECTION -->
+<!-- Part 1C -->
+<!-- ===================================================== -->
+
+<div id="subjectScreen" class="card hidden">
+
+    <div class="center">
+
+        <h2 id="selectedClassTitle">
+            📚 Class
+        </h2>
+
+        <p style="margin-top:8px;color:#666;">
+            Select the subject for which you need homework help.
+        </p>
+
+    </div>
+
+    <div class="subject-grid" style="margin-top:20px;">
+
+        <button class="primary"
+                onclick="openHomework('Mathematics')">
+            ➗ Mathematics
+        </button>
+
+        <button class="primary"
+                onclick="openHomework('Science')">
+            🔬 Science
+        </button>
+
+        <button class="primary"
+                onclick="openHomework('Social Science')">
+            🌍 Social Science
+        </button>
+
+        <button class="primary"
+                onclick="openHomework('English')">
+            📖 English
+        </button>
+
+        <button class="primary"
+                onclick="openHomework('Hindi')">
+            📝 Hindi
+        </button>
+
+        <button class="primary"
+                onclick="openHomework('Sanskrit')">
+            🕉 Sanskrit
+        </button>
+
+        <button class="primary"
+                onclick="openHomework('Computer Science')">
+            💻 Computer Science
+        </button>
+
+    </div>
+
+    <hr>
+
+    <button class="secondary"
+            onclick="showDashboard()">
+        ⬅ Back to Dashboard
+    </button>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- HOMEWORK OPTIONS -->
+<!-- ===================================================== -->
+
+<div id="homeworkScreen" class="card hidden">
+
+    <div class="center">
+
+        <h2 id="selectedSubjectTitle">
+            Homework Help
+        </h2>
+
+        <p style="margin-top:8px;color:#666;">
+            Choose how you want to solve your homework.
+        </p>
+
+    </div>
+
+    <div class="subject-grid" style="margin-top:20px;">
+
+        <button class="success"
+                onclick="startOCR()">
+            📷 Scan Homework
+        </button>
+
+        <button class="primary"
+                onclick="showQuestionScreen()">
+            ✍️ Type Question
+        </button>
+
+        <button class="primary"
+                onclick="showQuestionScreen()">
+            🤖 Ask AI
+        </button>
+
+        <button class="warning"
+                onclick="openNCERTSolutions()">
+            📚 NCERT Solutions
+        </button>
+
+        <button class="secondary"
+                onclick="startVoiceInput()">
+            🎤 Voice Input
+            <small>(Coming Soon)</small>
+        </button>
+
+    </div>
+
+    <hr>
+
+    <button class="secondary"
+            onclick="goBackToSubjects()">
+        ⬅ Back to Subjects
+    </button>
+
+</div>
