@@ -468,3 +468,173 @@ onclick="showDashboard()">
     </button>
 
 </div>
+<!-- ===================================================== -->
+<!-- PART 2 -->
+<!-- QUESTION SCREEN -->
+<!-- ===================================================== -->
+
+<div id="questionScreen" class="card hidden">
+
+    <div class="center">
+
+        <h2>🤖 Ask CBSE Homework AI</h2>
+
+        <p id="questionScreenTitle"
+           style="margin-top:8px;color:#666;">
+            Type your homework question below.
+        </p>
+
+    </div>
+
+    <textarea
+        id="questionInput"
+        rows="8"
+        placeholder="Example:
+
+What is photosynthesis?
+
+OR
+
+Find the area of a circle having radius 7 cm.
+
+OR
+
+Paste your homework question here..."></textarea>
+
+    <button
+        class="primary"
+        onclick="askAI()">
+
+        🚀 Get Answer
+
+    </button>
+
+    <button
+        class="secondary"
+        onclick="clearQuestion()">
+
+        🗑 Clear
+
+    </button>
+
+    <button
+        class="secondary"
+        onclick="goBackToHomework()">
+
+        ⬅ Back
+
+    </button>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- AI LOADING SCREEN -->
+<!-- ===================================================== -->
+
+<div id="loadingScreen"
+     class="card hidden center">
+
+    <h2>🤖 AI is Thinking...</h2>
+
+    <div style="
+        font-size:42px;
+        margin:25px 0;
+        animation:pulse 1s infinite;
+    ">
+        🧠
+    </div>
+
+    <p style="color:#666;">
+        Please wait while CBSE Homework AI
+        prepares your answer.
+    </p>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- ANSWER SCREEN -->
+<!-- ===================================================== -->
+
+<div id="answerScreen"
+     class="card hidden">
+
+    <div class="center">
+
+        <h2>
+            ✅ AI Answer
+        </h2>
+
+    </div>
+
+    <div
+        id="answerContainer"
+        class="answer-card"
+        style="
+            margin-top:18px;
+            line-height:1.8;
+            white-space:pre-wrap;
+        ">
+
+    </div>
+
+    <div class="subject-grid"
+         style="margin-top:20px;">
+
+        <button
+            class="success"
+            onclick="copyAnswer()">
+
+            📋 Copy Answer
+
+        </button>
+
+        <button
+            class="primary"
+            onclick="shareAnswer()">
+
+            📤 Share
+
+        </button>
+
+        <button
+            class="warning"
+            onclick="askAnotherQuestion()">
+
+            🔄 Ask Another Question
+
+        </button>
+
+        <button
+            class="secondary"
+            onclick="goBackToHomework()">
+
+            ⬅ Back
+
+        </button>
+
+    </div>
+
+</div>
+
+<style>
+
+@keyframes pulse{
+
+0%{
+transform:scale(1);
+opacity:1;
+}
+
+50%{
+transform:scale(1.15);
+opacity:.6;
+}
+
+100%{
+transform:scale(1);
+opacity:1;
+}
+
+}
+
+</style>
