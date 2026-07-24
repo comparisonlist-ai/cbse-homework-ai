@@ -638,3 +638,150 @@ opacity:1;
 }
 
 </style>
+<!-- ===================================================== -->
+<!-- PART 3 -->
+<!-- PREMIUM, FOOTER & HIDDEN COMPONENTS -->
+<!-- ===================================================== -->
+
+<!-- Premium Section -->
+<div id="premiumSection" class="card">
+
+    <div class="center">
+
+        <h2>⭐ Upgrade to Premium</h2>
+
+        <p style="margin-top:10px;color:#666;">
+            Get more questions, faster answers, OCR homework scanning,
+            detailed solutions and future premium features.
+        </p>
+
+    </div>
+
+    <div class="subject-grid" style="margin-top:20px;">
+
+        <button class="success"
+                onclick="showSubscriptionPlans()">
+            💎 View Subscription Plans
+        </button>
+
+        <button class="primary"
+                onclick="showReferralProgram()">
+            🎁 Referral Discount
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Referral Section -->
+<div id="referralSection" class="card hidden">
+
+    <h2>🎁 Refer & Earn</h2>
+
+    <p style="margin-top:10px;color:#666;line-height:1.8;">
+        Invite your friends to CBSE Homework AI.
+        When both of you become Premium members,
+        each receives the referral discount available
+        under the current offer.
+    </p>
+
+    <button class="secondary"
+            onclick="closeReferralSection()">
+        Close
+    </button>
+
+</div>
+
+<!-- Footer -->
+<footer
+style="
+margin-top:35px;
+padding-top:20px;
+border-top:1px solid #e5e7eb;
+text-align:center;
+font-size:14px;
+color:#666;
+">
+
+<p>
+Made with ❤️ by <strong>Sibaram</strong>
+</p>
+
+<p style="margin-top:8px;">
+CBSE Homework AI Version 2.0
+</p>
+
+<p style="margin-top:8px;">
+For Classes 6–10
+</p>
+
+<div
+style="
+margin-top:15px;
+display:flex;
+justify-content:center;
+gap:12px;
+flex-wrap:wrap;
+">
+
+<button
+class="secondary"
+style="width:auto;padding:10px 16px;"
+onclick="showPrivacyPolicy()">
+Privacy Policy
+</button>
+
+<button
+class="secondary"
+style="width:auto;padding:10px 16px;"
+onclick="showTerms()">
+Terms
+</button>
+
+<button
+class="secondary"
+style="width:auto;padding:10px 16px;"
+onclick="contactUs()">
+Contact
+</button>
+
+</div>
+
+</footer>
+
+<!-- Hidden File Pickers -->
+
+<input
+type="file"
+id="ocrFileInput"
+accept="image/*"
+capture="environment"
+class="hidden">
+
+<input
+type="file"
+id="imageInput"
+accept="image/*"
+class="hidden">
+
+<!-- Message Area -->
+
+<div
+id="appMessage"
+style="
+margin-top:20px;
+text-align:center;
+font-weight:600;
+color:#4f46e5;
+">
+</div>
+
+<!-- Main JavaScript -->
+
+<script src="script.js"></script>
+
+</div>
+<!-- End .container -->
+
+</body>
+</html>
