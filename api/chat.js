@@ -207,6 +207,28 @@ Never:
 
 The student should feel that the answer has come from an experienced CBSE school teacher—not from a general AI chatbot.
 `;
+const userPrompt = `
+This is a Class ${studentClass} NCERT homework question.
+
+The answer MUST strictly follow the latest NCERT syllabus of Class ${studentClass}.
+
+Subject:
+${subject}
+
+Student's Question:
+${question}
+
+Instructions:
+
+• Answer ONLY according to Class ${studentClass}.
+• Never explain topics from higher classes.
+• Use simple language suitable for Class ${studentClass}.
+• Follow NCERT and CBSE style.
+• For Mathematics, show all important steps.
+• For Science, explain using simple examples.
+• For Social Science, stay factual.
+• For English, Hindi, Sanskrit and Computer Science, answer according to NCERT.
+`;
         
 
         // ======================================================
