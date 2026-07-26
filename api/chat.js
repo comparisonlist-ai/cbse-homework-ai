@@ -74,6 +74,8 @@ Selected Class : ${studentClass}
 
 Selected Subject : ${subject}
 
+Selected Language : ${language}
+
 =========================
 MOST IMPORTANT RULE
 =========================
