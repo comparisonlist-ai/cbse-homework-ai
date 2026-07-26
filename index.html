@@ -138,93 +138,74 @@
             </header>
 
             <!-- Hero -->
+<!-- Landing -->
 
-            <div class="hero">
+<div class="landing">
 
-                <img
-                    src="images/logo.png"
-                    alt="Students Homework AI"
-                    class="hero-logo">
+    <img
+        src="images/logo.png"
+        alt="Students Homework AI"
+        class="landing-logo">
 
-                <h2>
+    <button
+        class="landing-trial-btn"
+        onclick="document.getElementById('registrationForm').scrollIntoView({behavior:'smooth'})">
 
-                    Homework Help for
-                    <br>
+        🚀 Start Your 7-Day FREE Trial
 
-                    CBSE Classes 6–10
+    </button>
 
-                </h2>
+    <p class="landing-login-text">
 
-                <p>
+        Already Registered?
 
-                    Instant AI Answers • NCERT Friendly
-                    <br>
+    </p>
 
-                    7-Day FREE Trial
+    <button
+        class="landing-login-btn"
+        onclick="initApp()">
 
-                </p>
+        Login
 
-            </div>
+    </button>
 
-            <!-- Registration Card -->
+</div>
 
-            <div class="card registration-card">
+<div
+    id="registrationForm"
+    class="card registration-card">
 
-                <h3>
+    <h3>
 
-                    Register & Start FREE Trial
+        Register & Start FREE Trial
 
-                </h3>
+    </h3>
 
-                <input
-                    id="name"
-                    type="text"
-                    placeholder="Student Name"
-                    autocomplete="name">
+    <input
+        id="name"
+        type="text"
+        placeholder="Student Name">
 
-                <input
-                    id="mobile"
-                    type="tel"
-                    placeholder="10-digit Mobile Number"
-                    maxlength="10"
-                    inputmode="numeric">
+    <input
+        id="mobile"
+        type="tel"
+        placeholder="10-digit Mobile Number">
 
-                <input
-                    id="email"
-                    type="email"
-                    placeholder="Email Address"
-                    autocomplete="email">
+    <input
+        id="email"
+        type="email"
+        placeholder="Email Address">
 
-                <button
-                    class="primary-btn"
-                    onclick="registerStudent()">
+    <button
+        class="primary-btn"
+        onclick="registerStudent()">
 
-                    🚀 Register & Start
-                    7-Day FREE Trial
+        Register Now
 
-                </button>
+    </button>
 
-            </div>
-
-            <!-- Returning Student -->
-
-            <div class="login-card">
-
-                <p>
-
-                    Already Registered?
-
-                </p>
-
-                <button
-                    class="secondary-btn"
-                    onclick="initApp()">
-
-                    Continue as  Existing Student 
-
-                </button>
-
-            </div>
+</div>
+            
 
             <!-- Language -->
 
