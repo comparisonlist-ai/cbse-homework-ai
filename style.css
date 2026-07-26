@@ -1419,3 +1419,82 @@ textarea{
    Version 3.0
    Production Ready
    ========================================================== */
+/* ---------- Landing Page ---------- */
+
+.landing{
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+padding:25px 20px 35px;
+text-align:center;
+
+}
+
+.landing-logo{
+
+width:90%;
+max-width:340px;
+margin-bottom:35px;
+
+}
+
+.landing-trial-btn{
+
+width:100%;
+max-width:360px;
+height:60px;
+
+background:#1565C0;
+color:#fff;
+
+border:none;
+
+border-radius:18px;
+
+font-family:Poppins,sans-serif;
+
+font-size:20px;
+
+font-weight:700;
+
+cursor:pointer;
+
+}
+
+.landing-login-text{
+
+margin:30px 0 15px;
+
+font-size:17px;
+
+font-weight:500;
+
+color:#444;
+
+}
+
+.landing-login-btn{
+
+width:100%;
+max-width:360px;
+height:58px;
+
+background:#fff;
+
+border:2px solid #1565C0;
+
+border-radius:18px;
+
+color:#1565C0;
+
+font-family:Poppins,sans-serif;
+
+font-size:20px;
+
+font-weight:600;
+
+cursor:pointer;
+
+}
