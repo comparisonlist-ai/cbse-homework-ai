@@ -32,6 +32,9 @@ export default async function handler(req, res) {
         const subject =
             body.subject || "";
 
+        const language =
+    body.language || "English";
+
         if (!question) {
             return res.status(400).json({
                 success: false,
