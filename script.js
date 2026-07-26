@@ -1235,3 +1235,206 @@ function resetUsage() {
 window.addEventListener(
     "offline",
     () => {
+showMessage(
+            "❌ No Internet Connection"
+        );
+
+    }
+);
+
+window.addEventListener(
+    "online",
+    () => {
+
+        showMessage(
+            "✅ Internet Connected"
+        );
+
+    }
+);
+
+// -----------------------------
+// ESC KEY
+// -----------------------------
+
+document.addEventListener(
+    "keydown",
+    function (e) {
+
+        if (e.key === "Escape") {
+
+            if (
+
+                !questionScreen.classList.contains(
+                    "hidden"
+                )
+
+            ) {
+
+                goBackToHomework();
+
+            }
+
+        }
+
+    }
+);
+
+// -----------------------------
+// PAGE VISIBILITY
+// -----------------------------
+
+document.addEventListener(
+
+    "visibilitychange",
+
+    function () {
+
+        if (
+            document.hidden
+        ) {
+
+            saveSession();
+
+        }
+
+    }
+
+);
+
+// -----------------------------
+// BEFORE UNLOAD
+// -----------------------------
+
+window.addEventListener(
+
+    "beforeunload",
+
+    function () {
+
+        saveSession();
+
+    }
+
+);
+
+// -----------------------------
+// WINDOW LOAD
+// -----------------------------
+
+window.addEventListener(
+
+    "load",
+
+    function () {
+
+        loadSession();
+
+        initializeLanguageButtons();
+
+        if (currentStudent) {
+
+            showDashboard();
+
+        }
+
+        else {
+
+            goHome();
+
+        }
+
+    }
+
+);
+
+// -----------------------------
+// GLOBAL ERROR HANDLER
+// -----------------------------
+
+window.addEventListener(
+
+    "error",
+
+    function (event) {
+
+        console.error(
+
+            "Application Error:",
+
+            event.error
+
+        );
+
+    }
+
+);
+
+// -----------------------------
+// PROMISE ERROR HANDLER
+// -----------------------------
+
+window.addEventListener(
+
+    "unhandledrejection",
+
+    function (event) {
+
+        console.error(
+
+            "Unhandled Promise:",
+
+            event.reason
+
+        );
+
+    }
+
+);
+
+// -----------------------------
+// VERSION INFO
+// -----------------------------
+
+console.log(
+
+    "===================================="
+
+);
+
+console.log(
+
+    "Students Homework AI"
+
+);
+
+console.log(
+
+    "Version 3.0"
+
+);
+
+console.log(
+
+    "Production Ready"
+
+);
+
+console.log(
+
+    "studentshomeworkai.in"
+
+);
+
+console.log(
+
+    "===================================="
+
+);
+
+// =====================================================
+// END OF SCRIPT.JS
+// Version 3.0
+// Production Build
+// =====================================================
+    
