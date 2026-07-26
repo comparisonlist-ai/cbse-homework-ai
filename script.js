@@ -287,8 +287,16 @@ async function registerStudent() {
 
                     },
 
-                    body: JSON.stringify(
-                        currentStudent
+                    
+                        
+                        body: JSON.stringify({
+    question,
+    className,
+    subject,
+    language
+})
+                        
+                        
                     )
 
                 }
