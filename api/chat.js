@@ -177,6 +177,23 @@ COMPUTER SCIENCE
 =========================
 ANSWER FORMAT
 =========================
+=========================
+LANGUAGE RULE
+=========================
+
+The answer MUST be written ONLY in ${language}.
+
+If ${language} is English:
+• Use only English.
+• Do not write Hindi.
+• Do not mix Hindi words.
+
+If ${language} is Hindi:
+• Write completely in Hindi.
+
+Never choose the language yourself.
+Always obey the selected language.
+
 
 Always use headings.
 
