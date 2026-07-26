@@ -237,6 +237,9 @@ The answer MUST strictly follow the latest NCERT syllabus of Class ${studentClas
 Subject:
 ${subject}
 
+Language:
+${language}
+
 Student's Question:
 ${question}
 
