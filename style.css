@@ -1420,81 +1420,159 @@ textarea{
    Production Ready
    ========================================================== */
 /* ---------- Landing Page ---------- */
+/* ==========================================================
+   VERSION 4.0 HOME PAGE
+========================================================== */
 
-.landing{
+.home-container{
 
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-padding:25px 20px 35px;
-text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
 
-}
-
-.landing-logo{
-
-width:90%;
-max-width:340px;
-margin-bottom:35px;
+    padding:30px 20px 40px;
 
 }
 
-.landing-trial-btn{
+.home-logo{
 
-width:100%;
-max-width:360px;
-height:60px;
+    width:110px;
+    height:110px;
+    object-fit:contain;
 
-background:#1565C0;
-color:#fff;
-
-border:none;
-
-border-radius:18px;
-
-font-family:Poppins,sans-serif;
-
-font-size:20px;
-
-font-weight:700;
-
-cursor:pointer;
+    margin-bottom:18px;
 
 }
 
-.landing-login-text{
+.home-title{
 
-margin:30px 0 15px;
+    font-size:30px;
+    font-weight:700;
+    color:var(--primary-dark);
 
-font-size:17px;
+    line-height:1.2;
 
-font-weight:500;
-
-color:#444;
+    margin-bottom:10px;
 
 }
 
-.landing-login-btn{
+.home-subtitle{
 
-width:100%;
-max-width:360px;
-height:58px;
+    font-size:18px;
+    font-weight:500;
 
-background:#fff;
+    color:var(--text);
 
-border:2px solid #1565C0;
+    margin-bottom:12px;
 
-border-radius:18px;
+}
 
-color:#1565C0;
+.home-tagline{
 
-font-family:Poppins,sans-serif;
+    font-size:15px;
 
-font-size:20px;
+    color:var(--text-light);
 
-font-weight:600;
+    line-height:1.7;
 
-cursor:pointer;
+    margin-bottom:28px;
+
+}
+
+.home-start-btn{
+
+    width:100%;
+    max-width:360px;
+
+    height:58px;
+
+    border-radius:14px;
+
+    background:var(--secondary);
+
+    color:#fff;
+
+    font-size:18px;
+
+    font-weight:700;
+
+}
+
+.home-start-btn:hover{
+
+    background:var(--secondary-dark);
+
+}
+
+.login-area{
+
+    margin:26px 0;
+
+}
+
+.login-area p{
+
+    margin-bottom:12px;
+
+    color:var(--text-light);
+
+}
+
+.home-login-btn{
+
+    width:220px;
+
+    height:52px;
+
+    border-radius:12px;
+
+    border:2px solid var(--primary);
+
+    background:#fff;
+
+    color:var(--primary);
+
+    font-size:17px;
+
+    font-weight:600;
+
+}
+
+.home-login-btn:hover{
+
+    background:var(--primary);
+
+    color:#fff;
+
+}
+
+.feature-box{
+
+    width:100%;
+
+    margin:30px 0;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:14px;
+
+}
+
+.feature-box div{
+
+    background:#fff;
+
+    border-radius:14px;
+
+    padding:16px;
+
+    box-shadow:var(--shadow);
+
+    font-weight:600;
+
+    border:1px solid var(--border);
 
 }
