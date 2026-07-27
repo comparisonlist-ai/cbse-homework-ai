@@ -55,347 +55,175 @@ class="app-message hidden">
 HOME PAGE
 ===================================== -->
 
-<section
-id="registration"
-class="screen">
-
-<div class="home-container">
-
-<img
-src="images/logo.png"
-alt="Students Homework AI"
-class="home-logo">
-
-<h1 class="home-title">
-
+<!-- ==========================================================
+HOME SCREEN
 Students Homework AI
+Version 5.0
+Replace your existing Home Screen completely
+=========================================================== -->
 
-</h1>
+<section id="homeScreen" class="screen">
 
-<p class="home-subtitle">
+    <div class="home-container">
 
-Smart AI Homework Help
+        <!-- Logo -->
 
-</p>
+        <img
+            src="images/logo.png"
+            alt="Students Homework AI"
+            class="home-logo">
 
-<p class="home-description">
+        <!-- App Name -->
 
-For CBSE Classes 6–10
+        <h1 class="home-title">
 
-</p>
+            Students Homework AI
 
-<div class="feature-box">
+        </h1>
 
-<div>📷 Scan Homework</div>
+        <!-- Tagline -->
 
-<div>🎤 Voice Questions</div>
+        <p class="home-subtitle">
 
-<div>🤖 Instant AI Answers</div>
+            AI Homework Help for
+            CBSE Classes 6–10
 
-<div>📚 NCERT Solutions</div>
+        </p>
 
-</div>
+        <!-- Registration -->
 
-<button
-class="home-start-btn"
-onclick="showRegistrationForm()">
+        <button
+            class="home-start-btn"
+            onclick="showRegistrationForm()">
 
-🚀 Start Your 7-Day FREE Trial
+            🚀 Start Your FREE 7-Day Trial
 
-</button>
+        </button>
 
-<div class="login-area">
+        <!-- Existing Student -->
 
-<p>
+        <div class="login-card">
 
-Already Registered?
+            <h3>
 
-</p>
+                Already Registered?
 
-<button
-class="home-login-btn"
-onclick="initApp()">
+            </h3>
 
-Login
+            <p>
 
-</button>
+                Login using your Student ID
 
-</div>
+            </p>
 
-<div
-id="registrationForm"
-class="card registration-card hidden">
+            <button
+                class="home-login-btn"
+                onclick="showLoginScreen()">
 
-<h2>
+                🔐 Student Login
 
-Register FREE
+            </button>
 
-</h2>
+        </div>
 
-<input
-id="name"
-type="text"
-placeholder="Student Name">
-
-<input
-id="mobile"
-type="tel"
-placeholder="10-digit Mobile Number">
-
-<input
-id="email"
-type="email"
-placeholder="Email Address">
-
-<button
-class="primary-btn"
-onclick="registerStudent()">
-
-Register Now
-
-</button>
-
-</div>
-
-<div class="language-card">
-
-<h3>
-
-Choose Language
-
-</h3>
-
-<div class="language-buttons">
-
-<button
-id="englishBtn"
-class="language-btn active">
-
-🇬🇧 English
-
-</button>
-
-<button
-id="hindiBtn"
-class="language-btn">
-
-🇮🇳 हिन्दी
-
-</button>
-
-</div>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
-    <!-- =====================================
-DASHBOARD
-===================================== -->
+<!-- ==========================================================
+LOGIN SCREEN
+=========================================================== -->
 
 <section
-id="dashboard"
-class="screen hidden">
+    id="loginScreen"
+    class="screen hidden">
 
-<div class="dashboard-header">
+    <button
+        class="back-btn"
+        onclick="goHome()">
 
-<div>
+        ← Back
 
-<h2 id="welcomeMessage">
+    </button>
 
-Welcome
+    <div class="card">
 
-</h2>
+        <h2>
 
-<p class="dashboard-subtitle">
+            Student Login
 
-Ready to solve today's homework?
+        </h2>
 
-</p>
+        <input
+            id="loginStudentId"
+            type="text"
+            placeholder="Student ID (Example: SHAI102547)">
 
-<span
-id="membershipBadge"
-class="membership-badge">
+        <input
+            id="loginMobile"
+            type="tel"
+            placeholder="Registered Mobile Number">
 
-🆓 7-Day FREE Trial
+        <button
+            class="primary-btn"
+            onclick="loginStudent()">
 
-</span>
+            Login
 
-</div>
+        </button>
 
-<button
-class="logout-btn"
-onclick="logoutStudent()">
+    </div>
 
-Logout
+</section>
 
-</button>
+<!-- ==========================================================
+REGISTRATION SCREEN
+=========================================================== -->
 
-</div>
+<section
+    id="registration"
+    class="screen hidden">
 
-<!-- Usage -->
+    <button
+        class="back-btn"
+        onclick="goHome()">
 
-<div class="usage-card">
+        ← Back
 
-<h3>
+    </button>
 
-Your Usage
+    <div class="card registration-card">
 
-</h3>
+        <h2>
 
-<p id="usageCounter">
+            Register FREE
 
-Questions Used:
-<strong>0 / 100</strong>
+        </h2>
 
-</p>
+        <input
+            id="name"
+            type="text"
+            placeholder="Student Name">
 
-<div class="progress">
+        <input
+            id="mobile"
+            type="tel"
+            placeholder="10-digit Mobile Number">
 
-<div
-id="usageBar"
-class="progress-fill">
+        <input
+            id="email"
+            type="email"
+            placeholder="Email Address">
 
-</div>
+        <button
+            class="primary-btn"
+            onclick="registerStudent()">
 
-</div>
+            Register Now
 
-</div>
+        </button>
 
-<!-- Language -->
-
-<div class="language-card">
-
-<h3>
-
-Answer Language
-
-</h3>
-
-<div class="language-buttons">
-
-<button
-id="dashboardEnglish"
-class="language-btn active">
-
-🇬🇧 English
-
-</button>
-
-<button
-id="dashboardHindi"
-class="language-btn">
-
-🇮🇳 हिन्दी
-
-</button>
-
-</div>
-
-</div>
-
-<!-- Class Selection -->
-
-<div class="class-section">
-
-<h2>
-
-Choose Your Class
-
-</h2>
-
-<div class="class-grid">
-
-<button
-onclick="showSubjects('Class 6')">
-
-📘
-
-<br>
-
-Class 6
-
-</button>
-
-<button
-onclick="showSubjects('Class 7')">
-
-📗
-
-<br>
-
-Class 7
-
-</button>
-
-<button
-onclick="showSubjects('Class 8')">
-
-📙
-
-<br>
-
-Class 8
-
-</button>
-
-<button
-onclick="showSubjects('Class 9')">
-
-📕
-
-<br>
-
-Class 9
-
-</button>
-
-<button
-onclick="showSubjects('Class 10')">
-
-🎓
-
-<br>
-
-Class 10
-
-</button>
-
-</div>
-
-</div>
-
-<!-- Premium Banner -->
-
-<div class="card premium-card">
-
-<h3>
-
-⭐ Upgrade to Premium
-
-</h3>
-
-<p>
-
-Unlimited AI homework help,
-OCR Scan,
-Voice Questions,
-NCERT Solutions,
-Priority Support.
-
-</p>
-
-<button
-class="primary-btn"
-onclick="showPremiumPlans()">
-
-View Plans
-
-</button>
-
-</div>
+    </div>
 
 </section>
 
