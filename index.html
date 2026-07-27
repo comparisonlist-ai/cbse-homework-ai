@@ -1,214 +1,100 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-    <!-- ==========================================
-         Students Homework AI
-         Version 3.0
-         Production Build
-         ========================================== -->
+<meta charset="UTF-8">
 
-    <meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+<meta name="theme-color"
+content="#1565C0">
 
-    <meta
-        http-equiv="X-UA-Compatible"
-        content="IE=edge">
+<meta name="description"
+content="Students Homework AI - AI Homework Help for CBSE Classes 6 to 10">
 
-    <title>
-        Students Homework AI | AI Homework Help for CBSE Classes 6–10
-    </title>
+<meta name="keywords"
+content="CBSE, Homework AI, NCERT, Class 6, Class 7, Class 8, Class 9, Class 10">
 
-    <meta
-        name="description"
-        content="Students Homework AI helps CBSE Classes 6–10 with Maths, Science, English, Hindi, Social Science and more using AI-powered homework assistance.">
+<meta name="author"
+content="Sibaram Dalabehera">
 
-    <meta
-        name="keywords"
-        content="CBSE, Homework AI, Students Homework AI, NCERT, AI Homework Help, Class 6, Class 7, Class 8, Class 9, Class 10">
+<title>
+Students Homework AI
+</title>
 
-    <meta
-        name="author"
-        content="Sibaram Dalabehera">
-
-    <meta
-        name="theme-color"
-        content="#1565C0">
-
-    <meta
-        name="robots"
-        content="index, follow">
-
-    <!-- Open Graph -->
-
-    <meta
-property="og:title"
-content="Students Homework AI">
-
-    <meta property="og:image"
-content="https://studentshomeworkai.in/images/logo.png">
-
-    <meta
-        property="og:description"
-        content="Smart Homework Help for CBSE Classes 6–10">
-
-    <meta
-        property="og:type"
-        content="website">
-
-    <meta
-        property="og:url"
-        content="https://studentshomeworkai.in">
-
-
-    <!-- Favicon -->
 <link rel="icon"
-type="image/png"
-src="/images/logo.png">
-    
+href="images/logo.png"
+type="image/png">
 
-    <!-- Google Fonts -->
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com">
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
 
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-
-    <!-- Stylesheet -->
-
-    <link
-        rel="stylesheet"
-        href="style.css">
+<link rel="stylesheet"
+href="style.css">
 
 </head>
 
 <body>
-        <!-- ==========================================
-         APP CONTAINER
-    =========================================== -->
-
-    
-        <h3>
-
-        Register & Start FREE Trial
-
-    </h3>
-
-    <input
-        id="name"
-        type="text"
-        placeholder="Student Name">
-
-    <input
-        id="mobile"
-        type="tel"
-        placeholder="10-digit Mobile Number">
-
-    <input
-        id="email"
-        type="email"
-        placeholder="Email Address">
-
-        onclick="registerStudent()">
-
-        Register Now
-
-    </button>
-
-</div>
-            
-
-            <!-- Language -->
-
-            <div class="language-card">
-
-                <h3>
-
-                    Choose Language
-
-                </h3>
-
-                <div class="language-buttons">
-
-                    <button
-                        id="englishBtn"
-                        class="language-btn active">
-
-                        🇬🇧 English
-
-                    </button>
-
-                    <button
-                        id="hindiBtn"
-                        class="language-btn">
-
-                        🇮🇳 हिन्दी
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- ======================================
-             DASHBOARD
-        ======================================= -->
-
-        <section
-            id="dashboard"
-            class="screen hidden">
-                        <!-- ======================================
-                 DASHBOARD
-            ======================================= -->
-
-                    <body>
 
 <div id="app">
 
-<div id="appMessage" class="app-message"></div>
+<div id="appMessage"
+class="app-message hidden">
+</div>
 
-<!-- ==========================================
+<!-- =====================================
 HOME PAGE
-========================================== -->
+===================================== -->
 
-<section id="registration" class="screen">
+<section
+id="registration"
+class="screen">
 
 <div class="home-container">
 
 <img
-src="/images/logo.png"
+src="images/logo.png"
 alt="Students Homework AI"
 class="home-logo">
 
 <h1 class="home-title">
+
 Students Homework AI
+
 </h1>
 
 <p class="home-subtitle">
-Smart AI Homework Help for
-CBSE Classes 6–10
-</p>
 
-<p class="home-tagline">
-
-NCERT Friendly • Instant Answers
-<br>
-English • हिन्दी
+Smart AI Homework Help
 
 </p>
+
+<p class="home-description">
+
+For CBSE Classes 6–10
+
+</p>
+
+<div class="feature-box">
+
+<div>📷 Scan Homework</div>
+
+<div>🎤 Voice Questions</div>
+
+<div>🤖 Instant AI Answers</div>
+
+<div>📚 NCERT Solutions</div>
+
+</div>
 
 <button
 class="home-start-btn"
@@ -271,18 +157,6 @@ Register Now
 
 </div>
 
-<div class="feature-box">
-
-<div>📷 Scan Homework</div>
-
-<div>🎤 Voice Questions</div>
-
-<div>📚 NCERT Solutions</div>
-
-<div>🤖 AI Homework Help</div>
-
-</div>
-
 <div class="language-card">
 
 <h3>
@@ -315,414 +189,212 @@ class="language-btn">
 
 </div>
 
-</section>                
+</section>
 
-        <!-- ======================================
-             SUBJECT SCREEN
-        ======================================= -->
+    <!-- =====================================
+DASHBOARD
+===================================== -->
 
-        <section
-            id="subjectScreen"
-            class="screen hidden">
+<section
+id="dashboard"
+class="screen hidden">
 
-            <button
-                class="back-btn"
-                onclick="showDashboard()">
+<div class="dashboard-header">
 
-                ← Back
+<div>
 
-            </button>
+<h2 id="welcomeMessage">
 
-            <h2
-                id="selectedClassTitle">
+Welcome
 
-                Class
+</h2>
 
-            </h2>
+<p class="dashboard-subtitle">
 
-            <div class="subject-grid">
+Ready to solve today's homework?
 
-                <button
-                    onclick="openHomework('Mathematics')">
+</p>
 
-                    ➗ Mathematics
+<span
+id="membershipBadge"
+class="membership-badge">
 
-                </button>
+🆓 7-Day FREE Trial
 
-                <button
-                    onclick="openHomework('Science')">
+</span>
 
-                    🔬 Science
+</div>
 
-                </button>
+<button
+class="logout-btn"
+onclick="logoutStudent()">
 
-                <button
-                    onclick="openHomework('English')">
+Logout
 
-                    📖 English
+</button>
 
-                </button>
+</div>
 
-                <button
-                    onclick="openHomework('Social Science')">
+<!-- Usage -->
 
-                    🌍 Social Science
+<div class="usage-card">
 
-                </button>
+<h3>
 
-                <button
-                    onclick="openHomework('Hindi')">
+Your Usage
 
-                    🇮🇳 Hindi
+</h3>
 
-                </button>
+<p id="usageCounter">
 
-                <button
-                    onclick="openHomework('Computer Science')">
+Questions Used:
+<strong>0 / 100</strong>
 
-                    💻 Computer Science
+</p>
 
-                </button>
+<div class="progress">
 
-            </div>
+<div
+id="usageBar"
+class="progress-fill">
 
-        </section>
+</div>
 
-        <!-- ======================================
-             HOMEWORK SCREEN
-        ======================================= -->
+</div>
 
-        <section
-            id="homeworkScreen"
-            class="screen hidden">
+</div>
 
-            <button
-                class="back-btn"
-                onclick="goBackToSubjects()">
+<!-- Language -->
 
-                ← Back
+<div class="language-card">
 
-            </button>
+<h3>
 
-            <h2
-                id="selectedSubjectTitle">
+Answer Language
 
-                Subject
+</h3>
 
-            </h2>
+<div class="language-buttons">
 
-            <div class="action-grid">
+<button
+id="dashboardEnglish"
+class="language-btn active">
 
-                <button
-                    onclick="showQuestionScreen()">
+🇬🇧 English
 
-                    ✍️
-                    <br>
+</button>
 
-                    Type Question
+<button
+id="dashboardHindi"
+class="language-btn">
 
-                </button>
+🇮🇳 हिन्दी
 
-                <button
-                    onclick="startOCR()">
+</button>
 
-                    📷
-                    <br>
+</div>
 
-                    Scan Homework
+</div>
 
-                </button>
+<!-- Class Selection -->
 
-                <button
-                    onclick="startVoiceInput()">
+<div class="class-section">
 
-                    🎤
-                    <br>
+<h2>
 
-                    Voice Question
+Choose Your Class
 
-                </button>
+</h2>
 
-                <button
-                    onclick="openNCERTSolutions()">
+<div class="class-grid">
 
-                    📚
-                    <br>
+<button
+onclick="showSubjects('Class 6')">
 
-                    NCERT Solutions
+📘
 
-                </button>
+<br>
 
-            </div>
+Class 6
 
-        </section>
-        
-                    <!-- ======================================
-             QUESTION SCREEN
-        ======================================= -->
+</button>
 
-        <section
-            id="questionScreen"
-            class="screen hidden">
+<button
+onclick="showSubjects('Class 7')">
 
-            <button
-                class="back-btn"
-                onclick="goBackToHomework()">
+📗
 
-                ← Back
+<br>
 
-            </button>
+Class 7
 
-            <h2
-                id="questionScreenTitle">
+</button>
 
-                Ask AI
+<button
+onclick="showSubjects('Class 8')">
 
-            </h2>
+📙
 
-            <div class="question-card">
+<br>
 
-                <textarea
-                    id="questionInput"
-                    rows="6"
-                    placeholder="Type your homework question here..."></textarea>
+Class 8
 
-                <div class="question-actions">
+</button>
 
-                    <button
-                        class="secondary-btn"
-                        onclick="clearQuestion()">
+<button
+onclick="showSubjects('Class 9')">
 
-                        🗑 Clear
+📕
 
-                    </button>
+<br>
 
-                    <button
-                        class="primary-btn"
-                        onclick="askAI()">
+Class 9
 
-                        🤖 Ask AI
+</button>
 
-                    </button>
+<button
+onclick="showSubjects('Class 10')">
 
-                </div>
+🎓
 
-            </div>
+<br>
 
-        </section>
+Class 10
 
-        <!-- ======================================
-             LOADING SCREEN
-        ======================================= -->
+</button>
 
-        <section
-            id="loadingScreen"
-            class="screen hidden">
+</div>
 
-            <div class="loading-card">
+</div>
 
-                <div class="loader"></div>
+<!-- Premium Banner -->
 
-                <h2>
+<div class="card premium-card">
 
-                    AI is Thinking...
+<h3>
 
-                </h2>
+⭐ Upgrade to Premium
 
-                <p>
+</h3>
 
-                    Please wait while we prepare your answer.
+<p>
 
-                </p>
+Unlimited AI homework help,
+OCR Scan,
+Voice Questions,
+NCERT Solutions,
+Priority Support.
 
-            </div>
+</p>
 
-        </section>
+<button
+class="primary-btn"
+onclick="showPremiumPlans()">
 
-        <!-- ======================================
-             ANSWER SCREEN
-        ======================================= -->
+View Plans
 
-        <section
-            id="answerScreen"
-            class="screen hidden">
+</button>
 
-            <button
-                class="back-btn"
-                onclick="askAnotherQuestion()">
+</div>
 
-                ← Ask Another Question
-
-            </button>
-
-            <div class="answer-card">
-
-                <h2>
-
-                    Answer
-
-                </h2>
-
-                <div
-                    id="answerContainer">
-
-                </div>
-
-            </div>
-
-            <div class="answer-buttons">
-
-                <button
-                    class="secondary-btn"
-                    onclick="copyAnswer()">
-
-                    📋 Copy
-
-                </button>
-
-                <button
-                    class="secondary-btn"
-                    onclick="shareAnswer()">
-
-                    📤 Share
-
-                </button>
-
-                <button
-                    class="primary-btn"
-                    onclick="showQuestionScreen()">
-
-                    ❓ New Question
-
-                </button>
-
-            </div>
-
-        </section>
-
-        <!-- ======================================
-             REFERRAL
-        ======================================= -->
-
-        <section
-            id="referralSection"
-            class="screen hidden">
-
-            <div class="card">
-
-                <h2>
-
-                    Invite Friends
-
-                </h2>
-
-                <p>
-
-                    Invite your friends and both of you can
-                    receive referral benefits after becoming
-                    Premium members.
-
-                </p>
-
-                <button
-                    class="secondary-btn"
-                    onclick="closeReferralSection()">
-
-                    Close
-
-                </button>
-
-            </div>
-
-        </section>
-
-        <!-- Hidden Inputs -->
-
-        <input
-            type="file"
-            id="ocrFileInput"
-            accept="image/*"
-            hidden>
-
-        <input
-            type="file"
-            id="imageInput"
-            accept="image/*"
-            hidden>
-
-    </div>
-
-    <!-- ======================================
-         FOOTER
-    ======================================= -->
-
-    <footer class="app-footer">
-
-        <p>
-
-            <strong>
-                Students Homework AI
-            </strong>
-
-        </p>
-
-        <p>
-
-            Smart Homework Help for
-            CBSE Classes 6–10
-
-        </p>
-
-        <p>
-
-            🌐 studentshomeworkai.in
-
-        </p>
-
-        <div class="footer-links">
-
-            <button
-                onclick="showPrivacyPolicy()">
-
-                Privacy Policy
-
-            </button>
-
-            <button
-                onclick="showTerms()">
-
-                Terms
-
-            </button>
-
-            <button
-                onclick="contactUs()">
-
-                Contact
-
-            </button>
-
-        </div>
-
-        <p>
-
-            © 2026 Students Homework AI
-
-        </p>
-
-        <p>
-
-            Made with ❤️ by Sibaram
-
-        </p>
-
-    </footer>
-
-    <!-- JavaScript -->
-
-    <script src="script.js"></script>
-
-</body>
-    </html>
-
-    
+</section>
