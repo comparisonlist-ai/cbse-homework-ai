@@ -398,3 +398,181 @@ View Plans
 </div>
 
 </section>
+
+    <!-- =====================================
+SUBJECT SCREEN
+===================================== -->
+
+<section
+id="subjectScreen"
+class="screen hidden">
+
+<button
+class="back-btn"
+onclick="showDashboard()">
+
+← Back
+
+</button>
+
+<h2
+id="selectedClassTitle">
+
+Choose Subject
+
+</h2>
+
+<p class="text-center">
+
+Select your subject to continue
+
+</p>
+
+<div class="subject-grid">
+
+<button
+onclick="openHomework('Mathematics')">
+
+➗ Mathematics
+
+</button>
+
+<button
+onclick="openHomework('Science')">
+
+🔬 Science
+
+</button>
+
+<button
+onclick="openHomework('English')">
+
+📖 English
+
+</button>
+
+<button
+onclick="openHomework('Social Science')">
+
+🌍 Social Science
+
+</button>
+
+<button
+onclick="openHomework('Hindi')">
+
+🇮🇳 Hindi
+
+</button>
+
+<button
+onclick="openHomework('Computer Science')">
+
+💻 Computer Science
+
+</button>
+
+</div>
+
+</section>
+
+<!-- =====================================
+HOMEWORK MENU
+===================================== -->
+
+<section
+id="homeworkScreen"
+class="screen hidden">
+
+<button
+class="back-btn"
+onclick="goBackToSubjects()">
+
+← Back
+
+</button>
+
+<h2
+id="selectedSubjectTitle">
+
+Homework Help
+
+</h2>
+
+<p class="text-center">
+
+Choose how you want to ask your homework question.
+
+</p>
+
+<div class="action-grid">
+
+<button
+onclick="showQuestionScreen()">
+
+✍️
+
+<br>
+
+Type Question
+
+</button>
+
+<button
+onclick="startOCR()">
+
+📷
+
+<br>
+
+Scan Homework
+
+</button>
+
+<button
+onclick="startVoiceInput()">
+
+🎤
+
+<br>
+
+Voice Question
+
+</button>
+
+<button
+onclick="openNCERTSolutions()">
+
+📚
+
+<br>
+
+NCERT Solutions
+
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+💡 Homework Tips
+
+</h3>
+
+<ul>
+
+<li>Ask one question at a time.</li>
+
+<li>Upload a clear homework image for OCR.</li>
+
+<li>Choose the correct class before asking.</li>
+
+<li>Answers follow the latest CBSE/NCERT syllabus.</li>
+
+</ul>
+
+</div>
+
+</section>
