@@ -1,24 +1,24 @@
-
 /* ==========================================================
    Students Homework AI
-   Version 3.0
+   Version 4.0
    style.css
    PART 1
-   Global • Header • Hero • Registration
+   Global • Variables • Reset • Layout • Forms • Buttons
    ========================================================== */
 
-/* -----------------------------
+/* ----------------------------------------------------------
    ROOT VARIABLES
------------------------------- */
+---------------------------------------------------------- */
 
 :root{
 
     --primary:#1565C0;
     --primary-dark:#0D47A1;
+
     --secondary:#22C55E;
     --secondary-dark:#16A34A;
 
-    --background:#F5F8FC;
+    --background:#F4F8FD;
     --surface:#FFFFFF;
 
     --text:#1E293B;
@@ -26,18 +26,22 @@
 
     --border:#E2E8F0;
 
+    --success:#16A34A;
+    --warning:#F59E0B;
     --danger:#DC2626;
 
-    --radius:16px;
+    --radius:18px;
 
     --shadow:
-        0 8px 30px rgba(0,0,0,.08);
+        0 10px 30px rgba(0,0,0,.08);
+
+    --transition:.25s ease;
 
 }
 
-/* -----------------------------
+/* ----------------------------------------------------------
    RESET
------------------------------- */
+---------------------------------------------------------- */
 
 *{
 
@@ -57,33 +61,33 @@ html{
 
 body{
 
-    font-family:'Poppins',sans-serif;
-
     background:var(--background);
 
     color:var(--text);
 
-    min-height:100vh;
+    font-family:'Poppins',sans-serif;
 
-    line-height:1.5;
+    font-size:16px;
+
+    line-height:1.6;
+
+    min-height:100vh;
 
 }
 
-/* -----------------------------
+/* ----------------------------------------------------------
    GLOBAL
------------------------------- */
+---------------------------------------------------------- */
 
 img{
 
-    max-width:100%;
-
     display:block;
+
+    max-width:100%;
 
 }
 
 button{
-
-    font-family:'Poppins',sans-serif;
 
     cursor:pointer;
 
@@ -91,16 +95,34 @@ button{
 
     outline:none;
 
-    transition:.25s;
+    transition:var(--transition);
+
+    font-family:'Poppins',sans-serif;
 
 }
 
 input,
 textarea{
 
+    width:100%;
+
     font-family:'Poppins',sans-serif;
 
     outline:none;
+
+}
+
+textarea{
+
+    resize:vertical;
+
+}
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
 
 }
 
@@ -110,179 +132,47 @@ textarea{
 
 }
 
-/* -----------------------------
-   APP
------------------------------- */
+/* ----------------------------------------------------------
+   APP CONTAINER
+---------------------------------------------------------- */
 
 #app{
 
     width:100%;
 
-    max-width:480px;
+    max-width:500px;
 
     margin:auto;
 
     min-height:100vh;
 
-    background:#fff;
+    background:var(--surface);
 
-    box-shadow:0 0 30px rgba(0,0,0,.06);
+    box-shadow:0 0 25px rgba(0,0,0,.08);
 
-}
-
-/* -----------------------------
-   MESSAGE BAR
------------------------------- */
-
-.app-message{
-
-    position:fixed;
-
-    top:75px;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    width:92%;
-
-    max-width:420px;
-
-    background:var(--primary);
-
-    color:#fff;
-
-    padding:12px 16px;
-
-    border-radius:12px;
-
-    text-align:center;
-
-    font-weight:600;
-
-    z-index:9999;
+    overflow:hidden;
 
 }
 
-/* -----------------------------
+/* ----------------------------------------------------------
    SCREEN
------------------------------- */
+---------------------------------------------------------- */
 
 .screen{
 
-    padding:18px;
+    padding:20px;
 
-    animation:fadeIn .3s ease;
-
-}
-
-/* -----------------------------
-   HEADER
------------------------------- */
-
-.top-header{
-
-    position:sticky;
-
-    top:0;
-
-    background:#fff;
-
-    z-index:100;
-
-    padding:12px 0;
-
-    border-bottom:1px solid var(--border);
+    animation:fadeIn .35s ease;
 
 }
 
-.brand{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-}
-
-.logo{
-
-    width:52px;
-
-    height:52px;
-
-    object-fit:contain;
-
-}
-
-.brand-title{
-
-    font-size:22px;
-
-    font-weight:700;
-
-    color:var(--primary);
-
-}
-
-.brand-subtitle{
-
-    font-size:13px;
-
-    color:var(--text-light);
-
-}
-
-/* -----------------------------
-   HERO
------------------------------- */
-
-.hero{
-
-    text-align:center;
-
-    padding:28px 10px;
-
-}
-
-.hero-logo{
-
-    width:110px;
-
-    margin:0 auto 18px;
-
-}
-
-.hero h2{
-
-    font-size:30px;
-
-    font-weight:700;
-
-    color:var(--primary-dark);
-
-    line-height:1.25;
-
-}
-
-.hero p{
-
-    margin-top:14px;
-
-    color:var(--text-light);
-
-    font-size:16px;
-
-}
-
-/* -----------------------------
+/* ----------------------------------------------------------
    CARD
------------------------------- */
+---------------------------------------------------------- */
 
 .card{
 
-    background:var(--surface);
+    background:#FFFFFF;
 
     border-radius:var(--radius);
 
@@ -290,67 +180,100 @@ textarea{
 
     padding:22px;
 
-    margin-top:22px;
+    margin-top:20px;
 
 }
 
-.registration-card h3{
+/* ----------------------------------------------------------
+   HEADINGS
+---------------------------------------------------------- */
 
-    text-align:center;
+h1{
+
+    font-size:32px;
+
+    font-weight:700;
+
+    color:var(--primary-dark);
+
+}
+
+h2{
+
+    font-size:26px;
+
+    font-weight:700;
+
+    color:var(--primary-dark);
+
+}
+
+h3{
+
+    font-size:22px;
+
+    font-weight:600;
 
     color:var(--primary);
 
-    font-size:24px;
+}
 
-    margin-bottom:20px;
+p{
+
+    color:var(--text-light);
 
 }
 
-/* -----------------------------
+/* ----------------------------------------------------------
    INPUTS
------------------------------- */
+---------------------------------------------------------- */
 
-.registration-card input{
+input,
+textarea{
 
-    width:100%;
+    margin-top:14px;
 
-    height:52px;
-
-    margin-bottom:14px;
-
-    padding:0 16px;
+    padding:14px 16px;
 
     border:1px solid var(--border);
 
-    border-radius:12px;
+    border-radius:14px;
 
     font-size:16px;
 
-    background:#fff;
+    background:#FFFFFF;
+
+    transition:var(--transition);
 
 }
 
-.registration-card input:focus{
+input:focus,
+textarea:focus{
 
     border-color:var(--primary);
 
+    box-shadow:
+        0 0 0 3px rgba(21,101,192,.15);
+
 }
 
-/* -----------------------------
+/* ----------------------------------------------------------
    BUTTONS
------------------------------- */
+---------------------------------------------------------- */
 
 .primary-btn{
 
     width:100%;
 
-    height:54px;
+    height:56px;
 
-    border-radius:12px;
+    margin-top:18px;
 
     background:var(--secondary);
 
-    color:#fff;
+    color:#FFFFFF;
+
+    border-radius:14px;
 
     font-size:18px;
 
@@ -368,13 +291,15 @@ textarea{
 
     width:100%;
 
-    height:50px;
+    height:54px;
 
-    border-radius:12px;
+    margin-top:14px;
 
     background:var(--primary);
 
-    color:#fff;
+    color:#FFFFFF;
+
+    border-radius:14px;
 
     font-size:17px;
 
@@ -388,85 +313,73 @@ textarea{
 
 }
 
-/* -----------------------------
-   LOGIN CARD
------------------------------- */
+.outline-btn{
 
-.login-card{
+    width:100%;
 
-    margin-top:20px;
+    height:54px;
 
-    text-align:center;
+    margin-top:14px;
 
-}
+    background:#FFFFFF;
 
-.login-card p{
+    color:var(--primary);
 
-    margin-bottom:12px;
+    border:2px solid var(--primary);
 
-    color:var(--text-light);
+    border-radius:14px;
 
-}
-
-/* -----------------------------
-   LANGUAGE
------------------------------- */
-
-.language-card{
-
-    margin-top:24px;
-
-}
-
-.language-card h3{
-
-    text-align:center;
-
-    margin-bottom:14px;
-
-}
-
-.language-buttons{
-
-    display:flex;
-
-    gap:12px;
-
-}
-
-.language-btn{
-
-    flex:1;
-
-    height:48px;
-
-    border-radius:12px;
-
-    border:1px solid var(--border);
-
-    background:#fff;
-
-    color:var(--text);
-
-    font-size:16px;
+    font-size:17px;
 
     font-weight:600;
 
 }
 
-.language-btn.active{
+.outline-btn:hover{
 
-    background:var(--primary);
-
-    color:#fff;
-
-    border-color:var(--primary);
+    background:#EEF5FF;
 
 }
 
-/* -----------------------------
+/* ----------------------------------------------------------
+   MESSAGE BAR
+---------------------------------------------------------- */
+
+.app-message{
+
+    position:fixed;
+
+    top:18px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:92%;
+
+    max-width:460px;
+
+    background:var(--primary);
+
+    color:#FFFFFF;
+
+    padding:14px 18px;
+
+    border-radius:14px;
+
+    text-align:center;
+
+    font-weight:600;
+
+    box-shadow:var(--shadow);
+
+    z-index:9999;
+
+}
+
+/* ----------------------------------------------------------
    ANIMATION
------------------------------- */
+---------------------------------------------------------- */
 
 @keyframes fadeIn{
 
@@ -474,7 +387,7 @@ textarea{
 
         opacity:0;
 
-        transform:translateY(8px);
+        transform:translateY(12px);
 
     }
 
@@ -490,20 +403,431 @@ textarea{
 
 /* ==========================================================
    END OF PART 1
+
    PART 2:
-   Dashboard • Usage • Class Grid • Subject Grid
-   ========================================================== */
-/* ==========================================================
-   Students Homework AI
-   Version 3.0
-   style.css
-   PART 2
-   Dashboard • Class • Subject • Homework • Question
+   Homepage • Hero • Features • Language • Registration
    ========================================================== */
 
-/* -----------------------------
+/* ==========================================================
+   Students Homework AI
+   Version 4.0
+   style.css
+   PART 2
+   Homepage • Hero • Features • Language • Registration
+   ========================================================== */
+
+/* ----------------------------------------------------------
+   HOME CONTAINER
+---------------------------------------------------------- */
+
+.home-container{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:18px 0 32px;
+
+}
+
+/* ----------------------------------------------------------
+   LOGO
+---------------------------------------------------------- */
+
+.home-logo{
+
+    width:150px;
+
+    max-width:42%;
+
+    margin:10px auto 22px;
+
+}
+
+/* ----------------------------------------------------------
+   TITLE
+---------------------------------------------------------- */
+
+.home-title{
+
+    font-size:32px;
+
+    font-weight:700;
+
+    color:var(--primary-dark);
+
+    line-height:1.25;
+
+    margin-bottom:10px;
+
+}
+
+.home-subtitle{
+
+    font-size:19px;
+
+    font-weight:600;
+
+    color:var(--text);
+
+    margin-bottom:12px;
+
+}
+
+.home-tagline{
+
+    font-size:16px;
+
+    color:var(--text-light);
+
+    line-height:1.7;
+
+    margin-bottom:28px;
+
+}
+
+/* ----------------------------------------------------------
+   FREE TRIAL BUTTON
+---------------------------------------------------------- */
+
+.home-start-btn{
+
+    width:100%;
+
+    height:62px;
+
+    border-radius:16px;
+
+    background:linear-gradient(
+
+        135deg,
+
+        var(--secondary),
+
+        var(--secondary-dark)
+
+    );
+
+    color:#fff;
+
+    font-size:20px;
+
+    font-weight:700;
+
+    box-shadow:
+
+        0 10px 25px rgba(34,197,94,.25);
+
+}
+
+.home-start-btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/* ----------------------------------------------------------
+   LOGIN
+---------------------------------------------------------- */
+
+.login-area{
+
+    width:100%;
+
+    margin-top:28px;
+
+    text-align:center;
+
+}
+
+.login-area p{
+
+    font-size:16px;
+
+    margin-bottom:14px;
+
+}
+
+.home-login-btn{
+
+    width:100%;
+
+    height:58px;
+
+    border-radius:16px;
+
+    border:2px solid var(--primary);
+
+    background:#fff;
+
+    color:var(--primary);
+
+    font-size:18px;
+
+    font-weight:600;
+
+}
+
+.home-login-btn:hover{
+
+    background:#EEF5FF;
+
+}
+
+/* ----------------------------------------------------------
+   REGISTRATION CARD
+---------------------------------------------------------- */
+
+.registration-card{
+
+    width:100%;
+
+    margin-top:28px;
+
+}
+
+.registration-card h2{
+
+    text-align:center;
+
+    margin-bottom:18px;
+
+}
+
+.registration-card input{
+
+    margin-bottom:14px;
+
+}
+
+/* ----------------------------------------------------------
+   FEATURES
+---------------------------------------------------------- */
+
+.feature-box{
+
+    width:100%;
+
+    margin-top:30px;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:14px;
+
+}
+
+.feature-box div{
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    border-radius:16px;
+
+    padding:18px 12px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    color:var(--text);
+
+    box-shadow:var(--shadow);
+
+    transition:var(--transition);
+
+}
+
+.feature-box div:hover{
+
+    transform:translateY(-3px);
+
+    border-color:var(--primary);
+
+}
+
+/* ----------------------------------------------------------
+   LANGUAGE
+---------------------------------------------------------- */
+
+.language-card{
+
+    width:100%;
+
+    margin-top:32px;
+
+}
+
+.language-card h3{
+
+    text-align:center;
+
+    margin-bottom:18px;
+
+}
+
+.language-buttons{
+
+    display:flex;
+
+    gap:14px;
+
+}
+
+.language-btn{
+
+    flex:1;
+
+    height:54px;
+
+    border-radius:14px;
+
+    background:#fff;
+
+    border:2px solid var(--border);
+
+    color:var(--text);
+
+    font-size:17px;
+
+    font-weight:600;
+
+}
+
+.language-btn:hover{
+
+    border-color:var(--primary);
+
+}
+
+.language-btn.active{
+
+    background:var(--primary);
+
+    border-color:var(--primary);
+
+    color:#fff;
+
+}
+
+/* ----------------------------------------------------------
+   HOME INFO STRIP
+---------------------------------------------------------- */
+
+.home-info{
+
+    width:100%;
+
+    margin-top:28px;
+
+    padding:16px;
+
+    border-radius:16px;
+
+    background:#EAF4FF;
+
+    color:var(--primary-dark);
+
+    font-size:15px;
+
+    font-weight:500;
+
+    line-height:1.7;
+
+}
+
+/* ----------------------------------------------------------
+   TRUST BADGES
+---------------------------------------------------------- */
+
+.badge-row{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-top:24px;
+
+}
+
+.badge{
+
+    padding:8px 14px;
+
+    border-radius:999px;
+
+    background:#F1F5F9;
+
+    color:var(--primary);
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+/* ----------------------------------------------------------
+   MOBILE
+---------------------------------------------------------- */
+
+@media(max-width:480px){
+
+    .home-title{
+
+        font-size:27px;
+
+    }
+
+    .home-subtitle{
+
+        font-size:17px;
+
+    }
+
+    .feature-box{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .language-buttons{
+
+        flex-direction:column;
+
+    }
+
+}
+
+/* ==========================================================
+   END OF PART 2
+
+   PART 3:
+   Dashboard • Usage • Class Grid • Subject Grid
+   ========================================================== */
+
+/* ==========================================================
+   Students Homework AI
+   Version 4.0
+   style.css
+   PART 3
+   Dashboard • Usage • Class Grid • Subject Grid
+   ========================================================== */
+
+/* ----------------------------------------------------------
    DASHBOARD
------------------------------- */
+---------------------------------------------------------- */
 
 .dashboard-header{
 
@@ -513,29 +837,37 @@ textarea{
 
     align-items:flex-start;
 
-    gap:16px;
+    gap:18px;
 
-    margin-bottom:24px;
+    margin-bottom:26px;
+
+}
+
+.dashboard-left{
+
+    flex:1;
 
 }
 
 #welcomeMessage{
 
-    font-size:26px;
+    font-size:28px;
 
     font-weight:700;
 
     color:var(--primary-dark);
 
+    line-height:1.3;
+
 }
 
-.membership-badge{
+#membershipBadge{
 
     display:inline-block;
 
-    margin-top:10px;
+    margin-top:12px;
 
-    padding:8px 14px;
+    padding:8px 16px;
 
     border-radius:999px;
 
@@ -551,13 +883,15 @@ textarea{
 
 .logout-btn{
 
-    padding:10px 18px;
+    min-width:120px;
 
-    border-radius:12px;
+    height:48px;
 
     background:var(--danger);
 
     color:#fff;
+
+    border-radius:14px;
 
     font-size:15px;
 
@@ -571,37 +905,39 @@ textarea{
 
 }
 
-/* -----------------------------
+/* ----------------------------------------------------------
    USAGE CARD
------------------------------- */
+---------------------------------------------------------- */
 
 .usage-card{
 
     background:#fff;
 
-    border-radius:var(--radius);
+    border-radius:18px;
 
     box-shadow:var(--shadow);
 
-    padding:20px;
+    padding:22px;
 
-    margin-bottom:24px;
+    margin-bottom:28px;
 
 }
 
 .usage-card h3{
 
-    margin-bottom:10px;
-
     color:var(--primary);
+
+    margin-bottom:12px;
 
 }
 
 #usageCounter{
 
-    margin-bottom:14px;
+    font-size:16px;
 
     color:var(--text-light);
+
+    margin-bottom:16px;
 
 }
 
@@ -609,11 +945,11 @@ textarea{
 
     width:100%;
 
-    height:10px;
-
-    border-radius:999px;
+    height:12px;
 
     background:#E5E7EB;
+
+    border-radius:999px;
 
     overflow:hidden;
 
@@ -625,39 +961,43 @@ textarea{
 
     height:100%;
 
+    border-radius:999px;
+
     background:linear-gradient(
+
         90deg,
+
         var(--secondary),
+
         var(--primary)
+
     );
 
-    transition:width .4s ease;
+    transition:width .35s ease;
 
 }
 
-/* -----------------------------
-   CLASS SECTION
------------------------------- */
+/* ----------------------------------------------------------
+   SECTION TITLE
+---------------------------------------------------------- */
 
-.class-section{
-
-    margin-top:28px;
-
-}
-
-.class-section h2{
+.section-title{
 
     text-align:center;
 
-    margin-bottom:20px;
+    font-size:28px;
+
+    font-weight:700;
 
     color:var(--primary-dark);
 
+    margin:28px 0 22px;
+
 }
 
-/* -----------------------------
+/* ----------------------------------------------------------
    CLASS GRID
------------------------------- */
+---------------------------------------------------------- */
 
 .class-grid{
 
@@ -671,23 +1011,23 @@ textarea{
 
 .class-grid button{
 
-    min-height:100px;
-
-    border-radius:18px;
+    min-height:110px;
 
     background:#fff;
 
     border:2px solid var(--border);
 
-    font-size:18px;
-
-    font-weight:600;
-
-    color:var(--text);
+    border-radius:18px;
 
     box-shadow:var(--shadow);
 
-    padding:18px 10px;
+    font-size:18px;
+
+    font-weight:700;
+
+    color:var(--text);
+
+    transition:var(--transition);
 
 }
 
@@ -695,7 +1035,7 @@ textarea{
 
     border-color:var(--primary);
 
-    transform:translateY(-3px);
+    transform:translateY(-4px);
 
 }
 
@@ -705,17 +1045,9 @@ textarea{
 
 }
 
-/* Last button spans full width */
-
-.class-grid button:last-child{
-
-    grid-column:1 / -1;
-
-}
-
-/* -----------------------------
+/* ----------------------------------------------------------
    BACK BUTTON
------------------------------- */
+---------------------------------------------------------- */
 
 .back-btn{
 
@@ -725,15 +1057,15 @@ textarea{
 
     justify-content:center;
 
-    padding:10px 18px;
+    padding:12px 20px;
 
-    margin-bottom:20px;
-
-    border-radius:12px;
+    margin-bottom:24px;
 
     background:var(--primary);
 
     color:#fff;
+
+    border-radius:14px;
 
     font-size:15px;
 
@@ -741,29 +1073,37 @@ textarea{
 
 }
 
-/* -----------------------------
-   SUBJECT TITLE
------------------------------- */
+.back-btn:hover{
+
+    background:var(--primary-dark);
+
+}
+
+/* ----------------------------------------------------------
+   PAGE TITLES
+---------------------------------------------------------- */
 
 #selectedClassTitle,
+
 #selectedSubjectTitle,
+
 #questionScreenTitle{
 
     text-align:center;
 
-    font-size:28px;
+    font-size:30px;
 
     font-weight:700;
 
     color:var(--primary-dark);
 
-    margin-bottom:24px;
+    margin-bottom:26px;
 
 }
 
-/* -----------------------------
+/* ----------------------------------------------------------
    SUBJECT GRID
------------------------------- */
+---------------------------------------------------------- */
 
 .subject-grid{
 
@@ -771,7 +1111,7 @@ textarea{
 
     grid-template-columns:1fr;
 
-    gap:14px;
+    gap:16px;
 
 }
 
@@ -779,17 +1119,63 @@ textarea{
 
     width:100%;
 
-    min-height:64px;
-
-    border-radius:16px;
+    min-height:68px;
 
     background:#fff;
 
     border:2px solid var(--border);
 
+    border-radius:18px;
+
     box-shadow:var(--shadow);
 
+    padding:18px;
+
     text-align:left;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    color:var(--text);
+
+    transition:var(--transition);
+
+}
+
+.subject-grid button:hover{
+
+    border-color:var(--primary);
+
+    transform:translateX(4px);
+
+}
+
+/* ----------------------------------------------------------
+   HOMEWORK OPTIONS
+---------------------------------------------------------- */
+
+.action-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:18px;
+
+}
+
+.action-grid button{
+
+    min-height:120px;
+
+    background:#fff;
+
+    border:2px solid var(--border);
+
+    border-radius:20px;
+
+    box-shadow:var(--shadow);
 
     padding:18px;
 
@@ -799,49 +1185,9 @@ textarea{
 
     color:var(--text);
 
-}
+    line-height:1.6;
 
-.subject-grid button:hover{
-
-    border-color:var(--primary);
-
-    transform:translateX(3px);
-
-}
-
-/* -----------------------------
-   ACTION GRID
------------------------------- */
-
-.action-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(2,1fr);
-
-    gap:16px;
-
-}
-
-.action-grid button{
-
-    min-height:110px;
-
-    border-radius:18px;
-
-    background:#fff;
-
-    border:2px solid var(--border);
-
-    box-shadow:var(--shadow);
-
-    font-size:17px;
-
-    font-weight:600;
-
-    color:var(--text);
-
-    padding:16px;
+    transition:var(--transition);
 
 }
 
@@ -849,403 +1195,33 @@ textarea{
 
     border-color:var(--primary);
 
-    transform:translateY(-3px);
+    transform:translateY(-4px);
 
 }
 
-/* -----------------------------
-   QUESTION CARD
------------------------------- */
+/* ----------------------------------------------------------
+   SUBJECT CARD
+---------------------------------------------------------- */
 
-.question-card{
+.subject-card{
 
     background:#fff;
 
-    border-radius:var(--radius);
+    border-radius:18px;
 
     box-shadow:var(--shadow);
 
     padding:20px;
 
-}
-
-.question-card textarea{
-
-    width:100%;
-
-    min-height:180px;
-
-    resize:vertical;
-
-    padding:16px;
-
-    border:1px solid var(--border);
-
-    border-radius:14px;
-
-    font-size:16px;
-
-    line-height:1.6;
-
-}
-
-.question-card textarea:focus{
-
-    border-color:var(--primary);
-
-}
-
-/* -----------------------------
-   QUESTION ACTIONS
------------------------------- */
-
-.question-actions{
-
-    display:flex;
-
-    gap:14px;
-
-    margin-top:18px;
-
-}
-
-.question-actions button{
-
-    flex:1;
-
-}
-
-/* ==========================================================
-   END OF PART 2
-
-   PART 3:
-   Loading • Answer • Footer • Responsive • Utilities
-   ========================================================== */
-/* ==========================================================
-   Students Homework AI
-   Version 3.0
-   style.css
-   PART 3
-   Loading • Answer • Referral • Footer • Responsive
-   ========================================================== */
-
-/* -----------------------------
-   LOADING SCREEN
------------------------------- */
-
-.loading-card{
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    min-height:70vh;
-
-    text-align:center;
-
-    padding:24px;
-
-}
-
-.loader{
-
-    width:70px;
-
-    height:70px;
-
-    border:6px solid #E5E7EB;
-
-    border-top:6px solid var(--primary);
-
-    border-radius:50%;
-
-    animation:spin 1s linear infinite;
-
-    margin-bottom:24px;
-
-}
-
-.loading-card h2{
-
-    color:var(--primary-dark);
-
-    font-size:28px;
-
-    margin-bottom:12px;
-
-}
-
-.loading-card p{
-
-    color:var(--text-light);
-
-    font-size:16px;
-
-}
-
-@keyframes spin{
-
-    from{
-
-        transform:rotate(0deg);
-
-    }
-
-    to{
-
-        transform:rotate(360deg);
-
-    }
-
-}
-
-/* -----------------------------
-   ANSWER SCREEN
------------------------------- */
-
-.answer-card{
-
-    background:#fff;
-
-    border-radius:var(--radius);
-
-    box-shadow:var(--shadow);
-
-    padding:22px;
-
     margin-bottom:22px;
 
 }
 
-.answer-card h2{
-
-    color:var(--primary-dark);
-
-    margin-bottom:18px;
-
-    text-align:center;
-
-}
-
-#answerContainer{
-
-    font-size:16px;
-
-    line-height:1.8;
-
-    color:var(--text);
-
-    word-break:break-word;
-
-}
-
-#answerContainer h1,
-#answerContainer h2,
-#answerContainer h3{
-
-    color:var(--primary-dark);
-
-    margin:18px 0 10px;
-
-}
-
-#answerContainer strong{
-
-    color:var(--primary-dark);
-
-}
-
-#answerContainer ul,
-#answerContainer ol{
-
-    padding-left:24px;
-
-    margin:14px 0;
-
-}
-
-#answerContainer li{
-
-    margin-bottom:8px;
-
-}
-
-#answerContainer table{
-
-    width:100%;
-
-    border-collapse:collapse;
-
-    margin:16px 0;
-
-    overflow-x:auto;
-
-    display:block;
-
-}
-
-#answerContainer th,
-#answerContainer td{
-
-    border:1px solid var(--border);
-
-    padding:10px;
-
-}
-
-#answerContainer th{
-
-    background:#F1F5F9;
-
-}
-
-/* -----------------------------
-   ANSWER BUTTONS
------------------------------- */
-
-.answer-buttons{
-
-    display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:12px;
-
-}
-
-.answer-buttons button{
-
-    min-height:52px;
-
-}
-
-/* -----------------------------
-   REFERRAL
------------------------------- */
-
-#referralSection .card{
-
-    text-align:center;
-
-}
-
-#referralSection h2{
-
-    color:var(--primary);
-
-    margin-bottom:14px;
-
-}
-
-#referralSection p{
-
-    color:var(--text-light);
-
-    margin-bottom:20px;
-
-}
-
-/* -----------------------------
-   FOOTER
------------------------------- */
-
-.app-footer{
-
-    background:var(--primary-dark);
-
-    color:#fff;
-
-    text-align:center;
-
-    padding:30px 20px;
-
-    margin-top:40px;
-
-}
-
-.app-footer strong{
-
-    font-size:20px;
-
-}
-
-.app-footer p{
-
-    margin:8px 0;
-
-    opacity:.96;
-
-}
-
-.footer-links{
-
-    display:flex;
-
-    justify-content:center;
-
-    flex-wrap:wrap;
-
-    gap:12px;
-
-    margin:20px 0;
-
-}
-
-.footer-links button{
-
-    background:rgba(255,255,255,.12);
-
-    color:#fff;
-
-    border:1px solid rgba(255,255,255,.25);
-
-    border-radius:10px;
-
-    padding:10px 16px;
-
-    font-size:14px;
-
-}
-
-.footer-links button:hover{
-
-    background:rgba(255,255,255,.20);
-
-}
-
-/* -----------------------------
-   MOBILE RESPONSIVE
------------------------------- */
+/* ----------------------------------------------------------
+   RESPONSIVE
+---------------------------------------------------------- */
 
 @media (max-width:480px){
-
-    .brand-title{
-
-        font-size:18px;
-
-    }
-
-    .hero h2{
-
-        font-size:24px;
-
-    }
-
-    .hero-logo{
-
-        width:90px;
-
-    }
-
-    .registration-card h3{
-
-        font-size:20px;
-
-    }
 
     .dashboard-header{
 
@@ -1273,53 +1249,13 @@ textarea{
 
     }
 
-    .answer-buttons{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .question-actions{
-
-        flex-direction:column;
-
-    }
-
-    .language-buttons{
-
-        flex-direction:column;
-
-    }
-
 }
 
-/* -----------------------------
-   TABLET
------------------------------- */
-
 @media (min-width:768px){
-
-    #app{
-
-        max-width:700px;
-
-    }
-
-    .hero h2{
-
-        font-size:36px;
-
-    }
 
     .class-grid{
 
         grid-template-columns:repeat(3,1fr);
-
-    }
-
-    .class-grid button:last-child{
-
-        grid-column:auto;
 
     }
 
@@ -1337,9 +1273,380 @@ textarea{
 
 }
 
-/* -----------------------------
+/* ==========================================================
+   END OF PART 3
+
+   PART 4:
+   Question Screen • Loading • Answer Screen • Learn More
+   ========================================================== */
+
+/* ==========================================================
+   Students Homework AI
+   Version 4.0
+   style.css
+   PART 4
+   Answer • Learn More • Footer • Responsive • Utilities
+   ========================================================== */
+
+/* --------------------------------------------------
+   ANSWER SCREEN
+---------------------------------------------------*/
+
+.answer-card{
+
+    background:#ffffff;
+
+    border-radius:20px;
+
+    padding:24px;
+
+    box-shadow:0 10px 35px rgba(0,0,0,.08);
+
+    margin-bottom:20px;
+
+}
+
+.answer-title{
+
+    font-size:28px;
+
+    font-weight:700;
+
+    color:var(--primary-dark);
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+.answer-meta{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-bottom:18px;
+
+}
+
+.answer-subject{
+
+    color:var(--primary);
+
+    font-weight:600;
+
+    font-size:15px;
+
+}
+
+.answer-class{
+
+    background:#E3F2FD;
+
+    color:var(--primary-dark);
+
+    padding:6px 12px;
+
+    border-radius:999px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+#answerContainer{
+
+    font-size:17px;
+
+    line-height:1.9;
+
+    color:var(--text);
+
+}
+
+#answerContainer h1,
+
+#answerContainer h2,
+
+#answerContainer h3{
+
+    color:var(--primary-dark);
+
+    margin:18px 0 10px;
+
+}
+
+#answerContainer strong{
+
+    color:var(--primary-dark);
+
+}
+
+#answerContainer ul,
+
+#answerContainer ol{
+
+    margin:12px 0;
+
+    padding-left:24px;
+
+}
+
+#answerContainer li{
+
+    margin-bottom:8px;
+
+}
+
+#answerContainer table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:18px;
+
+    overflow:auto;
+
+    display:block;
+
+}
+
+#answerContainer th,
+
+#answerContainer td{
+
+    border:1px solid var(--border);
+
+    padding:10px;
+
+}
+
+#answerContainer th{
+
+    background:#F4F8FD;
+
+}
+
+/* --------------------------------------------------
+   LEARN MORE
+---------------------------------------------------*/
+
+.learn-more{
+
+    margin-top:24px;
+
+    text-align:center;
+
+}
+
+.learn-more button{
+
+    background:#ffffff;
+
+    color:var(--primary);
+
+    border:2px solid var(--primary);
+
+    padding:12px 22px;
+
+    border-radius:12px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+}
+
+.learn-more button:hover{
+
+    background:var(--primary);
+
+    color:#ffffff;
+
+}
+
+.learn-more-content{
+
+    display:none;
+
+    margin-top:18px;
+
+    padding:18px;
+
+    background:#F8FBFF;
+
+    border-left:4px solid var(--primary);
+
+    border-radius:12px;
+
+    line-height:1.8;
+
+}
+
+/* --------------------------------------------------
+   ANSWER ACTION BUTTONS
+---------------------------------------------------*/
+
+.answer-buttons{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:14px;
+
+    margin-top:22px;
+
+}
+
+.answer-buttons button{
+
+    height:52px;
+
+}
+
+/* --------------------------------------------------
+   FOOTER
+---------------------------------------------------*/
+
+.app-footer{
+
+    margin-top:40px;
+
+    padding:30px 20px;
+
+    background:var(--primary-dark);
+
+    color:#ffffff;
+
+    text-align:center;
+
+}
+
+.app-footer h3{
+
+    font-size:22px;
+
+    margin-bottom:10px;
+
+}
+
+.app-footer p{
+
+    margin:8px 0;
+
+    opacity:.95;
+
+}
+
+.footer-links{
+
+    margin-top:20px;
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+}
+
+.footer-links button{
+
+    background:rgba(255,255,255,.15);
+
+    color:#ffffff;
+
+    border:1px solid rgba(255,255,255,.25);
+
+    border-radius:10px;
+
+    padding:10px 16px;
+
+    font-size:14px;
+
+}
+
+.footer-links button:hover{
+
+    background:rgba(255,255,255,.28);
+
+}
+
+/* --------------------------------------------------
+   MOBILE
+---------------------------------------------------*/
+
+@media(max-width:480px){
+
+    .answer-title{
+
+        font-size:24px;
+
+    }
+
+    .answer-buttons{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .answer-meta{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .footer-links{
+
+        flex-direction:column;
+
+    }
+
+}
+
+/* --------------------------------------------------
+   TABLET
+---------------------------------------------------*/
+
+@media(min-width:768px){
+
+    #app{
+
+        max-width:760px;
+
+    }
+
+    .answer-card{
+
+        padding:30px;
+
+    }
+
+}
+
+/* --------------------------------------------------
    UTILITIES
------------------------------- */
+---------------------------------------------------*/
+
+.hidden{
+
+    display:none !important;
+
+}
 
 .text-center{
 
@@ -1371,21 +1678,21 @@ textarea{
 
 }
 
-.shadow{
-
-    box-shadow:var(--shadow);
-
-}
-
 .rounded{
 
     border-radius:var(--radius);
 
 }
 
-/* -----------------------------
+.shadow{
+
+    box-shadow:var(--shadow);
+
+}
+
+/* --------------------------------------------------
    SCROLLBAR
------------------------------- */
+---------------------------------------------------*/
 
 ::-webkit-scrollbar{
 
@@ -1395,7 +1702,7 @@ textarea{
 
 ::-webkit-scrollbar-track{
 
-    background:#EDF2F7;
+    background:#EEF2F7;
 
 }
 
@@ -1403,7 +1710,7 @@ textarea{
 
     background:var(--primary);
 
-    border-radius:10px;
+    border-radius:20px;
 
 }
 
@@ -1415,164 +1722,624 @@ textarea{
 
 /* ==========================================================
    END OF STYLE.CSS
-   Students Homework AI
-   Version 3.0
+   Version 4.0
    Production Ready
    ========================================================== */
-/* ---------- Landing Page ---------- */
+
 /* ==========================================================
-   VERSION 4.0 HOME PAGE
-========================================================== */
+   Students Homework AI
+   Version 4.0
+   style.css
+   PART 5
+   Premium Effects • Accessibility • Print • Animations
+   ========================================================== */
 
-.home-container{
+/* --------------------------------------------------
+   BUTTON ANIMATIONS
+---------------------------------------------------*/
 
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    text-align:center;
+.primary-btn,
+.secondary-btn,
+.class-card,
+.subject-card,
+.action-card{
 
-    padding:30px 20px 40px;
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
 
 }
 
-.home-logo{
+.primary-btn:hover,
+.secondary-btn:hover,
+.class-card:hover,
+.subject-card:hover,
+.action-card:hover{
 
-    width:110px;
-    height:110px;
-    object-fit:contain;
+    transform:translateY(-3px);
+
+    box-shadow:0 14px 30px rgba(21,101,192,.18);
+
+}
+
+.primary-btn:active,
+.secondary-btn:active,
+.class-card:active,
+.subject-card:active,
+.action-card:active{
+
+    transform:scale(.98);
+
+}
+
+/* --------------------------------------------------
+   INPUT EFFECTS
+---------------------------------------------------*/
+
+input,
+textarea{
+
+    transition:
+        border-color .25s ease,
+        box-shadow .25s ease;
+
+}
+
+input:focus,
+textarea:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 4px rgba(21,101,192,.10);
+
+}
+
+/* --------------------------------------------------
+   CARD HOVER
+---------------------------------------------------*/
+
+.card,
+.answer-card,
+.usage-card{
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+
+}
+
+.card:hover,
+.answer-card:hover,
+.usage-card:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 12px 32px rgba(0,0,0,.08);
+
+}
+
+/* --------------------------------------------------
+   FADE ANIMATION
+---------------------------------------------------*/
+
+.fade-in{
+
+    animation:fadeIn .35s ease;
+
+}
+
+.slide-up{
+
+    animation:slideUp .35s ease;
+
+}
+
+@keyframes slideUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* --------------------------------------------------
+   SUCCESS MESSAGE
+---------------------------------------------------*/
+
+.success-message{
+
+    background:#E8F5E9;
+
+    color:#2E7D32;
+
+    border-left:5px solid #22C55E;
+
+    padding:14px;
+
+    border-radius:12px;
+
+}
+
+/* --------------------------------------------------
+   ERROR MESSAGE
+---------------------------------------------------*/
+
+.error-message{
+
+    background:#FDECEC;
+
+    color:#C62828;
+
+    border-left:5px solid #DC2626;
+
+    padding:14px;
+
+    border-radius:12px;
+
+}
+
+/* --------------------------------------------------
+   LOADING DOTS
+---------------------------------------------------*/
+
+.loading-dots{
+
+    display:inline-flex;
+
+    gap:5px;
+
+}
+
+.loading-dots span{
+
+    width:8px;
+
+    height:8px;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    animation:bounce 1s infinite;
+
+}
+
+.loading-dots span:nth-child(2){
+
+    animation-delay:.15s;
+
+}
+
+.loading-dots span:nth-child(3){
+
+    animation-delay:.30s;
+
+}
+
+@keyframes bounce{
+
+    0%,80%,100%{
+
+        transform:scale(.6);
+
+        opacity:.5;
+
+    }
+
+    40%{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+/* --------------------------------------------------
+   ACCESSIBILITY
+---------------------------------------------------*/
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible{
+
+    outline:3px solid rgba(21,101,192,.35);
+
+    outline-offset:2px;
+
+}
+
+/* --------------------------------------------------
+   SELECTION
+---------------------------------------------------*/
+
+::selection{
+
+    background:#1565C0;
+
+    color:#FFFFFF;
+
+}
+
+/* --------------------------------------------------
+   PRINT
+---------------------------------------------------*/
+
+@media print{
+
+    body{
+
+        background:#ffffff;
+
+    }
+
+    .top-header,
+    .app-footer,
+    .question-actions,
+    .answer-buttons,
+    .back-btn,
+    .learn-more{
+
+        display:none !important;
+
+    }
+
+    .answer-card{
+
+        box-shadow:none;
+
+        border:none;
+
+        padding:0;
+
+    }
+
+}
+
+/* --------------------------------------------------
+   REDUCED MOTION
+---------------------------------------------------*/
+
+@media (prefers-reduced-motion:reduce){
+
+    *{
+
+        animation:none !important;
+
+        transition:none !important;
+
+        scroll-behavior:auto !important;
+
+    }
+
+}
+
+/* ==========================================================
+   END OF PART 5
+   Students Homework AI
+   Version 4.0
+   Production Ready
+   ========================================================== */
+
+/* ==========================================================
+   Students Homework AI
+   Version 4.0
+   style.css
+   PART 6
+   Future Components
+   Premium Membership • Toast • Modal • Empty State
+   ========================================================== */
+
+/* --------------------------------------------------
+   PREMIUM CARD
+-------------------------------------------------- */
+
+.premium-card{
+
+    background:linear-gradient(135deg,#1565C0,#0D47A1);
+
+    color:#FFFFFF;
+
+    border-radius:20px;
+
+    padding:24px;
+
+    margin:20px 0;
+
+    text-align:center;
+
+    box-shadow:0 15px 35px rgba(13,71,161,.25);
+
+}
+
+.premium-card h2{
+
+    font-size:28px;
+
+    margin-bottom:12px;
+
+}
+
+.premium-card p{
+
+    line-height:1.8;
+
+    opacity:.95;
 
     margin-bottom:18px;
 
 }
 
-.home-title{
+.premium-card .primary-btn{
 
-    font-size:30px;
-    font-weight:700;
-    color:var(--primary-dark);
-
-    line-height:1.2;
-
-    margin-bottom:10px;
+    background:#22C55E;
 
 }
 
-.home-subtitle{
+.premium-card .primary-btn:hover{
 
-    font-size:18px;
-    font-weight:500;
-
-    color:var(--text);
-
-    margin-bottom:12px;
+    background:#16A34A;
 
 }
 
-.home-tagline{
+/* --------------------------------------------------
+   MEMBERSHIP BADGE
+-------------------------------------------------- */
 
-    font-size:15px;
+.badge{
 
-    color:var(--text-light);
+    display:inline-flex;
 
-    line-height:1.7;
+    align-items:center;
 
-    margin-bottom:28px;
+    gap:8px;
 
-}
+    padding:8px 16px;
 
-.home-start-btn{
+    border-radius:999px;
 
-    width:100%;
-    max-width:360px;
+    font-size:14px;
 
-    height:58px;
-
-    border-radius:14px;
-
-    background:var(--secondary);
-
-    color:#fff;
-
-    font-size:18px;
-
-    font-weight:700;
+    font-weight:600;
 
 }
 
-.home-start-btn:hover{
+.badge-free{
 
-    background:var(--secondary-dark);
+    background:#E3FCEC;
 
-}
-
-.login-area{
-
-    margin:26px 0;
+    color:#15803D;
 
 }
 
-.login-area p{
+.badge-premium{
 
-    margin-bottom:12px;
+    background:#FFF7D6;
 
-    color:var(--text-light);
+    color:#B45309;
 
 }
 
-.home-login-btn{
+/* --------------------------------------------------
+   TOAST MESSAGE
+-------------------------------------------------- */
 
-    width:220px;
+.toast{
 
-    height:52px;
+    position:fixed;
+
+    bottom:25px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    min-width:260px;
+
+    max-width:90%;
+
+    background:#1E293B;
+
+    color:#FFFFFF;
+
+    padding:14px 20px;
 
     border-radius:12px;
 
-    border:2px solid var(--primary);
+    text-align:center;
 
-    background:#fff;
+    z-index:9999;
 
-    color:var(--primary);
+    opacity:0;
 
-    font-size:17px;
+    pointer-events:none;
 
-    font-weight:600;
-
-}
-
-.home-login-btn:hover{
-
-    background:var(--primary);
-
-    color:#fff;
+    transition:.3s;
 
 }
 
-.feature-box{
+.toast.show{
+
+    opacity:1;
+
+    bottom:35px;
+
+}
+
+/* --------------------------------------------------
+   MODAL
+-------------------------------------------------- */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
+    z-index:9998;
+
+}
+
+.modal.hidden{
+
+    display:none;
+
+}
+
+.modal-content{
 
     width:100%;
 
-    margin:30px 0;
+    max-width:450px;
 
-    display:grid;
+    background:#FFFFFF;
 
-    grid-template-columns:repeat(2,1fr);
+    border-radius:20px;
 
-    gap:14px;
+    padding:25px;
+
+    animation:fadeIn .25s ease;
 
 }
 
-.feature-box div{
+/* --------------------------------------------------
+   EMPTY STATE
+-------------------------------------------------- */
 
-    background:#fff;
+.empty-state{
 
-    border-radius:14px;
+    text-align:center;
 
-    padding:16px;
+    padding:50px 20px;
 
-    box-shadow:var(--shadow);
+}
+
+.empty-state img{
+
+    width:120px;
+
+    margin:0 auto 20px;
+
+}
+
+.empty-state h3{
+
+    color:var(--primary-dark);
+
+    margin-bottom:12px;
+
+}
+
+.empty-state p{
+
+    color:var(--text-light);
+
+}
+
+/* --------------------------------------------------
+   COMING SOON CARD
+-------------------------------------------------- */
+
+.coming-soon{
+
+    text-align:center;
+
+    padding:30px;
+
+    border:2px dashed var(--border);
+
+    border-radius:18px;
+
+    background:#FAFCFF;
+
+}
+
+.coming-soon h3{
+
+    color:var(--primary);
+
+    margin-bottom:12px;
+
+}
+
+.coming-soon p{
+
+    color:var(--text-light);
+
+}
+
+/* --------------------------------------------------
+   OFFLINE BANNER
+-------------------------------------------------- */
+
+.offline-banner{
+
+    display:none;
+
+    width:100%;
+
+    background:#DC2626;
+
+    color:#FFFFFF;
+
+    text-align:center;
+
+    padding:12px;
 
     font-weight:600;
 
-    border:1px solid var(--border);
+}
+
+.offline-banner.show{
+
+    display:block;
 
 }
+
+/* --------------------------------------------------
+   VERSION LABEL
+-------------------------------------------------- */
+
+.version-label{
+
+    text-align:center;
+
+    margin-top:20px;
+
+    color:#94A3B8;
+
+    font-size:13px;
+
+}
+
+/* ==========================================================
+   END OF PART 6
+   Students Homework AI
+   Version 4.0
+   Production Ready
+   ========================================================== */
+
