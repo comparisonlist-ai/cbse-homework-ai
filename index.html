@@ -576,3 +576,366 @@ NCERT Solutions
 </div>
 
 </section>
+
+<!-- =====================================
+QUESTION SCREEN
+===================================== -->
+
+<section
+id="questionScreen"
+class="screen hidden">
+
+<button
+class="back-btn"
+onclick="goBackToHomework()">
+
+← Back
+
+</button>
+
+<h2
+id="questionScreenTitle">
+
+Ask Your Homework Question
+
+</h2>
+
+<p class="text-center">
+
+Type your CBSE homework question below.
+
+</p>
+
+<div class="question-card">
+
+<textarea
+id="questionInput"
+rows="7"
+placeholder="Example:
+Explain the Water Cycle.
+Find the HCF of 24 and 36.
+What is Photosynthesis?">
+
+</textarea>
+
+<div class="question-actions">
+
+<button
+class="secondary-btn"
+onclick="clearQuestion()">
+
+🗑 Clear
+
+</button>
+
+<button
+class="primary-btn"
+onclick="askAI()">
+
+🤖 Get Answer
+
+</button>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+💡 Tips
+
+</h3>
+
+<p>
+
+Ask one complete question for the best answer.
+Mention chapter name if possible.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- =====================================
+LOADING SCREEN
+===================================== -->
+
+<section
+id="loadingScreen"
+class="screen hidden">
+
+<div class="loading-card">
+
+<div class="loader">
+
+</div>
+
+<h2>
+
+AI is Preparing Your Answer...
+
+</h2>
+
+<p>
+
+Please wait a few seconds.
+
+</p>
+
+<p>
+
+📚 Searching NCERT concepts...
+
+</p>
+
+</div>
+
+</section>
+
+<!-- =====================================
+ANSWER SCREEN
+===================================== -->
+
+<section
+id="answerScreen"
+class="screen hidden">
+
+<button
+class="back-btn"
+onclick="askAnotherQuestion()">
+
+← Ask Another Question
+
+</button>
+
+<div class="answer-card">
+
+<h2>
+
+✅ AI Answer
+
+</h2>
+
+<div
+id="answerContainer">
+
+</div>
+
+</div>
+
+<div class="answer-buttons">
+
+<button
+class="secondary-btn"
+onclick="copyAnswer()">
+
+📋 Copy
+
+</button>
+
+<button
+class="secondary-btn"
+onclick="shareAnswer()">
+
+📤 Share
+
+</button>
+
+<button
+class="secondary-btn"
+onclick="printAnswer()">
+
+🖨 Print
+
+</button>
+
+<button
+class="primary-btn"
+onclick="showQuestionScreen()">
+
+❓ New Question
+
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+Need another explanation?
+
+</h3>
+
+<p>
+
+You can ask the same question again in a simpler way,
+or ask for examples, diagrams, formulas or step-by-step
+solutions.
+
+</p>
+
+</div>
+
+</section>
+
+
+    <!-- =====================================
+REFERRAL SECTION
+===================================== -->
+
+<section
+id="referralSection"
+class="screen hidden">
+
+<div class="card">
+
+<h2>
+
+🎁 Invite Friends
+
+</h2>
+
+<p>
+
+Invite your friends to Students Homework AI.
+When they become Premium members, both of you
+become eligible for referral rewards.
+
+</p>
+
+<button
+class="primary-btn"
+onclick="shareReferralLink()">
+
+📤 Share Referral Link
+
+</button>
+
+<br><br>
+
+<button
+class="secondary-btn"
+onclick="closeReferralSection()">
+
+Close
+
+</button>
+
+</div>
+
+</section>
+
+<!-- =====================================
+HIDDEN FILE INPUTS
+===================================== -->
+
+<input
+type="file"
+id="ocrFileInput"
+accept="image/*"
+capture="environment"
+hidden>
+
+<input
+type="file"
+id="imageInput"
+accept="image/*"
+hidden>
+
+</div>
+
+<!-- =====================================
+FOOTER
+===================================== -->
+
+<footer class="app-footer">
+
+<div class="footer-logo">
+
+<img
+src="images/logo.png"
+alt="Students Homework AI"
+class="footer-logo-img">
+
+</div>
+
+<h3>
+
+Students Homework AI
+
+</h3>
+
+<p>
+
+Smart AI Homework Help for
+CBSE Classes 6–10
+
+</p>
+
+<p>
+
+📚 NCERT Friendly
+
+</p>
+
+<p>
+
+🤖 Powered by Artificial Intelligence
+
+</p>
+
+<p>
+
+🌐
+studentshomeworkai.in
+
+</p>
+
+<div class="footer-links">
+
+<button
+onclick="showPrivacyPolicy()">
+
+Privacy Policy
+
+</button>
+
+<button
+onclick="showTerms()">
+
+Terms & Conditions
+
+</button>
+
+<button
+onclick="contactUs()">
+
+Contact Us
+
+</button>
+
+</div>
+
+<p class="footer-copy">
+
+© 2026 Students Homework AI
+
+</p>
+
+<p>
+
+Made with ❤️ by Sibaram
+
+</p>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
