@@ -98,86 +98,8 @@ src="/images/logo.png">
          APP CONTAINER
     =========================================== -->
 
-    <div id="app">
-
-        <!-- ======================================
-             APP MESSAGE
-        ======================================= -->
-
-        <div id="appMessage" class="app-message"></div>
-
-        <!-- ======================================
-             HOME / REGISTRATION SCREEN
-        ======================================= -->
-
-        <section id="registration" class="screen">
-
-            <!-- Sticky Header -->
-
-            <header class="top-header">
-
-                <div class="brand">
-
-                    <img
-                        src="images/logo.png"
-                        alt="Students Homework AI"
-                        class="logo">
-
-                    <div>
-
-                        <h1 class="brand-title">
-                            Students Homework AI
-                        </h1>
-
-                        <p class="brand-subtitle">
-                            Smart Homework Help
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </header>
-
-            
-<!-- Landing -->
-
-<div class="landing">
-
-    <img
-        src="images/logo.png"
-        alt="Students Homework AI"
-        class="landing-logo">
-
-    <button
-        class="landing-trial-btn"
-        onclick="document.getElementById('registrationForm').scrollIntoView({behavior:'smooth'})">
-
-        🚀 Start Your 7-Day FREE Trial
-
-    </button>
-
-    <p class="landing-login-text">
-
-        Already Registered?
-
-    </p>
-
-    <button
-        class="landing-login-btn"
-        onclick="initApp()">
-
-        Login
-
-    </button>
-
-</div>
-
-<div
-    id="registrationForm"
-    class="card registration-card">
-
-    <h3>
+    
+        <h3>
 
         Register & Start FREE Trial
 
@@ -198,8 +120,6 @@ src="/images/logo.png">
         type="email"
         placeholder="Email Address">
 
-    <button
-        class="primary-btn"
         onclick="registerStudent()">
 
         Register Now
@@ -254,157 +174,148 @@ src="/images/logo.png">
                  DASHBOARD
             ======================================= -->
 
-            <div class="dashboard-header">
+                    <body>
 
-                <div>
+<div id="app">
 
-                    <h2 id="welcomeMessage">
-                        Welcome
-                    </h2>
+<div id="appMessage" class="app-message"></div>
 
-                    <span
-                        id="membershipBadge"
-                        class="membership-badge">
+<!-- ==========================================
+HOME PAGE
+========================================== -->
 
-                        🆓 7-Day FREE Trial
+<section id="registration" class="screen">
 
-                    </span>
+<div class="home-container">
 
-                </div>
+<img
+src="/images/logo.png"
+alt="Students Homework AI"
+class="home-logo">
 
-                <button
-                    class="logout-btn"
-                    onclick="logoutStudent()">
+<h1 class="home-title">
+Students Homework AI
+</h1>
 
-                    Logout
+<p class="home-subtitle">
+Smart AI Homework Help for
+CBSE Classes 6–10
+</p>
 
-                </button>
+<p class="home-tagline">
 
-            </div>
+NCERT Friendly • Instant Answers
+<br>
+English • हिन्दी
 
-            <!-- Usage -->
+</p>
 
-            <div class="usage-card">
+<button
+class="home-start-btn"
+onclick="showRegistrationForm()">
 
-                <h3>
+🚀 Start Your 7-Day FREE Trial
 
-                    Your Usage
+</button>
 
-                </h3>
+<div class="login-area">
 
-                <p id="usageCounter">
+<p>
 
-                    Questions Used:
-                    <strong>0 / 100</strong>
+Already Registered?
 
-                </p>
+</p>
 
-                <div class="progress">
+<button
+class="home-login-btn"
+onclick="initApp()">
 
-                    <div
-                        id="usageBar"
-                        class="progress-fill">
+Login
 
-                    </div>
+</button>
 
-                </div>
+</div>
 
-            </div>
+<div
+id="registrationForm"
+class="card registration-card hidden">
 
-            <!-- Language -->
+<h2>
 
-            <div class="language-card">
+Register FREE
 
-                <h3>
+</h2>
 
-                    Answer Language
+<input
+id="name"
+type="text"
+placeholder="Student Name">
 
-                </h3>
+<input
+id="mobile"
+type="tel"
+placeholder="10-digit Mobile Number">
 
-                <div class="language-buttons">
+<input
+id="email"
+type="email"
+placeholder="Email Address">
 
-                    <button
-                        id="dashboardEnglish"
-                        class="language-btn active">
+<button
+class="primary-btn"
+onclick="registerStudent()">
 
-                        🇬🇧 English
+Register Now
 
-                    </button>
+</button>
 
-                    <button
-                        id="dashboardHindi"
-                        class="language-btn">
+</div>
 
-                        🇮🇳 हिन्दी
+<div class="feature-box">
 
-                    </button>
+<div>📷 Scan Homework</div>
 
-                </div>
+<div>🎤 Voice Questions</div>
 
-            </div>
+<div>📚 NCERT Solutions</div>
 
-            <!-- Choose Class -->
+<div>🤖 AI Homework Help</div>
 
-            <div class="class-section">
+</div>
 
-                <h2>
+<div class="language-card">
 
-                    Choose Your Class
+<h3>
 
-                </h2>
+Choose Language
 
-                <div class="class-grid">
+</h3>
 
-                    <button
-                        onclick="showSubjects('Class 6')">
+<div class="language-buttons">
 
-                        📘
-                        <br>
-                        Class 6
+<button
+id="englishBtn"
+class="language-btn active">
 
-                    </button>
+🇬🇧 English
 
-                    <button
-                        onclick="showSubjects('Class 7')">
+</button>
 
-                        📗
-                        <br>
-                        Class 7
+<button
+id="hindiBtn"
+class="language-btn">
 
-                    </button>
+🇮🇳 हिन्दी
 
-                    <button
-                        onclick="showSubjects('Class 8')">
+</button>
 
-                        📙
-                        <br>
-                        Class 8
+</div>
 
-                    </button>
+</div>
 
-                    <button
-                        onclick="showSubjects('Class 9')">
+</div>
 
-                        📕
-                        <br>
-                        Class 9
-
-                    </button>
-
-                    <button
-                        onclick="showSubjects('Class 10')">
-
-                        🎓
-                        <br>
-                        Class 10
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </section>
+</section>                
 
         <!-- ======================================
              SUBJECT SCREEN
