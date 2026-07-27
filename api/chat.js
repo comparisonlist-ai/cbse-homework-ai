@@ -1,6 +1,7 @@
 // ======================================================
-// CBSE Homework AI
+// Students Homework AI
 // api/chat.js
+// Version 4.0
 // BATCH 1
 // Production Ready
 // ======================================================
@@ -8,359 +9,533 @@
 const GEMINI_API_URL =
 "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
+// ------------------------------------------------------
+// MAIN HANDLER
+// ------------------------------------------------------
+
 export default async function handler(req, res) {
 
-    // Allow only POST requests
+    // -----------------------------
+    // CORS
+    // -----------------------------
+
+    res.setHeader(
+        "Access-Control-Allow-Origin",
+        "*"
+    );
+
+    res.setHeader(
+        "Access-Control-Allow-Methods",
+        "POST, OPTIONS"
+    );
+
+    res.setHeader(
+        "Access-Control-Allow-Headers",
+        "Content-Type"
+    );
+
+    // -----------------------------
+    // PREFLIGHT
+    // -----------------------------
+
+    if (req.method === "OPTIONS") {
+
+        return res.status(200).end();
+
+    }
+
+    // -----------------------------
+    // ONLY POST
+    // -----------------------------
+
     if (req.method !== "POST") {
+
         return res.status(405).json({
+
             success: false,
+
             error: "Method Not Allowed"
+
         });
+
+    }
+
+    // -----------------------------
+    // API KEY
+    // -----------------------------
+
+    const API_KEY = process.env.GEMINI_API_KEY;
+
+    if (!API_KEY) {
+
+        return res.status(500).json({
+
+            success: false,
+
+            error: "Gemini API Key is missing."
+
+        });
+
     }
 
     try {
 
-        // Read request
-        const body = req.body || {};
+        // -----------------------------
+        // REQUEST DATA
+        // -----------------------------
 
-        const question =
-            (body.question || "").trim();
+        const {
 
-        const studentClass =
-            body.className || "";
+            className,
+            subject,
+            language,
+            question
 
-        const subject =
-            body.subject || "";
+        } = req.body || {};
 
-        const language =
-    body.language || "English";
+        // -----------------------------
+        // VALIDATION
+        // -----------------------------
 
-        if (!question) {
+        if (!question || question.trim() === "") {
+
             return res.status(400).json({
+
                 success: false,
+
                 error: "Question is required."
+
             });
+
         }
 
-        // Check API Key
-        if (!process.env.GEMINI_API_KEY) {
+        if (!className) {
 
-            return res.status(500).json({
+            return res.status(400).json({
+
                 success: false,
-                error: "Gemini API Key not configured."
+
+                error: "Class is required."
+
             });
 
         }
 
-        // Continue in Batch 2...
-        
-                // ======================================================
-        // BUILD CBSE SYSTEM PROMPT
-        // ======================================================
-const systemPrompt = `
-You are "CBSE Homework AI", a highly experienced CBSE and NCERT teacher for Classes 6–10.
+        if (!subject) {
 
-=========================
-PRIMARY ROLE
-=========================
+            return res.status(400).json({
 
-You DO NOT behave like a general AI assistant.
+                success: false,
 
-You behave exactly like an experienced CBSE school teacher who teaches only according to the latest NCERT textbooks.
+                error: "Subject is required."
 
-The selected class and subject are mandatory.
+            });
 
-Selected Class : ${studentClass}
+        }
 
-Selected Subject : ${subject}
+        const answerLanguage =
 
-Selected Language : ${language}
+            language === "Hindi"
+                ? "Hindi"
+                : "English";
 
-=========================
-MOST IMPORTANT RULE
-=========================
+        // -----------------------------
+        // NORMALIZE INPUT
+        // -----------------------------
 
-Every answer MUST be prepared ONLY for Class ${studentClass}.
+        const cleanQuestion =
+            question.trim();
 
-The same question asked by Class 6 and Class 10 students MUST produce different answers.
+        const cleanClass =
+            String(className).trim();
 
-Adjust all of these according to the selected class:
+        const cleanSubject =
+            String(subject).trim();
 
-• explanation
-• vocabulary
-• examples
-• answer length
-• reasoning
-• difficulty
-• depth
+        // -------------------------------------------------
+        // CONTINUE IN BATCH 2
+        // -------------------------------------------------
 
-Never write answers meant for higher classes.
+            // -------------------------------------------------
+        // BATCH 2
+        // CBSE-NCERT PROMPT ENGINE
+        // -------------------------------------------------
 
-=========================
-NCERT RULE
-=========================
+        const systemPrompt = `
+You are Students Homework AI.
 
-Use ONLY:
+You are an expert CBSE and NCERT teacher.
 
-• Latest NCERT textbooks
-• Latest CBSE syllabus
-• Latest CBSE terminology
+Your job is to help students of CBSE Classes 6–10 only.
 
-Never answer using college-level or advanced knowledge.
+Follow these rules strictly.
 
-If a student asks something beyond Class ${studentClass}, reply:
+1. Answer ONLY according to the latest NCERT-CBSE syllabus.
 
-"This topic is beyond the NCERT syllabus of Class ${studentClass}. Here is a simple introduction suitable for your class."
+2. Use Class "${cleanClass}" syllabus.
 
-Then give only a short introductory explanation.
+3. Subject is "${cleanSubject}".
 
-=========================
-SUBJECTS
-=========================
+4. Language must be ${answerLanguage}.
 
-• Mathematics
-• Science
-• Social Science
-• English
-• Hindi
-• Sanskrit
-• Computer Science
+5. Give the DIRECT ANSWER first.
 
-=========================
-SUBJECT RULES
-=========================
+6. Keep the answer concise, clear and exam-oriented.
 
-MATHEMATICS
+7. Do NOT behave like a general AI chatbot.
 
-• Show every calculation.
-• Never skip steps.
-• Mention formulas.
-• Use NCERT methods.
-• Give one similar practice question.
+8. Never say:
+"As an AI..."
+"I think..."
+"I believe..."
+"According to my knowledge..."
 
-SCIENCE
+9. Never generate unnecessary illustrations,
+ASCII art,
+decorative diagrams,
+emoji decorations,
+or long introductions.
 
-• Explain scientifically.
-• Use simple language.
-• Use daily-life examples.
-• Explain diagrams whenever needed.
+10. Use headings only when required.
 
-SOCIAL SCIENCE
+11. Use tables only if they genuinely improve understanding.
 
-• Stay factual.
-• Use NCERT terminology.
-• Never express personal opinions.
+12. Mathematical answers must show proper steps.
 
-ENGLISH
+13. Science answers should follow NCERT terminology.
 
-• Explain grammar clearly.
-• Improve sentence construction.
-• Give meanings in simple English.
-• Explain literature according to NCERT.
+14. English answers should use correct grammar and CBSE style.
 
-HINDI
+15. Hindi answers should use simple school-level Hindi.
 
-• उत्तर सरल एवं शुद्ध हिन्दी में दें।
-• NCERT शैली का पालन करें।
+16. If the question is outside the CBSE syllabus,
+politely mention that it is outside the current syllabus.
 
-SANSKRIT
+17. If additional explanation would help,
+add it ONLY under the heading:
 
-• सरल संस्कृत एवं हिन्दी व्याख्या दें।
-• NCERT के अनुसार उत्तर दें।
+## Learn More
 
-COMPUTER SCIENCE
+The student can choose to read it.
 
-• Explain concepts according to the student's class.
-• Keep programming examples short.
-• Never use advanced coding beyond Class ${studentClass}.
+Do NOT force lengthy explanations before the direct answer.
 
-=========================
-ANSWER FORMAT
-=========================
-=========================
-LANGUAGE RULE
-=========================
-
-The answer MUST be written ONLY in ${language}.
-
-If ${language} is English:
-• Use only English.
-• Do not write Hindi.
-• Do not mix Hindi words.
-
-If ${language} is Hindi:
-• Write completely in Hindi.
-
-Never choose the language yourself.
-Always obey the selected language.
-
-
-Always use headings.
-
-📘 Quick Answer
-
-📖 Detailed Explanation
-
-⭐ Key Points
-
-📝 Practice Question
-
-=========================
-QUALITY RULES
-=========================
-
-Always:
-
-✔ Correct
-✔ Student-friendly
-✔ NCERT based
-✔ Class-specific
-✔ Exam-oriented
-✔ Easy to understand
-
-Never:
-
-✘ Mention Gemini
-✘ Mention AI
-✘ Mention language model
-✘ Invent facts
-✘ Mix higher-class topics
-✘ Give unnecessarily advanced explanations
-
-The student should feel that the answer has come from an experienced CBSE school teacher—not from a general AI chatbot.
+Return clean Markdown only.
 `;
-const userPrompt = `
-This is a Class ${studentClass} NCERT homework question.
 
-The answer MUST strictly follow the latest NCERT syllabus of Class ${studentClass}.
+        // -------------------------------------------------
+        // USER PROMPT
+        // -------------------------------------------------
 
-Subject:
-${subject}
+        const userPrompt = `
+Class : ${cleanClass}
 
-Language:
-${language}
+Subject : ${cleanSubject}
 
-Student's Question:
-${question}
+Language : ${answerLanguage}
 
-Instructions:
+Question :
 
-• Answer ONLY according to Class ${studentClass}.
-• Never explain topics from higher classes.
-• Use simple language suitable for Class ${studentClass}.
-• Follow NCERT and CBSE style.
-• For Mathematics, show all important steps.
-• For Science, explain using simple examples.
-• For Social Science, stay factual.
-• For English, Hindi, Sanskrit and Computer Science, answer according to NCERT.
+${cleanQuestion}
 `;
-        
 
-        // ======================================================
-        // CALL GEMINI API
-        // ======================================================
+        // -------------------------------------------------
+        // GEMINI REQUEST BODY
+        // -------------------------------------------------
 
-        const geminiResponse = await fetch(
-            `${GEMINI_API_URL}?key=${process.env.GEMINI_API_KEY}`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    contents: [
+        const requestBody = {
+
+            contents: [
+
+                {
+
+                    role: "user",
+
+                    parts: [
+
                         {
-                            parts: [
-                                {
-                                    text:
-                                        systemPrompt +
-                                        "\n\n" +
-                                        userPrompt
-                                }
-                            ]
+
+                            text:
+                                systemPrompt +
+                                "\n\n" +
+                                userPrompt
+
                         }
-                    ],
-                    generationConfig: {
-                        temperature: 0.4,
-                        topP: 0.9,
-                        topK: 40,
-                        maxOutputTokens: 2048
-                    }
-                })
+
+                    ]
+
+                }
+
+            ],
+
+            generationConfig: {
+
+                temperature: 0.3,
+
+                topP: 0.9,
+
+                topK: 32,
+
+                maxOutputTokens: 2048
+
             }
+
+        };
+
+        // -------------------------------------------------
+        // GEMINI API CALL
+        // -------------------------------------------------
+
+        const response = await fetch(
+
+            `${GEMINI_API_URL}?key=${API_KEY}`,
+
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body: JSON.stringify(
+                    requestBody
+                )
+
+            }
+
         );
 
-        // Continue in Batch 3...
-        
-        // ======================================================
-        // CHECK GEMINI RESPONSE
-        // ======================================================
+        if (!response.ok) {
 
-        if (!geminiResponse.ok) {
-
-            const errorText = await geminiResponse.text();
-
-            console.error("Gemini API Error:", errorText);
-
-            return res.status(geminiResponse.status).json({
-                success: false,
-                error: "Unable to contact the AI server.",
-                details: errorText
-            });
+            throw new Error(
+                "Gemini API request failed."
+            );
 
         }
 
-        const data = await geminiResponse.json();
+        const geminiResult =
+            await response.json();
 
-        // ======================================================
-        // EXTRACT AI ANSWER
-        // ======================================================
+        // -------------------------------------------------
+        // CONTINUE IN BATCH 3
+        // -------------------------------------------------
+        // -------------------------------------------------
+        // BATCH 3
+        // RESPONSE EXTRACTION & FORMATTING
+        // -------------------------------------------------
 
         let answer = "";
 
-        if (
-            data.candidates &&
-            data.candidates.length > 0 &&
-            data.candidates[0].content &&
-            data.candidates[0].content.parts &&
-            data.candidates[0].content.parts.length > 0
-        ) {
+        try {
 
-            answer = data.candidates[0].content.parts
-                .map(part => part.text || "")
-                .join("\n")
-                .trim();
+            answer =
+                geminiResult?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+
+        } catch (error) {
+
+            answer = "";
 
         }
 
         if (!answer) {
 
             return res.status(500).json({
+
                 success: false,
-                error: "The AI did not generate an answer."
+
+                error: "No answer received from AI."
+
             });
 
         }
 
-        // ======================================================
-        // SUCCESS RESPONSE
-        // ======================================================
+        // -------------------------------------------------
+        // CLEAN RESPONSE
+        // -------------------------------------------------
+
+        answer = answer
+
+            .replace(/\r\n/g, "\n")
+
+            .replace(/\r/g, "\n")
+
+            .trim();
+
+        // -------------------------------------------------
+        // SPLIT "LEARN MORE"
+        // -------------------------------------------------
+
+        let mainAnswer = answer;
+
+        let learnMore = "";
+
+        const splitRegex =
+            /(?:^|\n)#{1,3}\s*Learn\s*More\b/i;
+
+        if (splitRegex.test(answer)) {
+
+            const parts =
+                answer.split(splitRegex);
+
+            mainAnswer =
+                parts[0].trim();
+
+            learnMore =
+                parts.slice(1).join("").trim();
+
+        }
+
+        // -------------------------------------------------
+        // MARKDOWN TO HTML
+        // -------------------------------------------------
+
+        function markdownToHTML(text) {
+
+            if (!text) return "";
+
+            return text
+
+                .replace(/\*\*(.*?)\*\*/g,
+                    "<strong>$1</strong>")
+
+                .replace(/\*(.*?)\*/g,
+                    "<em>$1</em>")
+
+                .replace(/^### (.*)$/gm,
+                    "<h3>$1</h3>")
+
+                .replace(/^## (.*)$/gm,
+                    "<h2>$1</h2>")
+
+                .replace(/^# (.*)$/gm,
+                    "<h1>$1</h1>")
+
+                .replace(/^- (.*)$/gm,
+                    "<li>$1</li>")
+
+                .replace(/(<li>.*<\/li>)/gs,
+                    "<ul>$1</ul>")
+
+                .replace(/\n\n/g,
+                    "<br><br>")
+
+                .replace(/\n/g,
+                    "<br>");
+
+        }
+
+        const mainHTML =
+            markdownToHTML(mainAnswer);
+
+        const learnHTML =
+            markdownToHTML(learnMore);
+
+        // -------------------------------------------------
+        // FINAL HTML
+        // -------------------------------------------------
+
+        let finalHTML =
+
+`<div class="cbse-answer">
+
+${mainHTML}
+
+</div>`;
+
+        if (learnHTML) {
+
+            finalHTML += `
+
+<div class="learn-more">
+
+<button
+type="button"
+onclick="toggleLearnMore()">
+
+📖 Learn More
+
+</button>
+
+<div
+id="learnMoreContent"
+class="learn-more-content hidden">
+
+${learnHTML}
+
+</div>
+
+</div>`;
+
+        }
+
+        // -------------------------------------------------
+        // CONTINUE IN BATCH 4
+        // -------------------------------------------------
+
+        // -------------------------------------------------
+        // BATCH 4
+        // FINAL RESPONSE
+        // -------------------------------------------------
 
         return res.status(200).json({
+
             success: true,
-            answer: answer
+
+            answer: finalHTML,
+
+            className: cleanClass,
+
+            subject: cleanSubject,
+
+            language: answerLanguage,
+
+            timestamp: new Date().toISOString()
+
         });
 
-    } catch (error) {
+    }
 
-        console.error("Server Error:", error);
+    // -------------------------------------------------
+    // ERROR HANDLING
+    // -------------------------------------------------
+
+    catch (error) {
+
+        console.error(
+
+            "Students Homework AI Error:",
+
+            error
+
+        );
 
         return res.status(500).json({
+
             success: false,
-            error: "Internal Server Error.",
-            message: error.message
+
+            answer:
+                "<h2>Unable to Generate Answer</h2>" +
+                "<p>Please check your internet connection and try again.</p>",
+
+            error:
+                process.env.NODE_ENV === "development"
+                    ? error.message
+                    : "Internal Server Error"
+
         });
 
     }
 
-    }
+}
+
+// ======================================================
+// Version 4.0
+// api/chat.js
+// Production Ready
+// ======================================================
+        
+    
