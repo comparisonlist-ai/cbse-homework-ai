@@ -176,56 +176,119 @@ LOGIN SCREEN
 
 </section>
 
+
 <!-- ==========================================================
-REGISTRATION SCREEN
-=========================================================== -->
+REGISTRATION FORM
+Replace your existing Registration Form completely
+========================================================== -->
 
-<section
-    id="registration"
-    class="screen hidden">
-
-    <button
-        class="back-btn"
-        onclick="goHome()">
-
-        ← Back
-
-    </button>
+<section id="registrationScreen" class="screen hidden">
 
     <div class="card registration-card">
 
-        <h2>
+        <h2>🚀 Start Your FREE 7-Day Trial</h2>
 
-            Register FREE
+        <p class="subtitle">
+            Register once and receive your unique Student ID.
+        </p>
 
-        </h2>
+        <form id="registrationForm">
 
-        <input
-            id="name"
-            type="text"
-            placeholder="Student Name">
+            <!-- Student Name -->
 
-        <input
-            id="mobile"
-            type="tel"
-            placeholder="10-digit Mobile Number">
+            <div class="form-group">
+                <label for="studentName">
+                    Student Name
+                </label>
 
-        <input
-            id="email"
-            type="email"
-            placeholder="Email Address">
+                <input
+                    type="text"
+                    id="studentName"
+                    placeholder="Enter Student Name"
+                    required>
+            </div>
 
-        <button
-            class="primary-btn"
-            onclick="registerStudent()">
+            <!-- Class -->
 
-            Register Now
+            <div class="form-group">
+                <label for="studentClass">
+                    Select Class
+                </label>
 
-        </button>
+                <select
+                    id="studentClass"
+                    required>
+
+                    <option value="">
+                        Choose Class
+                    </option>
+
+                    <option value="6">Class 6</option>
+                    <option value="7">Class 7</option>
+                    <option value="8">Class 8</option>
+                    <option value="9">Class 9</option>
+                    <option value="10">Class 10</option>
+
+                </select>
+            </div>
+
+            <!-- Mobile -->
+
+            <div class="form-group">
+                <label for="studentMobile">
+                    Mobile Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="studentMobile"
+                    maxlength="10"
+                    placeholder="10 Digit Mobile Number"
+                    required>
+            </div>
+
+            <!-- Parent Mobile -->
+
+            <div class="form-group">
+                <label for="parentMobile">
+                    Parent Mobile Number (Optional)
+                </label>
+
+                <input
+                    type="tel"
+                    id="parentMobile"
+                    maxlength="10"
+                    placeholder="Parent Mobile Number">
+            </div>
+
+            <!-- Email -->
+
+            <div class="form-group">
+                <label for="studentEmail">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="studentEmail"
+                    placeholder="Enter Email Address"
+                    required>
+            </div>
+
+            <button
+                type="submit"
+                class="primary-btn">
+
+                🚀 Register & Start FREE Trial
+
+            </button>
+
+        </form>
 
     </div>
 
 </section>
+
 
     <!-- =====================================
 SUBJECT SCREEN
