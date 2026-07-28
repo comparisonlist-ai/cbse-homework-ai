@@ -288,90 +288,95 @@ function refreshLanguageButtons() {
 // REGISTRATION FORM
 // ------------------------------------------------------
 
-function showRegistrationForm() {
-
-    document.getElementById("homeScreen")
-        ?.classList.add("hidden");
-
-    document.getElementById("registrationScreen")
-        ?.classList.remove("hidden");
-
-}
-
 async function registerStudent() {
 
     const name =
-        document.getElementById("name")
+        document.getElementById("studentName")
         ?.value.trim();
 
+    const studentClass =
+        document.getElementById("studentClass")
+        ?.value;
+
     const mobile =
-        document.getElementById("mobile")
+        document.getElementById("studentMobile")
+        ?.value.trim();
+
+    const parentMobile =
+        document.getElementById("parentMobile")
         ?.value.trim();
 
     const email =
-        document.getElementById("email")
+        document.getElementById("studentEmail")
         ?.value.trim();
 
     if (!name) {
+        showMessage("Please enter Student Name.");
+        return;
+    }
 
-        return showMessage(
-            "Please enter student name."
-        );
-
+    if (!studentClass) {
+        showMessage("Please select your Class.");
+        return;
     }
 
     if (!/^[0-9]{10}$/.test(mobile)) {
-
-        return showMessage(
-            "Enter a valid mobile number."
-        );
-
+        showMessage("Enter a valid 10-digit Mobile Number.");
+        return;
     }
 
     if (!email) {
-
-        return showMessage(
-            "Please enter email address."
-        );
-
+        showMessage("Please enter Email Address.");
+        return;
     }
+
+    // Generate Student ID
+    const studentId =
+        "SHAI" +
+        Date.now().toString().slice(-6);
 
     App.student = {
 
-        name,
+        studentId: studentId,
 
-        mobile,
+        name: name,
 
-        email,
+        studentClass: studentClass,
 
-        language:
-            App.language,
+        mobile: mobile,
 
-        joined:
-            new Date().toISOString(),
+        parentMobile: parentMobile,
 
-        membership:
-            "FREE",
+        email: email,
 
-        trial:
-            true
+        language: App.language,
+
+        membership: "FREE",
+
+        joined: new Date().toISOString(),
+
+        trial: true
 
     };
 
+    App.questionCount = 0;
+
     saveSession();
 
-    sendRegistrationToGoogleSheet();
+    await sendRegistrationToGoogleSheet();
 
-    showMessage(
-
-        "Registration Successful."
-
+    alert(
+        "🎉 Registration Successful!\n\n" +
+        "Student ID: " + studentId +
+        "\n\nPlease save this Student ID.\nYou will use it for future login."
     );
+
+    document.getElementById("registrationScreen")
+        ?.classList.add("hidden");
 
     showDashboard();
 
 }
-
 // ------------------------------------------------------
 // GOOGLE SHEETS
 // ------------------------------------------------------
