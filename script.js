@@ -1387,38 +1387,27 @@ console.log(
 // VERSION 4.0
 // Production Build
 // ======================================================
+
 // ==========================================
 // HOME PAGE NAVIGATION
 // ==========================================
 
-function showRegistrationForm() {
-
-    window.location.href = "register.html";
-
-}
-
 function showLoginScreen() {
 
-    // If login.html is a separate page
-    window.location.href = "login.html";
+    document.getElementById("homeScreen")
+        ?.classList.add("hidden");
 
-    // If you are using the login section
-    // inside index.html instead,
-    // replace the above line with:
-    //
-    // document.getElementById("homeScreen").classList.add("hidden");
-    // document.getElementById("loginScreen").classList.remove("hidden");
+    document.getElementById("loginScreen")
+        ?.classList.remove("hidden");
+
 }
 
 function goHome() {
 
-    // If using separate pages
-    window.location.href = "index.html";
+    document.getElementById("loginScreen")
+        ?.classList.add("hidden");
 
-    // If using login inside index.html,
-    // use:
-    //
-    // document.getElementById("loginScreen").classList.add("hidden");
-    // document.getElementById("homeScreen").classList.remove("hidden");
+    document.getElementById("homeScreen")
+        ?.classList.remove("hidden");
+
 }
-
