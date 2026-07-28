@@ -763,3 +763,394 @@ async function sendRegistrationToGoogleSheet() {
 // END OF VERSION 5.0
 // PART 2
 // ======================================================
+
+// ======================================================
+// Students Homework AI
+// VERSION 5.0
+// PART 3
+// AI Engine • Question • Answer
+// ======================================================
+
+// ------------------------------------------------------
+// CLEAR QUESTION
+// ------------------------------------------------------
+
+function clearQuestion() {
+
+    const box =
+        document.getElementById(
+            "questionInput"
+        );
+
+    if (!box) return;
+
+    box.value = "";
+
+    box.focus();
+
+}
+
+// ------------------------------------------------------
+// ASK AI
+// ------------------------------------------------------
+
+async function askAI() {
+
+    if (App.asking) return;
+
+    const box =
+        document.getElementById(
+            "questionInput"
+        );
+
+    if (!box) return;
+
+    const question =
+        box.value.trim();
+
+    if (question === "") {
+
+        showMessage(
+            "Please enter your homework question."
+        );
+
+        box.focus();
+
+        return;
+
+    }
+
+    App.asking = true;
+
+    showLoadingScreen();
+
+    try {
+
+        const response =
+            await fetch(
+
+                CONFIG.API_URL,
+
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        className:
+                            App.currentClass,
+
+                        subject:
+                            App.currentSubject,
+
+                        language:
+                            App.language,
+
+                        studentName:
+                            App.student?.name ||
+
+                            "",
+
+                        question:
+                            question
+
+                    })
+
+                }
+
+            );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server Error"
+            );
+
+        }
+
+        const data =
+            await response.json();
+
+        displayAnswer(
+
+            data.answer ||
+
+            data.text ||
+
+            "No answer received."
+
+        );
+
+        App.questionCount++;
+
+        saveSession();
+
+        updateUsage();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        displayAnswer(
+
+            "Unable to generate an answer. Please try again."
+
+        );
+
+    }
+
+    finally {
+
+        App.asking = false;
+
+    }
+
+}
+
+// ------------------------------------------------------
+// DISPLAY ANSWER
+// ------------------------------------------------------
+
+function displayAnswer(answer) {
+
+    showAnswerScreen();
+
+    const container =
+        document.getElementById(
+            "answerContainer"
+        );
+
+    if (!container) return;
+
+    container.innerHTML =
+        formatAnswer(answer);
+
+}
+
+// ------------------------------------------------------
+// FORMAT ANSWER
+// ------------------------------------------------------
+
+function formatAnswer(text) {
+
+    if (!text) return "";
+
+    return text
+
+        .replace(/\r\n/g,"\n")
+
+        .replace(/\n\n/g,"<br><br>")
+
+        .replace(/\n/g,"<br>")
+
+        .replace(
+
+            /\*\*(.*?)\*\*/g,
+
+            "<strong>$1</strong>"
+
+        );
+
+}
+
+// ------------------------------------------------------
+// ASK ANOTHER QUESTION
+// ------------------------------------------------------
+
+function askAnotherQuestion() {
+
+    clearQuestion();
+
+    showQuestionScreen();
+
+}
+
+// ------------------------------------------------------
+// COPY ANSWER
+// ------------------------------------------------------
+
+async function copyAnswer() {
+
+    const text =
+
+        document.getElementById(
+            "answerContainer"
+        )?.innerText;
+
+    if (!text) return;
+
+    try {
+
+        await navigator.clipboard.writeText(
+            text
+        );
+
+        showMessage(
+            "Answer copied successfully."
+        );
+
+    }
+
+    catch {
+
+        showMessage(
+            "Unable to copy answer."
+        );
+
+    }
+
+}
+
+// ------------------------------------------------------
+// SHARE ANSWER
+// ------------------------------------------------------
+
+async function shareAnswer() {
+
+    const text =
+
+        document.getElementById(
+            "answerContainer"
+        )?.innerText;
+
+    if (!text) return;
+
+    if (navigator.share) {
+
+        try {
+
+            await navigator.share({
+
+                title:
+                    CONFIG.APP_NAME,
+
+                text:
+                    text
+
+            });
+
+        }
+
+        catch {}
+
+    }
+
+    else {
+
+        copyAnswer();
+
+    }
+
+}
+
+// ------------------------------------------------------
+// LEARN MORE
+// ------------------------------------------------------
+
+function learnMore() {
+
+    showMessage(
+
+        "Detailed explanations will be available in the next update."
+
+    );
+
+}
+
+// ------------------------------------------------------
+// OCR
+// ------------------------------------------------------
+
+function startOCR() {
+
+    showMessage(
+
+        "Homework Scan feature is coming soon."
+
+    );
+
+}
+
+// ------------------------------------------------------
+// VOICE
+// ------------------------------------------------------
+
+function startVoiceInput() {
+
+    showMessage(
+
+        "Voice Question feature is coming soon."
+
+    );
+
+}
+
+// ------------------------------------------------------
+// NCERT
+// ------------------------------------------------------
+
+function openNCERTSolutions() {
+
+    showMessage(
+
+        "NCERT Solutions will be available soon."
+
+    );
+
+}
+
+// ------------------------------------------------------
+// PRINT
+// ------------------------------------------------------
+
+function printAnswer() {
+
+    window.print();
+
+}
+
+// ------------------------------------------------------
+// ENTER KEY
+// ------------------------------------------------------
+
+document
+
+.getElementById("questionInput")
+
+?.addEventListener(
+
+    "keydown",
+
+    function(e){
+
+        if(
+
+            e.key==="Enter" &&
+
+            !e.shiftKey
+
+        ){
+
+            e.preventDefault();
+
+            askAI();
+
+        }
+
+    }
+
+);
+
+// ======================================================
+// END OF VERSION 5.0
+// PART 3
+// ======================================================
