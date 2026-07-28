@@ -458,8 +458,13 @@ function updateDashboard() {
 
     if (UI.welcome) {
 
-        UI.welcome.textContent =
-            "Welcome, " + App.student.name;
+        UI.welcome.innerHTML =
+    "Welcome, <strong>" +
+    App.student.name +
+    "</strong><br>" +
+    "Student ID: <strong>" +
+    App.student.studentId +
+    "</strong>";
 
     }
 
