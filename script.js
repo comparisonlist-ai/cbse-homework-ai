@@ -290,10 +290,10 @@ function refreshLanguageButtons() {
 
 function showRegistrationForm() {
 
-    document
+    document.getElementById("homeScreen")
+        ?.classList.add("hidden");
 
-        .getElementById("registrationForm")
-
+    document.getElementById("registrationScreen")
         ?.classList.remove("hidden");
 
 }
