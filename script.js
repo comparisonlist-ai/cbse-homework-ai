@@ -1425,8 +1425,24 @@ document.addEventListener(
 // END OF SCRIPT.JS
 // VERSION 5.0
 // Production Build
-// ======================================================
+// =======================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const form = document.getElementById("registrationForm");
+
+    if (form) {
+
+        form.addEventListener("submit", function (e) {
+
+            e.preventDefault();
+
+            registerStudent();
+
+        });
+
+    }
+
+});
 
 
-
-=
