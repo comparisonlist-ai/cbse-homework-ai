@@ -1153,4 +1153,280 @@ document
 // ======================================================
 // END OF VERSION 5.0
 // PART 3
+// =====================================================
 // ======================================================
+// Students Homework AI
+// VERSION 5.0
+// PART 4
+// Session • Footer • Referral • Startup
+// ======================================================
+
+// ------------------------------------------------------
+// PRIVACY POLICY
+// ------------------------------------------------------
+
+function showPrivacyPolicy() {
+
+    alert(
+
+`Privacy Policy
+
+Students Homework AI keeps your information secure.
+
+• Registration data is used only for educational purposes.
+• Homework questions are processed only to generate answers.
+• Personal information is never sold or shared.`
+
+    );
+
+}
+
+// ------------------------------------------------------
+// TERMS
+// ------------------------------------------------------
+
+function showTerms() {
+
+    alert(
+
+`Terms & Conditions
+
+• Designed for CBSE Classes 6–10.
+• AI-generated answers should be verified before submission.
+• Features may improve through future updates.`
+
+    );
+
+}
+
+// ------------------------------------------------------
+// CONTACT
+// ------------------------------------------------------
+
+function contactUs() {
+
+    window.location.href =
+        "mailto:support@studentshomeworkai.in";
+
+}
+
+// ------------------------------------------------------
+// REFERRAL
+// ------------------------------------------------------
+
+function shareReferralLink() {
+
+    const referralLink =
+
+        "https://studentshomeworkai.in";
+
+    if (navigator.share) {
+
+        navigator.share({
+
+            title:
+                CONFIG.APP_NAME,
+
+            text:
+                "Join Students Homework AI and improve your homework skills!",
+
+            url:
+                referralLink
+
+        });
+
+    }
+
+    else {
+
+        navigator.clipboard.writeText(
+
+            referralLink
+
+        );
+
+        showMessage(
+
+            "Referral link copied."
+
+        );
+
+    }
+
+}
+
+function closeReferralSection() {
+
+    document
+
+        .getElementById("referralSection")
+
+        ?.classList.add("hidden");
+
+}
+
+// ------------------------------------------------------
+// AUTO SAVE
+// ------------------------------------------------------
+
+window.addEventListener(
+
+    "beforeunload",
+
+    function () {
+
+        saveSession();
+
+    }
+
+);
+
+document.addEventListener(
+
+    "visibilitychange",
+
+    function () {
+
+        saveSession();
+
+    }
+
+);
+
+// ------------------------------------------------------
+// NETWORK
+// ------------------------------------------------------
+
+window.addEventListener(
+
+    "offline",
+
+    function () {
+
+        showMessage(
+
+            "No Internet Connection."
+
+        );
+
+    }
+
+);
+
+window.addEventListener(
+
+    "online",
+
+    function () {
+
+        showMessage(
+
+            "Internet Connected."
+
+        );
+
+    }
+
+);
+
+// ------------------------------------------------------
+// ERROR HANDLING
+// ------------------------------------------------------
+
+window.addEventListener(
+
+    "error",
+
+    function (event) {
+
+        console.error(
+
+            "Application Error:",
+
+            event.error
+
+        );
+
+    }
+
+);
+
+window.addEventListener(
+
+    "unhandledrejection",
+
+    function (event) {
+
+        console.error(
+
+            "Promise Error:",
+
+            event.reason
+
+        );
+
+    }
+
+);
+
+// ------------------------------------------------------
+// STARTUP
+// ------------------------------------------------------
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    function () {
+
+        console.log(
+
+            "===================================="
+
+        );
+
+        console.log(
+
+            CONFIG.APP_NAME
+
+        );
+
+        console.log(
+
+            "Version " +
+
+            CONFIG.VERSION
+
+        );
+
+        console.log(
+
+            "studentshomeworkai.in"
+
+        );
+
+        console.log(
+
+            "Production Build Loaded"
+
+        );
+
+        console.log(
+
+            "===================================="
+
+        );
+
+    }
+
+);
+
+// ======================================================
+// END OF SCRIPT.JS
+// VERSION 5.0
+// Production Build
+// ======================================================
+
+
+
+=
