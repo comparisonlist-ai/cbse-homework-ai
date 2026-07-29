@@ -450,8 +450,10 @@ async function registerStudent() {
 
     saveSession();
 
-    await sendRegistrationToGoogleSheet();
-    await saveStudentToSupabase();
+    // await sendRegistrationToGoogleSheet();
+// await saveStudentToSupabase();
+
+alert("registerStudent() reached this point");
 
     alert(
 
