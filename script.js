@@ -338,28 +338,8 @@ function generateStudentId() {
 // ------------------------------------------------------
 // REGISTRATION
 // ------------------------------------------------------
-async function saveStudentToSupabase() {
+async function registerStudent() {
 
-    const { error } = await supabase
-        .from("students")
-        .insert([{
-            id: App.student.studentId,
-            name: App.student.name,
-            email: App.student.email,
-            phone: App.student.mobile,
-            class: App.student.studentClass,
-            membership: App.student.membership,
-            created_at: new Date().toISOString()
-        }]);
-
-    if (error) {
-        console.error(error);
-        showMessage("Registration saved locally, but failed to save to Supabase.");
-        return false;
-    }
-
-    return true;
-}
 
 async function registerStudent() {
 
