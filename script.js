@@ -451,23 +451,16 @@ async function registerStudent() {
     saveSession();
 
      await sendRegistrationToGoogleSheet();
- await saveStudentToSupabase();
+await saveStudentToSupabase();
 
+showMessage(
+    "🎉 Registration Successful\n\n" +
+    "Student ID : " +
+    studentId +
+    "\n\nPlease save your Student ID."
+);
 
-
-    
-
-        "🎉 Registration Successful\n\n" +
-
-        "Student ID : " +
-
-        studentId +
-
-        "\n\nPlease save your Student ID."
-
-    );
-
-    showDashboard();
+showDashboard();
 
 }
 
