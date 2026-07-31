@@ -1,45 +1,57 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width,initial-scale=1">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-<meta name="theme-color"
-content="#1565C0">
+    <meta
+        name="theme-color"
+        content="#1565C0">
 
-<meta name="description"
-content="Students Homework AI - AI Homework Help for CBSE Classes 6 to 10">
+    <meta
+        name="description"
+        content="Students Homework AI - Smart AI Homework Help for CBSE Classes 6 to 10">
 
-<meta name="keywords"
-content="CBSE, Homework AI, NCERT, Class 6, Class 7, Class 8, Class 9, Class 10">
+    <meta
+        name="keywords"
+        content="CBSE, NCERT, AI Homework, Class 6, Class 7, Class 8, Class 9, Class 10">
 
-<meta name="author"
-content="Sibaram Dalabehera">
+    <meta
+        name="author"
+        content="Sibaram Dalabehera">
 
-<title>
-Students Homework AI
-</title>
+    <title>
 
-<link rel="icon"
-href="images/logo.png"
-type="image/png">
+        Students Homework AI
 
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
+    </title>
 
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
+    <link
+        rel="icon"
+        href="images/logo.png"
+        type="image/png">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-rel="stylesheet">
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com">
 
-<link rel="stylesheet"
-href="style.css">
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="style.css">
 
 </head>
 
@@ -47,44 +59,31 @@ href="style.css">
 
 <div id="app">
 
-<div id="appMessage"
-class="app-message hidden">
+<div
+    id="appMessage"
+    class="app-message hidden">
 </div>
 
-<!-- =====================================
-HOME PAGE
-===================================== -->
-
-<!-- ==========================================================
+<!-- =====================================================
 HOME SCREEN
-Students Homework AI
-Version 5.0
-Replace your existing Home Screen completely
-=========================================================== -->
+===================================================== -->
 
-
-
-    
-<section id="homeScreen" class="screen">
+<section
+    id="homeScreen"
+    class="screen">
 
     <div class="home-container">
-
-        <!-- Logo -->
 
         <img
             src="images/logo.png"
             alt="Students Homework AI"
             class="home-logo">
 
-        <!-- App Name -->
-
         <h1 class="home-title">
 
             Students Homework AI
 
         </h1>
-
-        <!-- Tagline -->
 
         <p class="home-subtitle">
 
@@ -93,17 +92,13 @@ Replace your existing Home Screen completely
 
         </p>
 
-        <!-- Registration -->
-
         <button
-            class="home-start-btn"
-            onclick="showRegistrationForm()">
+            class="primary-btn"
+            onclick="showRegistrationScreen()">
 
-            🚀 Start Your FREE 7-Day Trial
+            🚀 Start FREE Trial
 
         </button>
-
-        <!-- Existing Student -->
 
         <div class="login-card">
 
@@ -113,14 +108,8 @@ Replace your existing Home Screen completely
 
             </h3>
 
-            <p>
-
-                Login using your Student ID
-
-            </p>
-
             <button
-                class="home-login-btn"
+                class="secondary-btn"
                 onclick="showLoginScreen()">
 
                 🔐 Student Login
@@ -133,9 +122,159 @@ Replace your existing Home Screen completely
 
 </section>
 
-<!-- ==========================================================
+<!-- =====================================================
+REGISTRATION SCREEN
+===================================================== -->
+
+<section
+    id="registrationScreen"
+    class="screen hidden">
+
+    <button
+        class="back-btn"
+        onclick="showHome()">
+
+        ← Back
+
+    </button>
+
+    <div class="card">
+
+        <h2>
+
+            Student Registration
+
+        </h2>
+
+        <p>
+
+            Register once and receive
+            your unique Student ID.
+
+        </p>
+
+        <form
+            id="registrationForm">
+
+            <div class="form-group">
+
+                <label>
+
+                    Student Name
+
+                </label>
+
+                <input
+                    type="text"
+                    id="studentName"
+                    placeholder="Enter Student Name"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+
+                    Select Class
+
+                </label>
+
+                <select
+                    id="studentClass"
+                    required>
+
+                    <option value="">
+
+                        Choose Class
+
+                    </option>
+
+                    <option value="6">
+
+                        Class 6
+
+                    </option>
+
+                    <option value="7">
+
+                        Class 7
+
+                    </option>
+
+                    <option value="8">
+
+                        Class 8
+
+                    </option>
+
+                    <option value="9">
+
+                        Class 9
+
+                    </option>
+
+                    <option value="10">
+
+                        Class 10
+
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+
+                    Mobile Number
+
+                </label>
+
+                <input
+                    type="tel"
+                    id="studentMobile"
+                    maxlength="10"
+                    placeholder="10 Digit Mobile Number"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+
+                    Parent Mobile (Optional)
+
+                </label>
+
+                <input
+                    type="tel"
+                    id="parentMobile"
+                    maxlength="10"
+                    placeholder="Parent Mobile Number">
+
+            </div>
+
+            <button
+                type="submit"
+                id="registerButton"
+                class="primary-btn">
+
+                🚀 Register
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+    <!-- =====================================================
 LOGIN SCREEN
-=========================================================== -->
+===================================================== -->
 
 <section
     id="loginScreen"
@@ -143,7 +282,7 @@ LOGIN SCREEN
 
     <button
         class="back-btn"
-        onclick="goHome()">
+        onclick="showHome()">
 
         ← Back
 
@@ -158,20 +297,21 @@ LOGIN SCREEN
         </h2>
 
         <input
-            id="loginStudentId"
             type="text"
-            placeholder="Student ID (Example: SHAI102547)">
+            id="loginStudentId"
+            placeholder="Student ID">
 
         <input
-            id="loginMobile"
             type="tel"
+            id="loginMobile"
+            maxlength="10"
             placeholder="Registered Mobile Number">
 
         <button
             class="primary-btn"
             onclick="loginStudent()">
 
-            Login
+            🔐 Login
 
         </button>
 
@@ -179,129 +319,15 @@ LOGIN SCREEN
 
 </section>
 
-
-<!-- ==========================================================
-REGISTRATION FORM
-Replace your existing Registration Form completely
-========================================================== -->
-
-<section id="registrationScreen" class="screen hidden">
-
-    <div class="card registration-card">
-
-        <h2>🚀 Start Your FREE 7-Day Trial</h2>
-
-        <p class="subtitle">
-            Register once and receive your unique Student ID.
-        </p>
-
-        <form id="registrationForm" onsubmit="registerStudent(); return false;">
-
-            <!-- Student Name -->
-
-            <div class="form-group">
-                <label for="studentName">
-                    Student Name
-                </label>
-
-                <input
-                    type="text"
-                    id="studentName"
-                    placeholder="Enter Student Name"
-                    required>
-            </div>
-
-            <!-- Class -->
-
-            <div class="form-group">
-                <label for="studentClass">
-                    Select Class
-                </label>
-
-                <select
-                    id="studentClass"
-                    required>
-
-                    <option value="">
-                        Choose Class
-                    </option>
-
-                    <option value="6">Class 6</option>
-                    <option value="7">Class 7</option>
-                    <option value="8">Class 8</option>
-                    <option value="9">Class 9</option>
-                    <option value="10">Class 10</option>
-
-                </select>
-            </div>
-
-            <!-- Mobile -->
-
-            <div class="form-group">
-                <label for="studentMobile">
-                    Mobile Number
-                </label>
-
-                <input
-                    type="tel"
-                    id="studentMobile"
-                    maxlength="10"
-                    placeholder="10 Digit Mobile Number"
-                    required>
-            </div>
-
-            <!-- Parent Mobile -->
-
-            <div class="form-group">
-                <label for="parentMobile">
-                    Parent Mobile Number (Optional)
-                </label>
-
-                <input
-                    type="tel"
-                    id="parentMobile"
-                    maxlength="10"
-                    placeholder="Parent Mobile Number">
-            </div>
-
-            <!-- Email -->
-
-            <div class="form-group">
-                <label for="studentEmail">
-                    Email Address
-                </label>
-
-                <input
-                    type="email"
-                    id="studentEmail"
-                    placeholder="Enter Email Address"
-                    required>
-            </div>
-
-            <button
-    type="button"
-    class="primary-btn"
-    onclick="registerStudent()">
-
-    🚀 Register & Start FREE Trial
-
-</button>
-
-        </form>
-
-    </div>
-
-</section>
-
-
-    <!-- ==========================================================
+<!-- =====================================================
 DASHBOARD
-Version 5.0
-========================================================== -->
+===================================================== -->
 
-<section id="dashboard" class="screen hidden">
+<section
+    id="dashboardScreen"
+    class="screen hidden">
 
-    <div class="card dashboard-card">
+    <div class="card">
 
         <h2>
 
@@ -309,47 +335,14 @@ Version 5.0
 
         </h2>
 
-        <p
-            id="welcomeMessage"
-            class="dashboard-welcome">
-
-            Welcome Student
-
-        </p>
-
         <div
-            id="membershipBadge"
-            class="membership-badge">
-
-            🆓 7-Day FREE Trial
-
-        </div>
-
-        <div class="usage-card">
-
-            <p
-                id="usageCounter">
-
-                Questions Used:
-                <strong>0 / 100</strong>
-
-            </p>
-
-            <div class="usage-progress">
-
-                <div
-                    id="usageBar"
-                    class="usage-bar">
-
-                </div>
-
-            </div>
+            id="studentInfo">
 
         </div>
 
         <h3>
 
-            📚 Choose Your Class
+            Choose Your Class
 
         </h3>
 
@@ -406,539 +399,362 @@ Version 5.0
 
 </section>
 
-
-    <!-- =====================================
+<!-- =====================================================
 SUBJECT SCREEN
-===================================== -->
+===================================================== -->
 
 <section
-id="subjectScreen"
-class="screen hidden">
+    id="subjectScreen"
+    class="screen hidden">
 
-<button
-class="back-btn"
-onclick="showDashboard()">
+    <button
+        class="back-btn"
+        onclick="showDashboard()">
 
-← Back
+        ← Back
 
-</button>
+    </button>
 
-<h2
-id="selectedClassTitle">
+    <h2
+        id="selectedClassTitle">
 
-Choose Subject
+        Choose Subject
 
-</h2>
+    </h2>
 
-<p class="text-center">
+    <div class="subject-grid">
 
-Select your subject to continue
+        <button
+            onclick="openHomework('Mathematics')">
 
-</p>
+            ➗ Mathematics
 
-<div class="subject-grid">
+        </button>
 
-<button
-onclick="openHomework('Mathematics')">
+        <button
+            onclick="openHomework('Science')">
 
-➗ Mathematics
+            🔬 Science
 
-</button>
+        </button>
 
-<button
-onclick="openHomework('Science')">
+        <button
+            onclick="openHomework('English')">
 
-🔬 Science
+            📖 English
 
-</button>
+        </button>
 
-<button
-onclick="openHomework('English')">
+        <button
+            onclick="openHomework('Social Science')">
 
-📖 English
+            🌍 Social Science
 
-</button>
+        </button>
 
-<button
-onclick="openHomework('Social Science')">
+        <button
+            onclick="openHomework('Hindi')">
 
-🌍 Social Science
+            🇮🇳 Hindi
 
-</button>
+        </button>
 
-<button
-onclick="openHomework('Hindi')">
+        <button
+            onclick="openHomework('Computer Science')">
 
-🇮🇳 Hindi
+            💻 Computer Science
 
-</button>
+        </button>
 
-<button
-onclick="openHomework('Computer Science')">
+    </div>
 
-💻 Computer Science
+</section>b
 
-</button>
+    <!-- =====================================================
+HOMEWORK SCREEN
+===================================================== -->
 
-</div>
+<section
+    id="homeworkScreen"
+    class="screen hidden">
+
+    <button
+        class="back-btn"
+        onclick="showSubjectScreen()">
+
+        ← Back
+
+    </button>
+
+    <h2
+        id="selectedSubjectTitle">
+
+        Homework Help
+
+    </h2>
+
+    <p class="text-center">
+
+        Choose how you want to ask your homework question.
+
+    </p>
+
+    <div class="action-grid">
+
+        <button
+            onclick="showQuestionScreen()">
+
+            ✍️
+            <br>
+            Type Question
+
+        </button>
+
+        <button
+            onclick="startOCR()">
+
+            📷
+            <br>
+            Scan Homework
+
+        </button>
+
+        <button
+            onclick="startVoiceInput()">
+
+            🎤
+            <br>
+            Voice Question
+
+        </button>
+
+        <button
+            onclick="openNCERTSolutions()">
+
+            📚
+            <br>
+            NCERT Solutions
+
+        </button>
+
+    </div>
 
 </section>
 
-<!-- =====================================
-HOMEWORK MENU
-===================================== -->
-
-<section
-id="homeworkScreen"
-class="screen hidden">
-
-<button
-class="back-btn"
-onclick="goBackToSubjects()">
-
-← Back
-
-</button>
-
-<h2
-id="selectedSubjectTitle">
-
-Homework Help
-
-</h2>
-
-<p class="text-center">
-
-Choose how you want to ask your homework question.
-
-</p>
-
-<div class="action-grid">
-
-<button
-onclick="showQuestionScreen()">
-
-✍️
-
-<br>
-
-Type Question
-
-</button>
-
-<button
-onclick="startOCR()">
-
-📷
-
-<br>
-
-Scan Homework
-
-</button>
-
-<button
-onclick="startVoiceInput()">
-
-🎤
-
-<br>
-
-Voice Question
-
-</button>
-
-<button
-onclick="openNCERTSolutions()">
-
-📚
-
-<br>
-
-NCERT Solutions
-
-</button>
-
-</div>
-
-<div class="card">
-
-<h3>
-
-💡 Homework Tips
-
-</h3>
-
-<ul>
-
-<li>Ask one question at a time.</li>
-
-<li>Upload a clear homework image for OCR.</li>
-
-<li>Choose the correct class before asking.</li>
-
-<li>Answers follow the latest CBSE/NCERT syllabus.</li>
-
-</ul>
-
-</div>
-
-</section>
-
-<!-- =====================================
+<!-- =====================================================
 QUESTION SCREEN
-===================================== -->
+===================================================== -->
 
 <section
-id="questionScreen"
-class="screen hidden">
+    id="questionScreen"
+    class="screen hidden">
 
-<button
-class="back-btn"
-onclick="goBackToHomework()">
+    <button
+        class="back-btn"
+        onclick="showHomeworkScreen()">
 
-← Back
+        ← Back
 
-</button>
+    </button>
 
-<h2
-id="questionScreenTitle">
+    <div class="card">
 
-Ask Your Homework Question
+        <h2>
 
-</h2>
+            Ask Your Homework Question
 
-<p class="text-center">
+        </h2>
 
-Type your CBSE homework question below.
+        <textarea
+            id="questionInput"
+            rows="7"
+            placeholder="Type your homework question here...">
 
-</p>
+        </textarea>
 
-<div class="question-card">
+        <button
+            class="primary-btn"
+            onclick="askAI()">
 
-<textarea
-id="questionInput"
-rows="7"
-placeholder="Example:
-Explain the Water Cycle.
-Find the HCF of 24 and 36.
-What is Photosynthesis?">
+            🤖 Get Answer
 
-</textarea>
+        </button>
 
-<div class="question-actions">
-
-<button
-class="secondary-btn"
-onclick="clearQuestion()">
-
-🗑 Clear
-
-</button>
-
-<button
-class="primary-btn"
-onclick="askAI()">
-
-🤖 Get Answer
-
-</button>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>
-
-💡 Tips
-
-</h3>
-
-<p>
-
-Ask one complete question for the best answer.
-Mention chapter name if possible.
-
-</p>
-
-</div>
+    </div>
 
 </section>
 
-<!-- =====================================
+<!-- =====================================================
 LOADING SCREEN
-===================================== -->
+===================================================== -->
 
 <section
-id="loadingScreen"
-class="screen hidden">
+    id="loadingScreen"
+    class="screen hidden">
 
-<div class="loading-card">
+    <div class="loading-card">
 
-<div class="loader">
+        <div class="loader"></div>
 
-</div>
+        <h2>
 
-<h2>
+            AI is Preparing Your Answer...
 
-AI is Preparing Your Answer...
+        </h2>
 
-</h2>
+        <p>
 
-<p>
+            Please wait...
 
-Please wait a few seconds.
+        </p>
 
-</p>
-
-<p>
-
-📚 Searching NCERT concepts...
-
-</p>
-
-</div>
+    </div>
 
 </section>
 
-<!-- =====================================
+<!-- =====================================================
 ANSWER SCREEN
-===================================== -->
+===================================================== -->
 
 <section
-id="answerScreen"
-class="screen hidden">
+    id="answerScreen"
+    class="screen hidden">
 
-<button
-class="back-btn"
-onclick="askAnotherQuestion()">
+    <button
+        class="back-btn"
+        onclick="showQuestionScreen()">
 
-← Ask Another Question
+        ← Ask Another Question
 
-</button>
+    </button>
 
-<div class="answer-card">
+    <div class="card">
 
-<h2>
+        <h2>
 
-✅ AI Answer
+            ✅ AI Answer
 
-</h2>
+        </h2>
 
-<div
-id="answerContainer">
+        <div
+            id="answerContainer">
 
-</div>
+        </div>
 
-</div>
+        <br>
 
-<div class="answer-buttons">
+        <button
+            class="secondary-btn"
+            onclick="copyAnswer()">
 
-<button
-class="secondary-btn"
-onclick="copyAnswer()">
+            📋 Copy Answer
 
-📋 Copy
+        </button>
 
-</button>
-
-<button
-class="secondary-btn"
-onclick="shareAnswer()">
-
-📤 Share
-
-</button>
-
-<button
-class="secondary-btn"
-onclick="printAnswer()">
-
-🖨 Print
-
-</button>
-
-<button
-class="primary-btn"
-onclick="showQuestionScreen()">
-
-❓ New Question
-
-</button>
-
-</div>
-
-<div class="card">
-
-<h3>
-
-Need another explanation?
-
-</h3>
-
-<p>
-
-You can ask the same question again in a simpler way,
-or ask for examples, diagrams, formulas or step-by-step
-solutions.
-
-</p>
-
-</div>
+    </div>
 
 </section>
-
-
-    <!-- =====================================
-REFERRAL SECTION
-===================================== -->
-
-<section
-id="referralSection"
-class="screen hidden">
-
-<div class="card">
-
-<h2>
-
-🎁 Invite Friends
-
-</h2>
-
-<p>
-
-Invite your friends to Students Homework AI.
-When they become Premium members, both of you
-become eligible for referral rewards.
-
-</p>
-
-<button
-class="primary-btn"
-onclick="shareReferralLink()">
-
-📤 Share Referral Link
-
-</button>
-
-<br><br>
-
-<button
-class="secondary-btn"
-onclick="closeReferralSection()">
-
-Close
-
-</button>
-
-</div>
-
-</section>
-
-<!-- =====================================
+<!-- =====================================================
 HIDDEN FILE INPUTS
-===================================== -->
+===================================================== -->
 
 <input
-type="file"
-id="ocrFileInput"
-accept="image/*"
-capture="environment"
-hidden>
+    type="file"
+    id="ocrFileInput"
+    accept="image/*"
+    capture="environment"
+    hidden>
 
 <input
-type="file"
-id="imageInput"
-accept="image/*"
-hidden>
+    type="file"
+    id="imageInput"
+    accept="image/*"
+    hidden>
 
 </div>
 
-<!-- =====================================
+<!-- =====================================================
 FOOTER
-===================================== -->
+===================================================== -->
 
 <footer class="app-footer">
 
-<div class="footer-logo">
+    <div class="footer-logo">
 
-<img
-src="images/logo.png"
-alt="Students Homework AI"
-class="footer-logo-img">
+        <img
+            src="images/logo.png"
+            alt="Students Homework AI"
+            class="footer-logo-img">
 
-</div>
+    </div>
 
-<h3>
+    <h3>
 
-Students Homework AI
+        Students Homework AI
 
-</h3>
+    </h3>
 
-<p>
+    <p>
 
-Smart AI Homework Help for
-CBSE Classes 6–10
+        Smart AI Homework Help
+        for CBSE Classes 6–10
 
-</p>
+    </p>
 
-<p>
+    <p>
 
-📚 NCERT Friendly
+        📚 NCERT Friendly
 
-</p>
+    </p>
 
-<p>
+    <p>
 
-🤖 Powered by Artificial Intelligence
+        🤖 Powered by Artificial Intelligence
 
-</p>
+    </p>
 
-<p>
+    <p>
 
-🌐
-studentshomeworkai.in
+        🌐 studentshomeworkai.in
 
-</p>
+    </p>
 
-<div class="footer-links">
+    <div class="footer-links">
 
-<button
-onclick="showPrivacyPolicy()">
+        <button
+            onclick="showPrivacyPolicy()">
 
-Privacy Policy
+            Privacy Policy
 
-</button>
+        </button>
 
-<button
-onclick="showTerms()">
+        <button
+            onclick="showTerms()">
 
-Terms & Conditions
+            Terms & Conditions
 
-</button>
+        </button>
 
-<button
-onclick="contactUs()">
+        <button
+            onclick="contactUs()">
 
-Contact Us
+            Contact Us
 
-</button>
+        </button>
 
-</div>
+    </div>
 
-<p class="footer-copy">
+    <p class="footer-copy">
 
-© 2026 Students Homework AI
+        © 2026 Students Homework AI
 
-</p>
+    </p>
 
-<p>
+    <p>
 
-Made with ❤️ by Sibaram
+        Made with ❤️ by Sibaram
 
-</p>
+    </p>
 
 </footer>
 
@@ -949,3 +765,4 @@ Made with ❤️ by Sibaram
 </body>
 
 </html>
+    
