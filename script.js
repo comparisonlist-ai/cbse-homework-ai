@@ -451,13 +451,9 @@ async function saveStudentToSupabase() {
 
     if (error) {
 
-        console.error("Supabase Error:", error);
-
-        showMessage(
-            "Registration failed.\n\n" +
-            error.message
-        );
-
+        
+alert(JSON.stringify(error, null, 2));
+console.error(error);
         return false;
 
     }
