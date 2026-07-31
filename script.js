@@ -431,11 +431,11 @@ async function registerStudent() {
     saveSession();
 
    // await sendRegistrationToGoogleSheet();
-const saved = await saveStudentToSupabase();
+//const saved = await saveStudentToSupabase();
 
-if (!saved) {
-    return;
-}
+//if (!saved) {
+  //  return;
+//}
 
 showMessage(
     "🎉 Registration Successful\n\n" +
