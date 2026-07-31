@@ -359,92 +359,62 @@ async function registerStudent() {
         document.getElementById("parentMobile")
         ?.value.trim();
 
-    const email =
-        document.getElementById("studentEmail")
-        ?.value.trim();
-
     if (!name) {
-
         showMessage("Please enter Student Name.");
-
         return;
-
     }
 
     if (!studentClass) {
-
         showMessage("Please select Class.");
-
         return;
-
     }
 
     if (!/^[0-9]{10}$/.test(mobile)) {
-
         showMessage("Please enter a valid Mobile Number.");
-
         return;
-
     }
 
-    if (!email) {
-
-        showMessage("Please enter Email Address.");
-
-        return;
-
-    }
-
-    const studentId =
-        generateStudentId();
+    const studentId = generateStudentId();
 
     App.student = {
 
-        studentId,
+        studentId: studentId,
 
-        name,
+        name: name,
 
-        studentClass,
+        studentClass: studentClass,
 
-        mobile,
+        mobile: mobile,
 
-        parentMobile,
+        parentMobile: parentMobile,
 
-        email,
+        membership: "FREE",
 
-        membership:
-            "FREE",
+        trial: true,
 
-        trial:
-            true,
-
-        joined:
-            new Date().toISOString()
+        joined: new Date().toISOString()
 
     };
 
-    App.currentClass =
-        studentClass;
+    App.currentClass = studentClass;
 
     App.questionCount = 0;
 
     saveSession();
 
-   // await sendRegistrationToGoogleSheet();
-//const saved = await saveStudentToSupabase();
+    const saved = await saveStudentToSupabase();
 
-//if (!saved) {
-  //  return;
-//}
+    if (!saved) {
+        return;
+    }
 
-showMessage(
-    "🎉 Registration Successful\n\n" +
-    "Student ID : " +
-    studentId +
-    "\n\nPlease save your Student ID."
-);
+    showMessage(
+        "🎉 Registration Successful\n\n" +
+        "Student ID : " + studentId +
+        "\n\nPlease save your Student ID."
+    );
 
-showDashboard();
+    showDashboard();
 
 }
 
