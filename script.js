@@ -340,8 +340,10 @@ function generateStudentId() {
 // Registration • Login • Dashboard • Logout
 // ======================================================
 
+
 // ------------------------------------------------------
-// REGISTRATION
+// REGISTRATION (Version 5.2)
+// Replace the entire registerStudent() function
 // ------------------------------------------------------
 
 async function registerStudent() {
@@ -371,6 +373,10 @@ async function registerStudent() {
             "parentMobile"
         ).value.trim();
 
+    // ----------------------------
+    // VALIDATION
+    // ----------------------------
+
     if (!name) {
 
         showMessage(
@@ -394,7 +400,20 @@ async function registerStudent() {
     if (!/^[0-9]{10}$/.test(mobile)) {
 
         showMessage(
-            "Enter a valid Mobile Number."
+            "Enter a valid 10-digit Mobile Number."
+        );
+
+        return;
+
+    }
+
+    if (
+        parentMobile &&
+        !/^[0-9]{10}$/.test(parentMobile)
+    ) {
+
+        showMessage(
+            "Enter a valid Parent Mobile Number."
         );
 
         return;
@@ -402,18 +421,17 @@ async function registerStudent() {
     }
 
     button.disabled = true;
-
-    button.textContent =
-        "Registering...";
+    button.textContent = "Registering...";
 
     try {
 
+        // ----------------------------
+        // CHECK EXISTING MOBILE
+        // ----------------------------
+
         const {
-
             data: existing,
-
             error: checkError
-
         } = await supabase
 
             .from("students")
@@ -436,20 +454,101 @@ async function registerStudent() {
         if (existing) {
 
             showMessage(
-                "This mobile number is already registered."
+                "This Mobile Number is already registered."
             );
-
-            button.disabled = false;
-
-            button.innerHTML =
-                "🚀 Register";
 
             return;
 
         }
 
-        const studentId =
-            generateStudentId();
+        // ----------------------------
+        // GENERATE STUDENT ID
+        // ----------------------------
+
+        let studentId;
+
+        while (true) {
+
+            studentId =
+                generateStudentId();
+
+            const {
+                data: duplicate,
+                error: duplicateError
+            } = await supabase
+
+                .from("students")
+
+                .select("student_id")
+
+                .eq(
+                    "student_id",
+                    studentId
+                )
+
+                .maybeSingle();
+
+            if (duplicateError) {
+
+                throw duplicateError;
+
+            }
+
+            if (!duplicate) {
+
+                break;
+
+            }
+
+        }
+
+        const joined =
+            new Date().toISOString();
+
+        // ----------------------------
+        // INSERT RECORD
+        // ----------------------------
+
+        const {
+            error: insertError
+        } = await supabase
+
+            .from("students")
+
+            .insert([{
+
+                student_id:
+                    studentId,
+
+                name:
+                    name,
+
+                student_class:
+                    studentClass,
+
+                mobile_number:
+                    mobile,
+
+                parent_mobile:
+                    parentMobile || null,
+
+                membership:
+                    "FREE",
+
+                joined:
+                    joined
+
+            }]);
+
+        if (insertError) {
+
+            throw insertError;
+
+        }
+
+        // ----------------------------
+        // LOCAL SESSION
+        // ----------------------------
 
         App.student = {
 
@@ -472,59 +571,15 @@ async function registerStudent() {
                 "FREE",
 
             joined:
-                new Date().toISOString()
+                joined
 
         };
-
-        const {
-
-            error
-
-        } = await supabase
-
-            .from("students")
-
-            .insert([{
-
-                student_id:
-                    studentId,
-
-                name:
-                    name,
-
-                student_class:
-                    studentClass,
-
-                mobile_number:
-                    mobile,
-
-                parent_mobile:
-                    parentMobile,
-
-                membership:
-                    "FREE",
-
-                joined:
-                    App.student.joined
-
-            }]);
-
-        if (error) {
-
-            throw error;
-
-        }
 
         saveSession();
 
         showMessage(
-
-            "Registration Successful\n\n" +
-
-            "Student ID : " +
-
+            "Registration Successful!\n\nStudent ID : " +
             studentId
-
         );
 
         showDashboard();
@@ -533,7 +588,10 @@ async function registerStudent() {
 
     catch (error) {
 
-        console.error(error);
+        console.error(
+            "Registration Error:",
+            error
+        );
 
         showMessage(
 
@@ -555,7 +613,6 @@ async function registerStudent() {
     }
 
 }
-
 // ------------------------------------------------------
 // LOGIN
 // ------------------------------------------------------
