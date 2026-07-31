@@ -421,6 +421,51 @@ async function registerStudent() {
 // ------------------------------------------------------
 // LOGIN
 // ------------------------------------------------------
+// ------------------------------------------------------
+// SAVE STUDENT TO SUPABASE
+// ------------------------------------------------------
+
+async function saveStudentToSupabase() {
+
+    const { error } = await supabase
+        .from("students")
+        .insert([{
+
+            student_id: App.student.studentId,
+
+            name: App.student.name,
+
+            student_class: App.student.studentClass,
+
+            mobile_number: App.student.mobile,
+
+            parent_mobile: App.student.parentMobile,
+
+            membership: App.student.membership,
+
+            trial: App.student.trial,
+
+            joined: App.student.joined
+
+        }]);
+
+    if (error) {
+
+        console.error("Supabase Error:", error);
+
+        showMessage(
+            "Registration failed.\n\n" +
+            error.message
+        );
+
+        return false;
+
+    }
+
+    return true;
+
+}
+
 
 function loginStudent() {
 
