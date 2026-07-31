@@ -588,10 +588,15 @@ async function registerStudent() {
 
     catch (error) {
 
-        console.error(
-            "Registration Error:",
-            error
-        );
+    console.error("FULL ERROR:", error);
+
+    alert(JSON.stringify(error, null, 2));
+
+    showMessage(
+        error.message || "Registration Failed."
+    );
+
+}
 
         showMessage(
 
