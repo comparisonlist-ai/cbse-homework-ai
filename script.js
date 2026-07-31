@@ -338,7 +338,7 @@ function generateStudentId() {
 // ------------------------------------------------------
 // REGISTRATION
 // ------------------------------------------------------
-async function registerStudent() {
+
 
 
 async function registerStudent() {
