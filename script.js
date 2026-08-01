@@ -402,7 +402,7 @@ async function registerStudent() {
 
     showMessage("Registration Failed.");
 
-}
+
     
 
 
