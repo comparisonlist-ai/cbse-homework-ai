@@ -340,278 +340,77 @@ function generateStudentId() {
 // Registration • Login • Dashboard • Logout
 // ======================================================
 
-
-// ------------------------------------------------------
-// REGISTRATION (Version 5.2)
-// Replace the entire registerStudent() function
-// ------------------------------------------------------
-
 async function registerStudent() {
 
-    const button =
-        document.getElementById(
-            "registerButton"
-        );
+    const name = document.getElementById("studentName").value.trim();
+    const studentClass = document.getElementById("studentClass").value;
+    const mobile = document.getElementById("studentMobile").value.trim();
+    const parentMobile = document.getElementById("parentMobile").value.trim();
 
-    const name =
-        document.getElementById(
-            "studentName"
-        ).value.trim();
-
-    const studentClass =
-        document.getElementById(
-            "studentClass"
-        ).value;
-
-    const mobile =
-        document.getElementById(
-            "studentMobile"
-        ).value.trim();
-
-    const parentMobile =
-        document.getElementById(
-            "parentMobile"
-        ).value.trim();
-
-    // ----------------------------
-    // VALIDATION
-    // ----------------------------
-
-    if (!name) {
-
-        showMessage(
-            "Enter Student Name."
-        );
-
-        return;
-
-    }
-
-    if (!studentClass) {
-
-        showMessage(
-            "Select Class."
-        );
-
-        return;
-
-    }
-
-    if (!/^[0-9]{10}$/.test(mobile)) {
-
-        showMessage(
-            "Enter a valid 10-digit Mobile Number."
-        );
-
-        return;
-
-    }
-
-    if (
-        parentMobile &&
-        !/^[0-9]{10}$/.test(parentMobile)
-    ) {
-
-        showMessage(
-            "Enter a valid Parent Mobile Number."
-        );
-
-        return;
-
-    }
+    const button = document.querySelector("#registrationForm button[type='submit']");
 
     button.disabled = true;
-    button.textContent = "Registering...";
+    button.innerHTML = "Registering...";
 
     try {
 
-        // ----------------------------
-        // CHECK EXISTING MOBILE
-        // ----------------------------
+        const studentId = "SHAI" + Date.now();
 
-        const {
-            data: existing,
-            error: checkError
-        } = await supabase
+        const joined = new Date().toISOString();
 
+        const { error: insertError } = await supabase
             .from("students")
-
-            .select("student_id")
-
-            .eq(
-                "mobile_number",
-                mobile
-            )
-
-            .maybeSingle();
-
-        if (checkError) {
-
-            throw checkError;
-
-        }
-
-        if (existing) {
-
-            showMessage(
-                "This Mobile Number is already registered."
-            );
-
-            return;
-
-        }
-
-        // ----------------------------
-        // GENERATE STUDENT ID
-        // ----------------------------
-
-        let studentId;
-
-        while (true) {
-
-            studentId =
-                generateStudentId();
-
-            const {
-                data: duplicate,
-                error: duplicateError
-            } = await supabase
-
-                .from("students")
-
-                .select("student_id")
-
-                .eq(
-                    "student_id",
-                    studentId
-                )
-
-                .maybeSingle();
-
-            if (duplicateError) {
-
-                throw duplicateError;
-
-            }
-
-            if (!duplicate) {
-
-                break;
-
-            }
-
-        }
-
-        const joined =
-            new Date().toISOString();
-
-        // ----------------------------
-        // INSERT RECORD
-        // ----------------------------
-
-        const {
-            error: insertError
-        } = await supabase
-
-            .from("students")
-
             .insert([{
-
-                student_id:
-                    studentId,
-
-                name:
-                    name,
-
-                student_class:
-                    studentClass,
-
-                mobile_number:
-                    mobile,
-
-                parent_mobile:
-                    parentMobile || null,
-
-                membership:
-                    "FREE",
-
-                joined:
-                    joined
-
+                student_id: studentId,
+                name: name,
+                student_class: studentClass,
+                mobile_number: mobile,
+                parent_mobile: parentMobile || null,
+                membership: "FREE",
+                joined: joined
             }]);
 
         if (insertError) {
-
             throw insertError;
-
         }
 
-        // ----------------------------
-        // LOCAL SESSION
-        // ----------------------------
-
         App.student = {
-
-            studentId:
-                studentId,
-
-            name:
-                name,
-
-            studentClass:
-                studentClass,
-
-            mobile:
-                mobile,
-
-            parentMobile:
-                parentMobile,
-
-            membership:
-                "FREE",
-
-            joined:
-                joined
-
+            studentId: studentId,
+            name: name,
+            studentClass: studentClass,
+            mobile: mobile,
+            parentMobile: parentMobile,
+            membership: "FREE",
+            joined: joined
         };
 
         saveSession();
 
         showMessage(
-            "Registration Successful!\n\nStudent ID : " +
-            studentId
+            "Registration Successful!\n\nStudent ID : " + studentId
         );
 
         showDashboard();
 
-    }
+    } catch (error) {
 
-    catch (error) {
+        console.error("FULL ERROR:", error);
 
-    console.error("FULL ERROR:", error);
+        alert(JSON.stringify(error, null, 2));
 
-    alert(JSON.stringify(error, null, 2));
+        showMessage(
+            error.message || "Registration Failed."
+        );
 
-    showMessage(
-        error.message || "Registration Failed."
-    );
-
-
-
-        
-
-    
-
-    finally {
+    } finally {
 
         button.disabled = false;
-
-        button.innerHTML =
-            "🚀 Register";
+        button.innerHTML = "🚀 Register";
 
     }
 
 }
+
 // ------------------------------------------------------
 // LOGIN
 // ------------------------------------------------------
