@@ -598,15 +598,9 @@ async function registerStudent() {
 
 }
 
-        showMessage(
+        
 
-            error.message ||
-
-            "Registration Failed."
-
-        );
-
-    }
+    
 
     finally {
 
