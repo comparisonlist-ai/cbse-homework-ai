@@ -520,7 +520,8 @@ async function loginStudent() {
 
         saveSession();
 
-        showDashboard();
+        // showDashboard();
+alert("Registration completed.");
 
     }
 
