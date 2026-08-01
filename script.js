@@ -596,7 +596,6 @@ async function registerStudent() {
         error.message || "Registration Failed."
     );
 
-}
 
 
         
