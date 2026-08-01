@@ -392,15 +392,23 @@ async function registerStudent() {
 
         showDashboard();
 
-    } catch (error) {
+    } 
 
-        console.error("FULL ERROR:", error);
+    catch (error) {
 
-        alert(JSON.stringify(error, null, 2));
+    console.log(error);
 
-        showMessage(
-            error.message || "Registration Failed."
-        );
+    alert(
+        "Message: " + error.message +
+        "\n\nName: " + error.name +
+        "\n\nStack:\n" + error.stack
+    );
+
+    showMessage(
+        error.message || "Registration Failed."
+    );
+
+}
 
     } finally {
 
