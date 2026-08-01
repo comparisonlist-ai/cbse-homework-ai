@@ -597,6 +597,7 @@ async function registerStudent() {
     );
 
 }
+}
 
         
 
