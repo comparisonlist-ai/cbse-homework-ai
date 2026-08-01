@@ -403,9 +403,7 @@ async function registerStudent() {
     showMessage("Registration Failed.");
 
 }
-    showMessage(
-        error.message || "Registration Failed."
-    );
+    
 
 
     } finally {
