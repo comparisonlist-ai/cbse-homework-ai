@@ -396,14 +396,13 @@ async function registerStudent() {
 
     catch (error) {
 
-    console.log(error);
+    console.error(error);
 
-    alert(
-        "Message: " + error.message +
-        "\n\nName: " + error.name +
-        "\n\nStack:\n" + error.stack
-    );
+    alert(String(error));
 
+    showMessage("Registration Failed.");
+
+}
     showMessage(
         error.message || "Registration Failed."
     );
