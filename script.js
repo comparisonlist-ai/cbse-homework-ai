@@ -358,8 +358,8 @@ async function registerStudent() {
 
         const joined = new Date().toISOString();
 
-        const { error: insertError } = await supabase
-            .from("students")
+        const { error: insertError } = await window.supabaseClient
+    .from("students")
             .insert([{
                 student_id: studentId,
                 name: name,
