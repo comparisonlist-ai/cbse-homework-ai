@@ -473,7 +473,7 @@ async function loginStudent() {
 
             error
 
-        } = await supabase
+        } = await window.supabaseClient
 
             .from("students")
 
