@@ -354,6 +354,22 @@ async function registerStudent() {
 
     try {
 
+        const { data: existingStudent, error: checkError } =
+await window.supabaseClient
+.from("students")
+.select("student_id")
+.eq("mobile_number", mobile)
+.maybeSingle();
+
+if (checkError) throw checkError;
+
+if (existingStudent) {
+    showMessage(
+        "This mobile number is already registered.\nPlease login."
+    );
+    return;
+}
+
         const studentId = "SHAI" + Date.now();
 
         const joined = new Date().toISOString();
