@@ -536,8 +536,8 @@ async function loginStudent() {
 
         saveSession();
 
-        // showDashboard();
-alert("Registration completed.");
+        alert("Registration completed.");
+showDashboard();
 
     }
 
