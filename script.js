@@ -434,15 +434,27 @@ async function registerStudent() {
             throw insertError;
         }
 
-        App.student = {
-            studentId: studentId,
-            name: name,
-            studentClass: studentClass,
-            mobile: mobile,
-            parentMobile: parentMobile,
-            membership: "FREE"
-        };
+App.student = {
+    studentId: studentId,
+    name: name,
+    studentClass: studentClass,
+    mobile: mobile,
+    parentMobile: parentMobile,
+    email: email,
 
+    membership: "FREE",
+    paymentStatus: "trial",
+    trial: true,
+
+    questionLimit: MEMBERSHIP_PLANS.FREE.questions,
+    questionUsed: 0,
+
+    planExpiry: null,
+
+    joined: new Date().toISOString()
+};
+
+     
         saveSession();
 
         showMessage(
