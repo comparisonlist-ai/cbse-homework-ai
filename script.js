@@ -411,12 +411,10 @@ if (existingStudent) {
     } 
 
     catch (error) {
-
     console.error(error);
-
-    alert(String(error));
-
+    alert(error.message || JSON.stringify(error));
     showMessage("Registration Failed.");
+
 
 
     
