@@ -527,8 +527,6 @@ async function loginStudent() {
             membership:
                 data.membership,
 
-            joined:
-                data.joined
 
         };
 
