@@ -339,7 +339,6 @@ function generateStudentId() {
 // PART 2
 // Registration • Login • Dashboard • Logout
 // ======================================================
-
 async function registerStudent() {
 
     const name = document.getElementById("studentName").value.trim();
@@ -355,35 +354,32 @@ async function registerStudent() {
     try {
 
         const { data: existingStudent, error: checkError } =
-await window.supabaseClient
-.from("students")
-.select("student_id")
-.eq("mobile_number", mobile)
-.maybeSingle();
+            await window.supabaseClient
+                .from("students")
+                .select("student_id")
+                .eq("mobile_number", mobile)
+                .maybeSingle();
 
-if (checkError) throw checkError;
+        if (checkError) throw checkError;
 
-if (existingStudent) {
-    showMessage(
-        "This mobile number is already registered.\nPlease login."
-    );
-    return;
-}
+        if (existingStudent) {
+            showMessage(
+                "This mobile number is already registered.\nPlease login."
+            );
+            return;
+        }
 
         const studentId = "SHAI" + Date.now();
 
-        const joined = new Date().toISOString();
-
         const { error: insertError } = await window.supabaseClient
-    .from("students")
+            .from("students")
             .insert([{
                 student_id: studentId,
                 name: name,
                 student_class: studentClass,
                 mobile_number: mobile,
                 parent_mobile: parentMobile || null,
-                membership: "FREE",
-                joined: joined
+                membership: "FREE"
             }]);
 
         if (insertError) {
@@ -396,8 +392,7 @@ if (existingStudent) {
             studentClass: studentClass,
             mobile: mobile,
             parentMobile: parentMobile,
-            membership: "FREE",
-            joined: joined
+            membership: "FREE"
         };
 
         saveSession();
@@ -408,17 +403,11 @@ if (existingStudent) {
 
         showDashboard();
 
-    } 
+    } catch (error) {
 
-    catch (error) {
-    console.error(error);
-    alert(error.message || JSON.stringify(error));
-    showMessage("Registration Failed.");
-
-
-
-    
-
+        console.error(error);
+        alert(error.message || JSON.stringify(error));
+        showMessage("Registration Failed.");
 
     } finally {
 
@@ -428,6 +417,7 @@ if (existingStudent) {
     }
 
 }
+
 
 // ------------------------------------------------------
 // LOGIN
