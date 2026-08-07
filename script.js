@@ -594,34 +594,26 @@ showDashboard();
 // DASHBOARD
 // ------------------------------------------------------
 
+
 function updateDashboard() {
 
     if (!App.student) return;
 
-    document.getElementById(
+    document.getElementById("studentInfo").innerHTML =
 
-        "studentInfo"
+        "<strong>" + App.student.name + "</strong><br><br>" +
 
-    ).innerHTML =
+        "Student ID : " + App.student.studentId + "<br>" +
 
-        "<strong>" +
+        "Class : " + App.student.studentClass + "<br>" +
 
-        App.student.name +
+        "Membership : " + App.student.membership + "<br>" +
 
-        "</strong><br><br>" +
+        "Questions Asked : " + App.student.questionUsed + " / " +
 
-        "Student ID : " +
-
-        App.student.studentId +
-
-        "<br>" +
-
-        "Class : " +
-
-        App.student.studentClass;
+        App.student.questionLimit;
 
 }
-
 // ------------------------------------------------------
 // LOGOUT
 // ------------------------------------------------------
