@@ -329,17 +329,6 @@ function generateStudentId() {
 
 }
 
-// -------------------------
-// CONFIG
-// -------------------------
-
-const CONFIG = {
-    APP_NAME: "Students Homework AI",
-    VERSION: "5.2 Final",
-    FREE_TRIAL_DAYS: 7,
-    MAX_FREE_QUESTIONS: 30,
-    DEFAULT_LANGUAGE: "English"
-};
 
 // -------------------------
 // MEMBERSHIP PLANS
