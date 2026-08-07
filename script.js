@@ -818,6 +818,10 @@ saveSession();
 
         );
 
+        updateDashboard();
+
+        
+
     }
 
     catch (error) {
