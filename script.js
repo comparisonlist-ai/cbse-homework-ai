@@ -440,7 +440,7 @@ App.student = {
     studentClass: studentClass,
     mobile: mobile,
     parentMobile: parentMobile,
-    email: email,
+    
 
     membership: "FREE",
     paymentStatus: "trial",
