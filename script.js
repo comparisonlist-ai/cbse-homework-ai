@@ -862,6 +862,17 @@ function displayAnswer(answer) {
 
 }
 
+
+function showUpgradeScreen() {
+
+    hideAllScreens();
+
+    document
+        .getElementById("upgradeScreen")
+        ?.classList.remove("hidden");
+
+}
+
 // ------------------------------------------------------
 // FORMAT ANSWER
 // ------------------------------------------------------
