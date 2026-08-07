@@ -746,6 +746,21 @@ async function askAI() {
 
     }
 
+// Check membership question limit
+if (App.student.questionUsed >= App.student.questionLimit) {
+
+    showMessage(
+        "You have reached your question limit.\n\nPlease upgrade your membership."
+    );
+
+    return;
+
+}
+
+    // Count this question
+App.student.questionUsed++;
+saveSession();
+
     App.asking = true;
 
     showLoadingScreen();
