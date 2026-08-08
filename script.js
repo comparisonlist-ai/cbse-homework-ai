@@ -419,7 +419,8 @@ const referralCode =
                 student_class: studentClass,
                 mobile_number: mobile,
                 parent_mobile: parentMobile || null,
-                membership: "FREE"
+                membership: "FREE",
+referrer_student_id: referralCode || null
             }]);
 
         if (insertError) {
