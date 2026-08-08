@@ -382,6 +382,9 @@ async function registerStudent() {
     const studentClass = document.getElementById("studentClass").value;
     const mobile = document.getElementById("studentMobile").value.trim();
     const parentMobile = document.getElementById("parentMobile").value.trim();
+const referralCode =
+    document.getElementById("referralCode").value.trim();
+    
 
     const button = document.querySelector("#registrationForm button[type='submit']");
 
