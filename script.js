@@ -488,25 +488,32 @@ async function loginStudent() {
             "loginMobile"
         ).value.trim();
 
-    const referralCode =
-        document.getElementById(
-            "loginReferralCode"
-        ).value.trim();
+    if (
 
-    if (!studentId || !mobile) {
+        !studentId ||
+
+        !mobile
+
+    ) {
 
         showMessage(
+
             "Enter Student ID and Mobile Number."
+
         );
 
         return;
+
     }
 
     try {
 
         const {
+
             data,
+
             error
+
         } = await window.supabaseClient
 
             .from("students")
@@ -526,16 +533,21 @@ async function loginStudent() {
             .maybeSingle();
 
         if (error) {
+
             throw error;
+
         }
 
         if (!data) {
 
             showMessage(
+
                 "Invalid Student ID or Mobile Number."
+
             );
 
             return;
+
         }
 
         App.student = {
@@ -558,13 +570,13 @@ async function loginStudent() {
             membership:
                 data.membership,
 
+
         };
 
         saveSession();
 
         alert("Registration completed.");
-
-        showDashboard();
+showDashboard();
 
     }
 
@@ -573,10 +585,13 @@ async function loginStudent() {
         console.error(error);
 
         showMessage(
+
             "Login Failed."
+
         );
 
     }
+
 }
 // ======================================================
 // END OF PART 2
