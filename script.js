@@ -782,20 +782,18 @@ saveSession();
         updateDashboard();
 
         
+catch (error) {
 
-    }
+    console.error(error);
 
-    catch (error) {
+    displayAnswer(
 
-        console.error(error);
+        "AI ERROR: " + error.message
 
-        displayAnswer(
+    );
 
-            "Sorry, AI is currently unavailable. Please try again."
-
-        );
-
-    }
+}
+    
 
     finally {
 
