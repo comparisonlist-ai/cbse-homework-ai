@@ -476,6 +476,7 @@ App.student = {
 // LOGIN
 // ------------------------------------------------------
 
+
 async function loginStudent() {
 
     const studentId =
@@ -488,32 +489,25 @@ async function loginStudent() {
             "loginMobile"
         ).value.trim();
 
-    if (
+    const referralCode =
+        document.getElementById(
+            "loginReferralCode"
+        ).value.trim();
 
-        !studentId ||
-
-        !mobile
-
-    ) {
+    if (!studentId || !mobile) {
 
         showMessage(
-
             "Enter Student ID and Mobile Number."
-
         );
 
         return;
-
     }
 
     try {
 
         const {
-
             data,
-
             error
-
         } = await window.supabaseClient
 
             .from("students")
@@ -533,21 +527,16 @@ async function loginStudent() {
             .maybeSingle();
 
         if (error) {
-
             throw error;
-
         }
 
         if (!data) {
 
             showMessage(
-
                 "Invalid Student ID or Mobile Number."
-
             );
 
             return;
-
         }
 
         App.student = {
@@ -570,13 +559,13 @@ async function loginStudent() {
             membership:
                 data.membership,
 
-
         };
 
         saveSession();
 
         alert("Registration completed.");
-showDashboard();
+
+        showDashboard();
 
     }
 
@@ -585,57 +574,11 @@ showDashboard();
         console.error(error);
 
         showMessage(
-
             "Login Failed."
-
         );
 
     }
-
 }
-
-// ------------------------------------------------------
-// DASHBOARD
-// ------------------------------------------------------
-
-
-function updateDashboard() {
-
-    if (!App.student) return;
-
-    document.getElementById("studentInfo").innerHTML =
-
-        "<strong>" + App.student.name + "</strong><br><br>" +
-
-        "Student ID : " + App.student.studentId + "<br>" +
-
-        "Class : " + App.student.studentClass + "<br>" +
-
-        "Membership : " + App.student.membership + "<br>" +
-
-        "Questions Asked : " + App.student.questionUsed + " / " +
-
-        App.student.questionLimit;
-
-}
-// ------------------------------------------------------
-// LOGOUT
-// ------------------------------------------------------
-
-function logoutStudent() {
-
-    localStorage.removeItem(
-
-        "studentData"
-
-    );
-
-    App.student = null;
-
-    showHome();
-
-}
-
 // ======================================================
 // END OF PART 2
 // ======================================================
