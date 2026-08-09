@@ -475,8 +475,6 @@ App.student = {
 // ------------------------------------------------------
 // LOGIN
 // ------------------------------------------------------
-
-
 async function loginStudent() {
 
     const studentId =
@@ -504,6 +502,10 @@ async function loginStudent() {
     }
 
     try {
+
+        // ------------------------------------------
+        // 1. CHECK STUDENT LOGIN
+        // ------------------------------------------
 
         const {
             data,
@@ -539,6 +541,115 @@ async function loginStudent() {
             return;
         }
 
+
+        // ------------------------------------------
+        // 2. PROCESS REFERRAL
+        // ------------------------------------------
+
+        if (referralCode) {
+
+            // Student cannot refer himself
+            if (referralCode === studentId) {
+
+                showMessage(
+                    "You cannot use your own Student ID as referral code."
+                );
+
+                return;
+            }
+
+
+            // Check whether referral Student ID exists
+            const {
+                data: referrer,
+                error: referrerError
+            } = await window.supabaseClient
+
+                .from("students")
+
+                .select("student_id")
+
+                .eq(
+                    "student_id",
+                    referralCode
+                )
+
+                .maybeSingle();
+
+            if (referrerError) {
+                throw referrerError;
+            }
+
+            if (!referrer) {
+
+                showMessage(
+                    "Invalid Referral Student ID."
+                );
+
+                return;
+            }
+
+
+            // Only process referral if student
+            // does not already have a referrer
+            if (!data.referrer_student_id) {
+
+                // Update referred student's record
+                const {
+                    error: updateError
+                } = await window.supabaseClient
+
+                    .from("students")
+
+                    .update({
+                        referrer_student_id:
+                            referralCode
+                    })
+
+                    .eq(
+                        "student_id",
+                        studentId
+                    );
+
+                if (updateError) {
+                    throw updateError;
+                }
+
+
+                // Create referral relationship
+                const {
+                    error: referralError
+                } = await window.supabaseClient
+
+                    .from("st_referrer")
+
+                    .insert({
+
+                        referrer_student_id:
+                            referralCode,
+
+                        referred_student_id:
+                            studentId,
+
+                        status:
+                            "active",
+
+                        created_at:
+                            new Date().toISOString()
+
+                    });
+
+                if (referralError) {
+                    throw referralError;
+                }
+            }
+        }
+
+
+        // ------------------------------------------
+        // 3. SAVE STUDENT SESSION
+        // ------------------------------------------
+
         App.student = {
 
             studentId:
@@ -559,11 +670,16 @@ async function loginStudent() {
             membership:
                 data.membership,
 
+            referrerStudentId:
+                referralCode ||
+                data.referrer_student_id
+
         };
+
 
         saveSession();
 
-        alert("Registration completed.");
+        alert("Login successful.");
 
         showDashboard();
 
@@ -579,6 +695,8 @@ async function loginStudent() {
 
     }
 }
+
+
 // ======================================================
 // END OF PART 2
 // ======================================================
