@@ -663,45 +663,39 @@ function openHomework(subject) {
 async function askAI() {
 
     if (App.asking) {
-
         return;
-
     }
 
     const question =
-
         document.getElementById(
-
             "questionInput"
-
         ).value.trim();
 
     if (!question) {
 
         showMessage(
-
             "Please enter your homework question."
-
         );
 
         return;
-
     }
 
-// Check membership question limit
-if (App.student.questionUsed >= App.student.questionLimit) {
+    // Check membership question limit
+    if (
+        App.student.questionUsed >=
+        App.student.questionLimit
+    ) {
 
-    showMessage(
-        "You have reached your question limit.\n\nPlease upgrade your membership."
-    );
+        showMessage(
+            "You have reached your question limit.\n\nPlease upgrade your membership."
+        );
 
-    return;
-
-}
+        return;
+    }
 
     // Count this question
-App.student.questionUsed++;
-saveSession();
+    App.student.questionUsed++;
+    saveSession();
 
     App.asking = true;
 
@@ -710,7 +704,6 @@ saveSession();
     try {
 
         const response =
-
             await fetch(
 
                 CONFIG.API_URL,
@@ -722,7 +715,6 @@ saveSession();
                     headers: {
 
                         "Content-Type":
-
                             "application/json"
 
                     },
@@ -730,23 +722,18 @@ saveSession();
                     body: JSON.stringify({
 
                         className:
-
                             App.currentClass,
 
                         subject:
-
                             App.currentSubject,
 
                         language:
-
                             App.language,
 
                         studentName:
-
                             App.student.name,
 
                         question:
-
                             question
 
                     })
@@ -758,15 +745,12 @@ saveSession();
         if (!response.ok) {
 
             throw new Error(
-
                 "Unable to contact AI server."
-
             );
 
         }
 
         const result =
-
             await response.json();
 
         displayAnswer(
@@ -781,19 +765,20 @@ saveSession();
 
         updateDashboard();
 
-        
-catch (error) {
+    }
 
-    console.error(error);
+    catch (error) {
 
-    displayAnswer(
+        console.error(error);
 
-        "AI ERROR: " + error.message
+        displayAnswer(
 
-    );
+            "AI ERROR: " +
+            error.message
 
-}
-    
+        );
+
+    }
 
     finally {
 
@@ -802,142 +787,6 @@ catch (error) {
     }
 
 }
-
-// ------------------------------------------------------
-// DISPLAY ANSWER
-// ------------------------------------------------------
-
-function displayAnswer(answer) {
-
-    document.getElementById(
-
-        "answerContainer"
-
-    ).innerHTML =
-
-        formatAnswer(answer);
-
-    showAnswerScreen();
-
-}
-
-
-function showUpgradeScreen() {
-
-    hideAllScreens();
-
-    document
-        .getElementById("upgradeScreen")
-        ?.classList.remove("hidden");
-
-}
-
-// ------------------------------------------------------
-// FORMAT ANSWER
-// ------------------------------------------------------
-
-function formatAnswer(text) {
-
-    if (!text) {
-
-        return "";
-
-    }
-
-    return text
-
-        .replace(/\r\n/g, "\n")
-
-        .replace(/\n\n/g, "<br><br>")
-
-        .replace(/\n/g, "<br>")
-
-        .replace(
-
-            /\*\*(.*?)\*\*/g,
-
-            "<strong>$1</strong>"
-
-        );
-
-}
-
-// ------------------------------------------------------
-// COPY ANSWER
-// ------------------------------------------------------
-
-async function copyAnswer() {
-
-    const text =
-
-        document.getElementById(
-
-            "answerContainer"
-
-        ).innerText;
-
-    try {
-
-        await navigator.clipboard.writeText(
-
-            text
-
-        );
-
-        showMessage(
-
-            "Answer copied."
-
-        );
-
-    }
-
-    catch {
-
-        showMessage(
-
-            "Unable to copy answer."
-
-        );
-
-    }
-
-}
-
-// ------------------------------------------------------
-// PLACEHOLDER FEATURES
-// ------------------------------------------------------
-
-function startOCR() {
-
-    showMessage(
-
-        "Homework Scanner coming soon."
-
-    );
-
-}
-
-function startVoiceInput() {
-
-    showMessage(
-
-        "Voice Question feature coming soon."
-
-    );
-
-}
-
-function openNCERTSolutions() {
-
-    showMessage(
-
-        "NCERT Solutions coming soon."
-
-    );
-
-}
-
 // ======================================================
 // END OF PART 3
 // ======================================================
