@@ -426,23 +426,7 @@ referrer_student_id: referralCode || null
         if (insertError) {
             throw insertError;
         }
-// Save referral relationship
-if (referralCode) {
-
-    const { error: referralError } =
-        await window.supabaseClient
-            .from("st_referrer")
-            .insert([{
-                referrer_student_id: referralCode,
-                referred_student_id: studentId,
-                status: "active"
-            }]);
-
-    if (referralError) {
-        throw referralError;
-    }
-}
-        
+       
 
 App.student = {
     studentId: studentId,
