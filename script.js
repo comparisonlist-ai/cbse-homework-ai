@@ -578,7 +578,27 @@ async function loginStudent() {
 
         alert("Registration completed.");
 showDashboard();
+function updateDashboard() {
 
+    if (!App.student) return;
+
+    const nameElement =
+        document.getElementById("dashboardStudentName");
+
+    if (nameElement) {
+        nameElement.textContent =
+            App.student.name || "";
+    }
+
+    const classElement =
+        document.getElementById("dashboardStudentClass");
+
+    if (classElement) {
+        classElement.textContent =
+            App.student.studentClass || "";
+    }
+}
+        
     }
 
     catch (error) {
