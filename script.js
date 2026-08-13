@@ -391,8 +391,7 @@ async function registerStudent() {
     const parentMobile =
         document.getElementById("parentMobile").value.trim();
 
-   // const email =
-      //  document.getElementById("studentEmail")?.value.trim() || "";
+   
 
     const referralCode =
         document.getElementById("referralCode")?.value.trim() || "";
