@@ -749,6 +749,65 @@ async function canAskQuestion(studentId) {
         remaining: limit - used
     };
 }
+async function incrementQuestionCount(studentId) {
+    try {
+        const subscription = await getStudentSubscription(studentId);
+
+        if (!subscription) {
+            return {
+                success: false,
+                error: "NO_SUBSCRIPTION"
+            };
+        }
+
+        const currentUsed = Number(subscription.questions_used || 0);
+        const limit = Number(subscription.questions || 30);
+
+        if (currentUsed >= limit) {
+            return {
+                success: false,
+                error: "LIMIT_REACHED"
+            };
+        }
+
+        const newUsed = currentUsed + 1;
+
+        const { data, error } = await supabase
+            .from("st_subscription")
+            .update({
+                questions_used: newUsed
+            })
+            .eq("id", subscription.id)
+            .select()
+            .single();
+
+        if (error) {
+            console.error("Question count update error:", error);
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+
+        console.log(`Questions used: ${newUsed}/${limit}`);
+
+        return {
+            success: true,
+            used: newUsed,
+            limit: limit,
+            remaining: limit - newUsed
+        };
+
+    } catch (error) {
+        console.error("incrementQuestionCount error:", error);
+
+        return {
+            success: false,
+            error: error.message
+        };
+    }
+}
+
 
 async function askAI() {
 
