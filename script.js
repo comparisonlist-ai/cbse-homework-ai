@@ -430,10 +430,7 @@ async function registerStudent() {
         return;
     }
 
-     {
-        showMessage("Please enter a valid email address.");
-        return;
-    }
+     
 
     button.disabled = true;
     button.innerHTML = "Registering...";
