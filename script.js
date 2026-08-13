@@ -720,6 +720,35 @@ async function getStudentSubscription(studentId) {
     }
 }
 
+async function canAskQuestion(studentId) {
+    const subscription = await getStudentSubscription(studentId);
+
+    if (!subscription) {
+        return {
+            allowed: false,
+            reason: "NO_SUBSCRIPTION"
+        };
+    }
+
+    const limit = Number(subscription.questions || 30);
+    const used = Number(subscription.questions_used || 0);
+
+    if (used >= limit) {
+        return {
+            allowed: false,
+            reason: "LIMIT_REACHED",
+            used: used,
+            limit: limit
+        };
+    }
+
+    return {
+        allowed: true,
+        used: used,
+        limit: limit,
+        remaining: limit - used
+    };
+}
 
 async function askAI() {
 
