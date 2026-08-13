@@ -660,6 +660,37 @@ function openHomework(subject) {
 // ------------------------------------------------------
 // AI QUESTION
 // ------------------------------------------------------
+async function createFreeSubscription(studentId) {
+    try {
+        if (!studentId) {
+            console.error("Student ID is missing");
+            return false;
+        }
+
+        const { data, error } = await supabase
+            .from("st_subscription")
+            .insert({
+                student_id: studentId,
+                questions: 30,
+                questions_used: 0,
+                active: true
+            })
+            .select()
+            .single();
+
+        if (error) {
+            console.error("Free subscription creation error:", error);
+            return false;
+        }
+
+        console.log("Free subscription created:", data);
+        return true;
+
+    } catch (error) {
+        console.error("createFreeSubscription error:", error);
+        return false;
+    }
+}
 
 async function askAI() {
 
