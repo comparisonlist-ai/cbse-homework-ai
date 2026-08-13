@@ -430,10 +430,7 @@ async function registerStudent() {
         return;
     }
 
-    if (
-        email &&
-        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-    ) {
+     {
         showMessage("Please enter a valid email address.");
         return;
     }
@@ -550,8 +547,7 @@ async function registerStudent() {
             parentMobile:
                 parentMobile,
 
-            email:
-                email,
+            
 
             referralCode:
                 referralCode,
