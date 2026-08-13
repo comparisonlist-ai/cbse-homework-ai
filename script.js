@@ -828,18 +828,21 @@ async function incrementQuestionCount(studentId) {
     }
 }
 
+
 function displayAnswer(answer) {
 
     const answerElement =
-        document.getElementById("answerContent");
+        document.getElementById("answerContainer");
 
     if (answerElement) {
-        answerElement.innerHTML = answer;
+
+        answerElement.innerHTML =
+            answer || "No answer received.";
+
     }
 
     showAnswerScreen();
 }
-
 async function askAI() {
 
     if (App.asking) {
