@@ -497,8 +497,7 @@ async function registerStudent() {
                     parent_mobile:
                         parentMobile || null,
 
-                    email:
-                        email || null,
+
 
                     membership:
                         "FREE",
