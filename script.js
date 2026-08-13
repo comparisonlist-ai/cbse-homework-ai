@@ -691,6 +691,35 @@ async function createFreeSubscription(studentId) {
         return false;
     }
 }
+async function getStudentSubscription(studentId) {
+    try {
+        if (!studentId) {
+            console.error("Student ID is missing");
+            return null;
+        }
+
+        const { data, error } = await supabase
+            .from("st_subscription")
+            .select("*")
+            .eq("student_id", studentId)
+            .eq("active", true)
+            .order("created_at", { ascending: false })
+            .limit(1)
+            .maybeSingle();
+
+        if (error) {
+            console.error("Subscription fetch error:", error);
+            return null;
+        }
+
+        return data;
+
+    } catch (error) {
+        console.error("getStudentSubscription error:", error);
+        return null;
+    }
+}
+
 
 async function askAI() {
 
