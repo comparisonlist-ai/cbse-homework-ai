@@ -448,7 +448,7 @@ App.student = {
     joined: new Date().toISOString()
 };
 
-     
+     await createFreeSubscription(studentId);
         saveSession();
 
         showMessage(
