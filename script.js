@@ -377,7 +377,249 @@ const MEMBERSHIP_PLANS = {
 // Registration • Login • Dashboard • Logout
 // ======================================================
 
+async function registerStudent() {
 
+    const name =
+        document.getElementById("studentName").value.trim();
+
+    const studentClass =
+        document.getElementById("studentClass").value;
+
+    const mobile =
+        document.getElementById("studentMobile").value.trim();
+
+    const parentMobile =
+        document.getElementById("parentMobile").value.trim();
+
+    const email =
+        document.getElementById("studentEmail")?.value.trim() || "";
+
+    const referralCode =
+        document.getElementById("referralCode")?.value.trim() || "";
+
+    const button =
+        document.querySelector(
+            "#registrationForm button[type='submit']"
+        );
+
+    // --------------------------------------------
+    // VALIDATION
+    // --------------------------------------------
+
+    if (!name) {
+        showMessage("Please enter Student Name.");
+        return;
+    }
+
+    if (!studentClass) {
+        showMessage("Please select Class.");
+        return;
+    }
+
+    if (!/^[0-9]{10}$/.test(mobile)) {
+        showMessage("Please enter a valid 10-digit mobile number.");
+        return;
+    }
+
+    if (
+        parentMobile &&
+        !/^[0-9]{10}$/.test(parentMobile)
+    ) {
+        showMessage(
+            "Please enter a valid 10-digit Parent Mobile Number."
+        );
+        return;
+    }
+
+    if (
+        email &&
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    ) {
+        showMessage("Please enter a valid email address.");
+        return;
+    }
+
+    button.disabled = true;
+    button.innerHTML = "Registering...";
+
+    try {
+
+        // --------------------------------------------
+        // CHECK DUPLICATE MOBILE
+        // --------------------------------------------
+
+        const {
+            data: existingStudent,
+            error: checkError
+        } = await window.supabaseClient
+            .from("students")
+            .select("student_id")
+            .eq("mobile_number", mobile)
+            .maybeSingle();
+
+        if (checkError) {
+            throw checkError;
+        }
+
+        if (existingStudent) {
+
+            showMessage(
+                "This mobile number is already registered.\nPlease login."
+            );
+
+            return;
+        }
+
+        // --------------------------------------------
+        // GENERATE STUDENT ID
+        // --------------------------------------------
+
+        const studentId =
+            "SHAI" + Date.now();
+
+        // --------------------------------------------
+        // SAVE STUDENT
+        // --------------------------------------------
+
+        const { error: insertError } =
+            await window.supabaseClient
+                .from("students")
+                .insert([{
+
+                    student_id:
+                        studentId,
+
+                    name:
+                        name,
+
+                    student_class:
+                        studentClass,
+
+                    mobile_number:
+                        mobile,
+
+                    parent_mobile:
+                        parentMobile || null,
+
+                    email:
+                        email || null,
+
+                    membership:
+                        "FREE",
+
+                    referrer_student_id:
+                        referralCode || null
+
+                }]);
+
+        if (insertError) {
+            throw insertError;
+        }
+
+        // --------------------------------------------
+        // CREATE FREE SUBSCRIPTION
+        // --------------------------------------------
+
+        const subscriptionCreated =
+            await createFreeSubscription(studentId);
+
+        if (!subscriptionCreated) {
+
+            throw new Error(
+                "Student registered, but Free subscription could not be created."
+            );
+        }
+
+        // --------------------------------------------
+        // SAVE LOCAL SESSION
+        // --------------------------------------------
+
+        App.student = {
+
+            studentId:
+                studentId,
+
+            name:
+                name,
+
+            studentClass:
+                studentClass,
+
+            mobile:
+                mobile,
+
+            parentMobile:
+                parentMobile,
+
+            email:
+                email,
+
+            referralCode:
+                referralCode,
+
+            membership:
+                "FREE",
+
+            paymentStatus:
+                "trial",
+
+            trial:
+                true,
+
+            questionLimit:
+                MEMBERSHIP_PLANS.FREE.questions,
+
+            questionUsed:
+                0,
+
+            planExpiry:
+                null,
+
+            joined:
+                new Date().toISOString()
+
+        };
+
+        saveSession();
+
+        alert(
+            "Registration Successful!\n\n" +
+            "Student ID : " +
+            studentId
+        );
+
+        showDashboard();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Registration Error:",
+            error
+        );
+
+        alert(
+            error.message ||
+            JSON.stringify(error)
+        );
+
+        showMessage(
+            "Registration Failed."
+        );
+
+    }
+
+    finally {
+
+        button.disabled = false;
+
+        button.innerHTML =
+            "🚀 Register";
+
+    }
+
+}
 // ------------------------------------------------------
 // LOGIN
 // ------------------------------------------------------
