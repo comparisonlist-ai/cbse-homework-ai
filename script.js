@@ -828,6 +828,17 @@ async function incrementQuestionCount(studentId) {
     }
 }
 
+function displayAnswer(answer) {
+
+    const answerElement =
+        document.getElementById("answerContent");
+
+    if (answerElement) {
+        answerElement.innerHTML = answer;
+    }
+
+    showAnswerScreen();
+}
 
 async function askAI() {
 
