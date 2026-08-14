@@ -372,22 +372,19 @@ const MEMBERSHIP_PLANS = {
 // PART 2
 // Registration • Login • Dashboard • Logout
 // ======================================================
-
 async function registerStudent() {
 
     const name =
-        document.getElementById("studentName").value.trim();
+        document.getElementById("studentName")?.value.trim() || "";
 
     const studentClass =
-        document.getElementById("studentClass").value;
+        document.getElementById("studentClass")?.value || "";
 
     const mobile =
-        document.getElementById("studentMobile").value.trim();
+        document.getElementById("studentMobile")?.value.trim() || "";
 
     const parentMobile =
-        document.getElementById("parentMobile").value.trim();
-
-   
+        document.getElementById("parentMobile")?.value.trim() || "";
 
     const referralCode =
         document.getElementById("referralCode")?.value.trim() || "";
@@ -426,7 +423,10 @@ async function registerStudent() {
         return;
     }
 
-     
+    if (!window.supabaseClient) {
+        alert("Supabase client is not available.");
+        return;
+    }
 
     button.disabled = true;
     button.innerHTML = "Registering...";
@@ -447,6 +447,11 @@ async function registerStudent() {
             .maybeSingle();
 
         if (checkError) {
+            console.error(
+                "Duplicate check error:",
+                checkError
+            );
+
             throw checkError;
         }
 
@@ -466,50 +471,70 @@ async function registerStudent() {
         const studentId =
             "SHAI" + Date.now();
 
+        console.log(
+            "Generated Student ID:",
+            studentId
+        );
+
         // --------------------------------------------
         // SAVE STUDENT
         // --------------------------------------------
 
-        const { error: insertError } =
-            await window.supabaseClient
-                .from("students")
-                .insert([{
+        const {
+            error: insertError
+        } = await window.supabaseClient
+            .from("students")
+            .insert([{
 
-                    student_id:
-                        studentId,
+                student_id: studentId,
 
-                    name:
-                        name,
+                name: name,
 
-                    student_class:
-                        studentClass,
+                student_class: studentClass,
 
-                    mobile_number:
-                        mobile,
+                mobile_number: mobile,
 
-                    parent_mobile:
-                        parentMobile || null,
+                parent_mobile:
+                    parentMobile || null,
 
+                membership: "FREE",
 
+                referrer_student_id:
+                    referralCode || null
 
-                    membership:
-                        "FREE",
-
-                    referrer_student_id:
-                        referralCode || null
-
-                }]);
+            }]);
 
         if (insertError) {
+
+            console.error(
+                "Student insert error:",
+                insertError
+            );
+
             throw insertError;
         }
+
+        console.log(
+            "Student successfully created:",
+            studentId
+        );
 
         // --------------------------------------------
         // CREATE FREE SUBSCRIPTION
         // --------------------------------------------
 
+        console.log(
+            "Creating Free subscription for:",
+            studentId
+        );
+
         const subscriptionCreated =
             await createFreeSubscription(studentId);
+
+        console.log(
+            "Subscription creation result:",
+            subscriptionCreated
+        );
 
         if (!subscriptionCreated) {
 
@@ -524,50 +549,40 @@ async function registerStudent() {
 
         App.student = {
 
-            studentId:
-                studentId,
+            studentId: studentId,
 
-            name:
-                name,
+            name: name,
 
-            studentClass:
-                studentClass,
+            studentClass: studentClass,
 
-            mobile:
-                mobile,
+            mobile: mobile,
 
-            parentMobile:
-                parentMobile,
+            parentMobile: parentMobile,
 
-            
+            referralCode: referralCode,
 
-            referralCode:
-                referralCode,
+            membership: "FREE",
 
-            membership:
-                "FREE",
+            paymentStatus: "trial",
 
-            paymentStatus:
-                "trial",
-
-            trial:
-                true,
+            trial: true,
 
             questionLimit:
                 MEMBERSHIP_PLANS.FREE.questions,
 
-            questionUsed:
-                0,
+            questionUsed: 0,
 
-            planExpiry:
-                null,
+            planExpiry: null,
 
             joined:
                 new Date().toISOString()
-
         };
 
         saveSession();
+
+        // --------------------------------------------
+        // SUCCESS
+        // --------------------------------------------
 
         alert(
             "Registration Successful!\n\n" +
@@ -582,13 +597,16 @@ async function registerStudent() {
     catch (error) {
 
         console.error(
-            "Registration Error:",
+            "REGISTRATION ERROR:",
             error
         );
 
         alert(
-            error.message ||
-            JSON.stringify(error)
+            "Registration Error:\n\n" +
+            (
+                error?.message ||
+                JSON.stringify(error)
+            )
         );
 
         showMessage(
@@ -603,9 +621,7 @@ async function registerStudent() {
 
         button.innerHTML =
             "🚀 Register";
-
     }
-
 }
 // ------------------------------------------------------
 // LOGIN
