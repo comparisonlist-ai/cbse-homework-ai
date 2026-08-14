@@ -142,12 +142,8 @@ function showDashboard() {
     hideAllScreens();
 
     document
-
         .getElementById("dashboardScreen")
-
         ?.classList.remove("hidden");
-
-    updateDashboard();
 
 }
 
