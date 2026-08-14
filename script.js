@@ -822,7 +822,7 @@ async function createFreeSubscription(studentId) {
         }
 
         const { data, error } = await window.supabaseClient
-            .from("st_subscriptions")
+            .from("st_subscription")
             .insert({
                 student_id: studentId,
                 questions: 30,
