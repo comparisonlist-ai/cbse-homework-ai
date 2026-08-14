@@ -1109,7 +1109,7 @@ async function askAI() {
 
         );
 
-        updateDashboard();
+        
 
     }
 
