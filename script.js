@@ -522,53 +522,39 @@ async function registerStudent() {
         // --------------------------------------------
         // CREATE FREE SUBSCRIPTION
         // --------------------------------------------
-console.log("STEP 1: Student ID received:", studentId);
+// --------------------------------------------
+// CREATE FREE SUBSCRIPTION
+// --------------------------------------------
 
-if (!studentId) {
-    console.error("ERROR: studentId is missing before subscription creation.");
-    throw new Error("Student ID is missing. Free subscription was not created.");
-}
-
-console.log("STEP 2: Calling createFreeSubscription()...");
-
-let subscriptionCreated = false;
+console.log(
+    "Creating FREE subscription for:",
+    studentId
+);
 
 try {
-    subscriptionCreated = await createFreeSubscription(studentId);
+
+    const subscriptionCreated =
+        await createFreeSubscription(studentId);
 
     console.log(
-        "STEP 3: createFreeSubscription() returned:",
+        "FREE subscription result:",
         subscriptionCreated
     );
 
 } catch (subscriptionError) {
 
     console.error(
-        "STEP 3 ERROR: createFreeSubscription() threw an error:",
+        "FREE subscription creation failed:",
         subscriptionError
     );
 
-    throw new Error(
-        "Free subscription creation failed: " +
-        (subscriptionError?.message || subscriptionError)
-    );
+    // Do NOT stop registration.
+    // Student still receives FREE membership
+    // and the configured FREE question limit.
+
 }
 
-if (!subscriptionCreated) {
-
-    console.error(
-        "STEP 4 ERROR: createFreeSubscription returned false."
-    );
-
-    throw new Error(
-        "Student registered, but Free subscription could not be created."
-    );
-}
-
-console.log(
-    "STEP 5: FREE SUBSCRIPTION CREATED SUCCESSFULLY for:",
-    studentId
-);
+// --------------------------------------------
 
         // --------------------------------------------
         // SAVE LOCAL SESSION
