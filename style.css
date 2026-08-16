@@ -787,3 +787,19 @@ RESPONSIVE
 END OF STYLE.CSS
 Version 5.1
 ===================================================== */
+.whatsapp-btn {
+    width: 100%;
+    padding: 13px 18px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    background: #25D366;
+    color: white;
+}
+
+.whatsapp-btn:active {
+    transform: scale(0.98);
+}
