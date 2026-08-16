@@ -1424,3 +1424,117 @@ console.log(
 // END OF SCRIPT.JS
 // Version 5.1
 // ======================================================
+// ============================================================
+// WHATSAPP INTEGRATION
+// Students Homework AI
+// ============================================================
+
+const WHATSAPP_CONFIG = {
+    SUPPORT_NUMBER: "919971258592",
+    APP_NAME: "Students Homework AI",
+    APP_URL: "https://studentshomeworkai.in"
+};
+
+function openWhatsApp(message) {
+    const encodedMessage = encodeURIComponent(message);
+
+    const url =
+        `https://wa.me/${WHATSAPP_CONFIG.SUPPORT_NUMBER}?text=${encodedMessage}`;
+
+    window.open(url, "_blank");
+}
+
+function whatsappSupport() {
+    const student = App?.student || {};
+
+    const message =
+`Hello Students Homework AI Support 👋
+
+I need help with my account.
+
+Student Name: ${student.name || "Not available"}
+Student ID: ${student.studentId || "Not available"}
+Class: ${student.studentClass || "Not available"}
+Membership: ${student.membership || "FREE"}
+
+Please help me.`;
+
+    openWhatsApp(message);
+}
+
+function shareAppOnWhatsApp() {
+    const message =
+`🎓 Students Homework AI
+
+Need help with your CBSE homework?
+
+Students Homework AI helps CBSE students with homework and questions.
+
+📚 Classes 6–10
+🤖 AI-powered homework assistance
+📖 NCERT-focused learning
+🎁 Start Your Free Trial
+
+Try it here:
+https://studentshomeworkai.in`;
+
+    openWhatsApp(message);
+}
+
+function inviteFriendOnWhatsApp() {
+    const student = App?.student || {};
+
+    const message =
+`🎓 Hey!
+
+${student.name || "I"} am using Students Homework AI for CBSE homework help.
+
+You can try it too.
+
+📚 CBSE Classes 6–10
+🤖 AI Homework Assistant
+🎁 Start Your Free Trial
+
+https://studentshomeworkai.in`;
+
+    openWhatsApp(message);
+}
+
+function whatsappSubscriptionHelp() {
+    const student = App?.student || {};
+
+    const message =
+`Hello Students Homework AI Support 👋
+
+I have a question about the subscription, payment or free trial.
+
+Student Name: ${student.name || "Not available"}
+Student ID: ${student.studentId || "Not available"}
+
+Please help me.`;
+
+    openWhatsApp(message);
+}
+
+function shareCurrentAnswerOnWhatsApp() {
+
+    const answerElement =
+        document.getElementById("answerContainer");
+
+    const answer =
+        answerElement
+            ? answerElement.innerText.trim()
+            : "";
+
+    const message =
+`🎓 Students Homework AI
+
+Here is an AI homework explanation:
+
+${answer || "Please check this answer on Students Homework AI."}
+
+Try Students Homework AI:
+https://studentshomeworkai.in`;
+
+    openWhatsApp(message);
+}
