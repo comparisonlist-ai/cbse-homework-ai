@@ -260,6 +260,17 @@ function loadSession() {
 
 }
 
+function logoutStudent() {
+
+    localStorage.removeItem("studentData");
+
+    App.student = null;
+
+    showHome();
+
+}
+
+
 // ------------------------------------------------------
 // MESSAGE
 // ------------------------------------------------------
