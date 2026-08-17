@@ -66,27 +66,8 @@ function initializeApp() {
     );
 
     loadSession();
-
-    if (
-        App.student &&
-        App.student.studentId &&
-        App.student.name &&
-        App.student.studentClass
-    ) {
-
-        showDashboard();
-
-    }
-
-    else {
-
-        App.student = null;
-        localStorage.removeItem("studentData");
-
-        showHome();
-
-    }
-
+showHome();
+    
 }
 // ------------------------------------------------------
 // SCREEN MANAGEMENT
