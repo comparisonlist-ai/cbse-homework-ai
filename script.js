@@ -60,16 +60,19 @@ document.addEventListener(
 function initializeApp() {
 
     console.log(
-
         CONFIG.APP_NAME +
         " Version " +
         CONFIG.VERSION
-
     );
 
     loadSession();
 
-    if (App.student) {
+    if (
+        App.student &&
+        App.student.studentId &&
+        App.student.name &&
+        App.student.studentClass
+    ) {
 
         showDashboard();
 
@@ -77,12 +80,14 @@ function initializeApp() {
 
     else {
 
+        App.student = null;
+        localStorage.removeItem("studentData");
+
         showHome();
 
     }
 
 }
-
 // ------------------------------------------------------
 // SCREEN MANAGEMENT
 // ------------------------------------------------------
